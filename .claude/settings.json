@@ -1,0 +1,32 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(where node *)",
+      "Bash(npm list *)",
+      "Bash(powershell -Command \"Get-Command -Name 'python*' -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Source\")",
+      "Bash(where python3 *)",
+      "Bash(where py *)",
+      "Bash(py -3 --version)",
+      "Bash(python -c \"from pptx import Presentation; print\\('pptx ok'\\)\")",
+      "Bash(pip install *)",
+      "Bash(python)",
+      "Bash(apt-get list *)",
+      "Bash(python -c \"import subprocess; print\\(subprocess.run\\(['catppt', 'd:/Project/Note/CUC-Notes/计算机原理/第2章 16位和32位微处理器\\(5\\).ppt'], capture_output=True, text=True\\).stdout[:500]\\)\")",
+      "Read(//c/Program Files/LibreOffice/program/**)",
+      "Read(//d/Tools/LibreOffice/program/**)",
+      "Bash(where soffice *)",
+      "Read(//c//**)",
+      "Bash(git -C \"d:/Project/Note/CUC-Notes\" log --diff-filter=A --name-only --pretty=format:\"[%h] %s \\(%ad\\)\" --date=short -- \"数字信号处理/**\")",
+      "Bash(git -C \"d:/Project/Note/CUC-Notes\" log --oneline -10 --name-only -- \"数字信号处理/\")",
+      "Bash(git -C \"d:/Project/Note/CUC-Notes\" log --all --oneline -10 -- \"数字信号处理/\")",
+      "Bash(python3 -c \"import PyPDF2; print\\('PyPDF2 available'\\)\")",
+      "Bash(python3 -c \"import pikepdf; print\\('pikepdf available'\\)\")",
+      "Bash(python3 -c \"import fitz; print\\('fitz available'\\)\")",
+      "Bash(pdftotext \"d:/Project/Note/CUC-Notes/数字信号处理/期末复习.pdf\" \"d:/Project/Note/CUC-Notes/数字信号处理/期末复习_extracted.txt\")",
+      "Bash(git fetch *)",
+      "Bash(git stash *)",
+      "Bash(git pull *)",
+      "Bash(git add *)"
+    ]
+  }
+}

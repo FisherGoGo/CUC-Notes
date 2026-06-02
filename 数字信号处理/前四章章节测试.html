@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>数字信号处理前四章</title>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\(', '\)']],
+    displayMath: [['$$', '$$'], ['\[', '\]']]
+  }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"></script>
+<style>
+/* === ExamPass Shared Styles === */
+/* Paper-like warm background, clean typography, responsive */
+
+:root {
+  --paper: #fdf6e3;
+  --paper-dark: #f5ecd7;
+  --ink: #2c2c2c;
+  --ink-light: #555;
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+  --divider: #d6c8a8;
+  --card-bg: #fef9ef;
+  --card-border: #e8dcc8;
+  --correct: #22c55e;
+  --correct-bg: #f0fdf4;
+  --wrong: #ef4444;
+  --wrong-bg: #fef2f2;
+  --tag-bg: #fef3c7;
+  --tag-text: #92400e;
+  --radius: 6px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: "Microsoft YaHei", "Noto Sans SC", "SimSun", sans-serif;
+  font-size: 12pt; line-height: 1.75; color: var(--ink);
+  max-width: 860px; margin: auto; padding: 24px 20px 60px;
+  background: var(--paper);
+}
+
+@media print {
+  body { font-size: 10.5pt; background: #fff; }
+  .no-print { display: none !important; }
+  h1, h2, h3 { page-break-after: avoid; }
+}
+
+/* ── Header ── */
+#exampass-header {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: 6px 0; margin-bottom: 0;
+}
+.header-brand { font-size: 1.2em; font-weight: 700; color: #1a1a2e; letter-spacing: 0.3px; }
+.header-url  { font-size: 0.78em; color: #999; }
+.header-divider { border: none; border-top: 2px solid var(--divider); margin: 4px 0 20px 0; }
+
+/* ── Typography ── */
+h1 { font-size: 1.55em; text-align: center; border-bottom: 2px solid var(--divider); padding-bottom: 8px; margin-top: 0; }
+h2 { font-size: 1.25em; border-bottom: 1px solid var(--divider); padding-bottom: 4px; margin-top: 28px; }
+h3 { font-size: 1.08em; margin-top: 20px; color: var(--ink); }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ── Tables ── */
+table { border-collapse: collapse; width: 100%; margin: 10px 0; font-size: 0.95em; }
+td, th { border: 1px solid var(--card-border); padding: 5px 9px; text-align: left; }
+th { background: var(--paper-dark); font-weight: 700; }
+
+/* ── Knowledge point vs explanation ── */
+.kp { font-weight: 700; color: var(--ink); }           /* key point: bold dark */
+.exp { font-weight: 400; color: var(--ink-light); }    /* explanation: lighter */
+.exp em, .exp strong { color: var(--ink); }             /* emphasis inside explanation */
+
+/* ── Block elements ── */
+blockquote {
+  border-left: 3px solid #c0392b; background: #fef9ef;
+  padding: 6px 14px; margin: 10px 0; font-size: 0.95em;
+}
+code { background: #f0ede0; padding: 2px 5px; border-radius: 3px; font-size: 0.92em; }
+pre { background: #f0ede0; padding: 10px; border-radius: var(--radius); overflow-x: auto; }
+
+/* ── TOC ── */
+div.toc {
+  background: var(--card-bg); padding: 14px 18px;
+  border: 1px solid var(--card-border); border-radius: var(--radius); margin-bottom: 22px;
+}
+div.toc ul { padding-left: 18px; }
+div.toc li { margin: 3px 0; font-size: 0.95em; }
+
+/* ── Priority tags ── */
+.tag-must   { background: #fee2e2; color: #991b1b; padding: 1px 6px; border-radius: 3px; font-size: 0.82em; font-weight: 600; }
+.tag-key    { background: #fef3c7; color: #92400e; padding: 1px 6px; border-radius: 3px; font-size: 0.82em; font-weight: 600; }
+.tag-freq   { background: #dbeafe; color: #1e40af; padding: 1px 6px; border-radius: 3px; font-size: 0.82em; font-weight: 600; }
+.tag-info   { background: #f0fdf4; color: #166534; padding: 1px 6px; border-radius: 3px; font-size: 0.82em; font-weight: 600; }
+
+/* === Interactive Test Styles === */
+
+/* ── Score box ── */
+#score-box {
+  display: none; background: var(--paper-dark); color: var(--ink);
+  padding: 16px 20px; border-radius: var(--radius); margin: 14px 0;
+  text-align: center; border: 1px solid var(--card-border);
+}
+#score-box .score-num { font-size: 2.2em; font-weight: 700; }
+#score-box .score-label { font-size: 0.85em; color: var(--ink-light); }
+
+/* ── Question card ── */
+.q-card {
+  background: var(--card-bg); border: 1px solid var(--card-border);
+  border-radius: var(--radius); padding: 12px 14px; margin: 10px 0;
+  transition: all 0.15s;
+}
+.q-card.correct { border-left: 3px solid var(--correct); background: #f7fdf4; }
+.q-card.wrong   { border-left: 3px solid var(--wrong); background: #fef9f9; }
+
+.q-num  { font-weight: 700; font-size: 0.98em; margin-bottom: 4px; }
+.q-text { margin-bottom: 8px; font-size: 0.98em; }
+
+/* ── Options (compact) ── */
+.option {
+  display: block; padding: 4px 10px; margin: 3px 0;
+  border: 1px solid var(--card-border); border-radius: 4px;
+  cursor: pointer; transition: all 0.12s; font-size: 0.93em;
+  background: #fefcf5;
+}
+.option:hover            { background: #f0ede0; }
+.option input            { margin-right: 6px; }
+.option.selected         { border-color: var(--accent); background: #eff6ff; }
+.option.correct-answer   { border-color: var(--correct); background: var(--correct-bg); }
+.option.wrong-answer     { border-color: var(--wrong); background: var(--wrong-bg); }
+
+/* ── Textareas (compact) ── */
+.q-textarea {
+  width: 100%; min-height: 56px; border: 1px solid var(--card-border);
+  border-radius: 4px; padding: 6px 10px; font-family: inherit;
+  font-size: 0.93em; background: #fefcf5; resize: vertical;
+}
+.q-textarea:focus { outline: none; border-color: var(--accent); }
+
+/* ── Result after grading ── */
+.result {
+  display: none; margin-top: 8px; padding: 8px 12px;
+  background: #fefcf5; border: 1px solid var(--card-border);
+  border-radius: 4px; font-size: 0.9em; line-height: 1.6;
+}
+.result .badge {
+  display: inline-block; padding: 1px 9px; border-radius: 3px;
+  font-weight: 700; font-size: 0.82em; margin-right: 6px;
+}
+.badge-ok  { background: var(--correct-bg); color: #166534; }
+.badge-no  { background: var(--wrong-bg); color: #991b1b; }
+.badge-ref { background: #dbeafe; color: #1e40af; }
+
+.result .explanation { margin-top: 4px; color: var(--ink); }
+.result .pitfall { color: #b45309; margin-top: 3px; font-size: 0.9em; }
+
+/* ── Grading button ── */
+.grading-bar { text-align: center; margin: 20px 0; }
+.grading-bar button {
+  font-size: 1em; padding: 8px 32px; background: var(--accent);
+  color: #fff; border: none; border-radius: var(--radius);
+  cursor: pointer; font-weight: 600; letter-spacing: 0.3px;
+}
+.grading-bar button:hover     { background: var(--accent-hover); }
+.grading-bar button:disabled  { background: #bbb; cursor: not-allowed; }
+
+</style>
+</head>
+<body>
+
+<header id="exampass-header">
+  <div class="header-left"><span class="header-brand">ExamPass Assistant</span></div>
+  <div class="header-right"><span class="header-url">github.com/WUBING2023/ExamPass-Assistant</span></div>
+</header>
+<hr class="header-divider">
+
+<h1>数字信号处理前四章</h1>
+<h2 style="text-align:center">章节测试</h2>
+<p style="text-align:center;color:var(--ink-light);font-size:0.95em">满分 100 分 | 建议 35 分钟 | 前四章综合自测</p>
+
+<div id="score-box"><div class="score-num" id="score-num">0</div><div class="score-label">总分</div></div>
+<div id="questions-container"></div>
+<div class="grading-bar no-print"><button onclick="gradeAll()" id="grade-btn">提交批改</button></div>
+
+<script>
+var Q = [{"type": "choice", "points": 2, "question": "离散正弦序列 $x(n)=\\sin(\\omega_0 n)$ 为周期序列的条件是？", "options": ["$\\frac{2\\pi}{\\omega_0}$ 为有理数", "$\\omega_0$ 为任意实数", "$\\frac{2\\pi}{\\omega_0}$ 为无理数", "$\\omega_0$ 必须大于 $2\\pi$"], "answer": 0, "explanation": "<strong>正确答案</strong>：$\\frac{2\\pi}{\\omega_0}$ 为有理数。<br><br><strong>解析</strong>：周期要求存在整数 $N$ 使 $N\\omega_0=2k\\pi$，因此 $\\frac{2\\pi}{\\omega_0}$ 必须能通过整数倍变成整数。", "pitfall": "连续正弦一定周期，离散正弦不一定周期。"}, {"type": "choice", "points": 2, "question": "DTFT 的频域特征是？", "options": ["连续且 $2\\pi$ 周期", "离散且非周期", "有限长且非周期", "只在 $0\\sim N-1$ 有定义"], "answer": 0, "explanation": "<strong>正确答案</strong>：连续且 $2\\pi$ 周期。<br><br><strong>解析</strong>：离散非周期序列的 DTFT 是连续频谱，并且 $e^{-j(\\omega+2\\pi)n}=e^{-j\\omega n}$。", "pitfall": "不要把 DTFT 和 DFT 混淆，DFT 才是有限个频点。"}, {"type": "choice", "points": 2, "question": "$x(n-m)$ 的 DTFT 是？", "options": ["$e^{-j\\omega m}X(e^{j\\omega})$", "$e^{j\\omega m}X(e^{j\\omega})$", "$X(e^{j(\\omega-m)})$", "$X(e^{-j\\omega})$"], "answer": 0, "explanation": "<strong>正确答案</strong>：$e^{-j\\omega m}X(e^{j\\omega})$。<br><br><strong>解析</strong>：时域延迟 $m$ 点，频域乘线性相位因子 $e^{-j\\omega m}$。", "pitfall": "频移才会让 $X(e^{j\\omega})$ 的自变量改变。"}, {"type": "choice", "points": 2, "question": "DFT 中 $X(0)$ 等于什么？", "options": ["$\\sum_{n=0}^{N-1}x(n)$", "$x(0)$", "$\\frac{1}{N}\\sum_{k=0}^{N-1}X(k)$", "$X(N)$"], "answer": 0, "explanation": "<strong>正确答案</strong>：$\\sum_{n=0}^{N-1}x(n)$。<br><br><strong>解析</strong>：令 $k=0$，$W_N^{n\\cdot0}=1$，所以 $X(0)$ 是一个 DFT 区间内样值之和。", "pitfall": "$x(0)=\\frac{1}{N}\\sum X(k)$，别和 $X(0)$ 反了。"}, {"type": "choice", "points": 2, "question": "圆周卷积等于线性卷积的补零条件是？", "options": ["$N\\ge N_1+N_2-1$", "$N\\le N_1+N_2-1$", "$N=N_1=N_2$", "不需要补零"], "answer": 0, "explanation": "<strong>正确答案</strong>：$N\\ge N_1+N_2-1$。<br><br><strong>解析</strong>：线性卷积长度为 $N_1+N_2-1$，圆周卷积长度至少覆盖它，尾部才不会折回。", "pitfall": "长度不够会产生时域混叠。"}, {"type": "choice", "points": 2, "question": "DFT 与 DTFT 的关系最准确的是？", "options": ["DFT 是 DTFT 在单位圆上的等间隔频率采样", "DTFT 是 DFT 的一个点", "DFT 没有周期性", "DTFT 只适用于有限长序列"], "answer": 0, "explanation": "<strong>正确答案</strong>：DFT 是 DTFT 在单位圆上的等间隔频率采样。<br><br><strong>解析</strong>：$X(k)=X(e^{j\\omega})|_{\\omega=2\\pi k/N}$。", "pitfall": "DFT 还有隐含周期延拓，不只是单纯取样这么浅。"}, {"type": "choice", "points": 2, "question": "直接计算 $N$ 点 DFT 的复数乘法次数约为？", "options": ["$N^2$", "$N\\log_2N$", "$\\frac{N}{2}\\log_2N$", "$N-1$"], "answer": 0, "explanation": "<strong>正确答案</strong>：$N^2$。<br><br><strong>解析</strong>：每个 $X(k)$ 要 $N$ 次复乘，$N$ 个频点共 $N^2$ 次。", "pitfall": "$\\frac{N}{2}\\log_2N$ 是基-2 FFT 的复乘量。"}, {"type": "choice", "points": 2, "question": "基-2 DIT FFT 的核心拆分方式是？", "options": ["按时间下标奇偶拆分", "按频率幅度大小拆分", "按实部虚部拆分", "按正负频率拆分"], "answer": 0, "explanation": "<strong>正确答案</strong>：按时间下标奇偶拆分。<br><br><strong>解析</strong>：DIT 即 decimation in time，把 $x(2r)$ 和 $x(2r+1)$ 分开。", "pitfall": "DIF 才是按频率抽取的思想。"}, {"type": "choice", "points": 2, "question": "泄漏现象的主要原因是？", "options": ["时域截断", "采样率过低导致频谱重叠", "频域采样点太少错过峰值", "FFT 算法改变了 DFT 结果"], "answer": 0, "explanation": "<strong>正确答案</strong>：时域截断。<br><br><strong>解析</strong>：有限记录相当于乘窗，频域变成卷积，理想谱会扩散。", "pitfall": "栅栏效应才是频域点太稀导致看不到峰值。"}, {"type": "choice", "points": 2, "question": "用 FFT 实现 IFFT 的正确公式是？", "options": ["$x(n)=\\frac{1}{N}[FFT(X^*(k))]^*$", "$x(n)=FFT(X(k))$", "$x(n)=N[FFT(X(k))]^*$", "$x(n)=FFT(x^*(n))$"], "answer": 0, "explanation": "<strong>正确答案</strong>：$x(n)=\\frac{1}{N}[FFT(X^*(k))]^*$。<br><br><strong>解析</strong>：IFFT 与 FFT 的指数符号相反，可通过共轭关系转换。", "pitfall": "最后必须除以 $N$。"}, {"type": "tf", "points": 1, "question": "DTFT 是 Z 变换在单位圆上的取值。", "options": [], "answer": true, "explanation": "<strong>正确答案</strong>：正确。<br><br><strong>解析</strong>：令 $z=e^{j\\omega}$ 即得 $X(e^{j\\omega})$。", "pitfall": "前提是单位圆位于收敛域内。"}, {"type": "tf", "points": 1, "question": "任意离散正弦序列都是周期序列。", "options": [], "answer": false, "explanation": "<strong>正确答案</strong>：错误。<br><br><strong>解析</strong>：只有 $\\frac{2\\pi}{\\omega_0}$ 为有理数时才周期。", "pitfall": "这是第一章高频判断陷阱。"}, {"type": "tf", "points": 1, "question": "DFT 隐含时域和频域都是 $N$ 周期的。", "options": [], "answer": true, "explanation": "<strong>正确答案</strong>：正确。<br><br><strong>解析</strong>：DFT 来自 DFS，有限序列被看成周期序列的一个主值区间。", "pitfall": "因此 DFT 中卷积是圆周卷积。"}, {"type": "tf", "points": 1, "question": "圆周卷积不补零时一定等于线性卷积。", "options": [], "answer": false, "explanation": "<strong>正确答案</strong>：错误。<br><br><strong>解析</strong>：只有 $N\\ge N_1+N_2-1$ 时才不会混叠。", "pitfall": "尾部折回会污染前面的样值。"}, {"type": "tf", "points": 1, "question": "FFT 是一种快速计算 DFT 的算法，不改变 DFT 的数学结果。", "options": [], "answer": true, "explanation": "<strong>正确答案</strong>：正确。<br><br><strong>解析</strong>：FFT 利用旋转因子的性质减少重复计算。", "pitfall": "FFT 不是新的变换。"}, {"type": "tf", "points": 1, "question": "基-2 FFT 要求 $N$ 是 2 的整数次幂。", "options": [], "answer": true, "explanation": "<strong>正确答案</strong>：正确。<br><br><strong>解析</strong>：基-2 算法需要反复二分。", "pitfall": "不是所有 FFT 都要求基-2，但本章基-2算法要求。"}, {"type": "tf", "points": 1, "question": "实序列的 DTFT 幅度是偶函数。", "options": [], "answer": true, "explanation": "<strong>正确答案</strong>：正确。<br><br><strong>解析</strong>：实序列满足共轭对称，幅度关于 $\\omega=0$ 偶对称。", "pitfall": "虚部是奇函数，实部是偶函数。"}, {"type": "tf", "points": 1, "question": "DFT 中 $x(0)=\\sum_{k=0}^{N-1}X(k)$。", "options": [], "answer": false, "explanation": "<strong>正确答案</strong>：错误。<br><br><strong>解析</strong>：应为 $x(0)=\\frac{1}{N}\\sum_{k=0}^{N-1}X(k)$。", "pitfall": "IDFT 里有 $1/N$。"}, {"type": "tf", "points": 1, "question": "栅栏效应可通过补零增大 $N$ 来缓解。", "options": [], "answer": true, "explanation": "<strong>正确答案</strong>：正确。<br><br><strong>解析</strong>：补零提高频域采样密度，更不容易错过谱峰。", "pitfall": "补零不提高真实分辨率，只让采样更密。"}, {"type": "tf", "points": 1, "question": "DIT 蝶形中后半频点公式与前半完全相同。", "options": [], "answer": false, "explanation": "<strong>正确答案</strong>：错误。<br><br><strong>解析</strong>：后半为 $X(k+N/2)=X_1(k)-W_N^kX_2(k)$，旋转因子项变成减号。", "pitfall": "这个符号是蝶形题常错点。"}, {"type": "short", "points": 6, "question": "说明数字频率 $\\omega=\\Omega T=2\\pi f/f_s$ 的含义。", "options": [], "answer": "数字频率表示每采一个样点相位前进多少弧度，是模拟频率相对于采样频率的归一化结果。$\\Omega$ 是模拟角频率，$T$ 是采样间隔，$f_s$ 是采样频率。", "explanation": "<strong>参考答案</strong>：数字频率是相对频率，不是 Hz。它把连续时间频率映射到离散时间序列的相位变化。", "pitfall": "不要把 $\\omega$ 和模拟频率 $f$ 混成同一个单位。"}, {"type": "short", "points": 6, "question": "为什么 DFT 中的移位和卷积都要按圆周意义理解？", "options": [], "answer": "因为 DFT 来自 DFS，计算时把有限长序列看成 $N$ 周期序列的一个主值区间。因此序列移出区间的部分会按模 $N$ 折回，卷积也自然成为圆周卷积。", "explanation": "<strong>参考答案</strong>：关键是说出「周期延拓」和「主值区间」。", "pitfall": "只背公式不说周期延拓，解释就不完整。"}, {"type": "short", "points": 6, "question": "区分混叠、泄漏和栅栏效应。", "options": [], "answer": "混叠来自采样频率不够，频谱发生重叠；泄漏来自时域截断，频谱扩散；栅栏效应来自频域采样点有限，可能错过谱峰。", "explanation": "<strong>参考答案</strong>：三者分别对应采样、截断、频域离散采样。", "pitfall": "泄漏和栅栏效应最容易混。"}, {"type": "short", "points": 6, "question": "写出基-2 DIT FFT 的蝶形公式并说明各项含义。", "options": [], "answer": "$X(k)=X_1(k)+W_N^kX_2(k)$，$X(k+N/2)=X_1(k)-W_N^kX_2(k)$。$X_1$ 是偶下标子序列的 DFT，$X_2$ 是奇下标子序列的 DFT，$W_N^k$ 是旋转因子。", "explanation": "<strong>参考答案</strong>：要写出加号、减号两条，并说明偶/奇子序列。", "pitfall": "常把 $W_N^k$ 漏掉或后半的减号写错。"}, {"type": "essay", "points": 8, "question": "从 Z 变换、DTFT 到 DFT，说明三者之间的逻辑关系。", "options": [], "answer": "Z 变换给出序列在复平面上的表达；当 $z=e^{j\\omega}$ 且单位圆在收敛域内时，得到 DTFT；DFT 则是在单位圆上以 $\\omega=2\\pi k/N$ 等间隔采样，同时把有限长序列视作 $N$ 周期延拓的主值区间。", "explanation": "<strong>参考答案</strong>：逻辑链是复平面 --&gt; 单位圆连续频率 --&gt; 单位圆等间隔采样。", "pitfall": "DFT 不只是 DTFT 采样，还隐含周期延拓。"}, {"type": "essay", "points": 8, "question": "解释为什么 FFT 能显著降低 DFT 运算量。", "options": [], "answer": "直接 DFT 每个频点都重复计算大量旋转因子乘积。FFT 利用 $W_N$ 的周期性、对称性和可约性，把 $N$ 点 DFT 分解为多个短 DFT，并通过蝶形共享中间结果。基-2 FFT 的复乘从 $N^2$ 降到 $\\frac{N}{2}\\log_2N$。", "explanation": "<strong>参考答案</strong>：要点是「分解短 DFT」「共享中间结果」「旋转因子性质」。", "pitfall": "不要说 FFT 改变了 DFT，FFT 只是快算法。"}, {"type": "essay", "points": 10, "question": "说明线性卷积如何用 DFT/FFT 实现，并解释为什么要补零。", "options": [], "answer": "设两序列长度为 $N_1$ 和 $N_2$，线性卷积长度为 $N_1+N_2-1$。先把两序列补零到 $N\\ge N_1+N_2-1$，分别做 DFT/FFT，频域相乘，再做 IDFT/IFFT 得到线性卷积。补零是为了让圆周卷积长度足够长，避免尾部按模 $N$ 折回造成时域混叠。", "explanation": "<strong>参考答案</strong>：流程和补零原因都要有。", "pitfall": "只写频域相乘，不写补零条件，会在综合题丢分。"}, {"type": "comprehensive", "points": 20, "question": "已知有限长序列 $x(n)$ 长度为 6，$h(n)$ 长度为 5。若要用 FFT 计算二者线性卷积，请回答：1. 最小 DFT 点数是多少？2. 若使用基-2 FFT，通常选多少点？3. 说明完整计算流程。4. 若只取 8 点会发生什么？", "options": [], "answer": "1. 线性卷积长度为 $6+5-1=10$，所以最小 DFT 点数为 10。2. 基-2 FFT 要求点数为 2 的整数次幂，通常选 16 点。3. 将 $x(n)$ 和 $h(n)$ 都补零到 16 点，分别做 FFT，得到 $X(k)$ 和 $H(k)$，计算 $Y(k)=X(k)H(k)$，再做 IFFT 得到 $y(n)$，前 10 点为线性卷积结果。4. 若只取 8 点，因为 $8<10$，圆周卷积尾部会折回前面，产生时域混叠，结果不等于线性卷积。", "explanation": "<strong>参考答案</strong>：最小点数是 10，基-2 实现常选 16。核心原因是线性卷积长度必须被 DFT 点数覆盖。", "pitfall": "不要因为两个序列分别只有 6 和 5 点就选 8 点，必须看卷积长度。"}];
+var LABELS = {"page_title": "章节测试", "section": {"choice": "一、选择题", "tf": "二、判断题", "short": "三、简答题", "essay": "四、问答题", "comprehensive": "五、综合题"}, "section_order": ["choice", "tf", "short", "essay", "comprehensive"], "points_suffix": "分", "true_label": "正确", "false_label": "错误", "placeholder": "在此作答...", "pitfall_prefix": "易错提醒：", "correct_label": "正确", "wrong_label": "错误", "answer_prefix": "正确答案：", "reference_label": "参考答案", "graded_label": "已批改", "grade_button": "提交批改", "score_label": "总分", "duration_prefix": "满分 100 分 | 建议 ", "duration_suffix": " 分钟 | 选择答案后点击提交批改"};
+
+function build(){
+  var container = document.getElementById('questions-container');
+  if (!container) { console.error('ExamPass: questions-container not found'); return; }
+  var h = '';
+  var sec = '';
+  var titles = LABELS.section;
+
+  for (var i = 0; i < Q.length; i++) {
+    var q = Q[i];
+    var s = q.type;
+    if (s !== sec) {
+      sec = s;
+      if (titles[s]) {
+        h += '<h3>' + titles[s] + '</h3>';
+      }
+    }
+
+    var qid = 'q' + i;
+    h += '<div class="q-card" id="card-' + qid + '">';
+    h += '<div class="q-num">' + (i+1) + '. (' + q.points + ' ' + LABELS.points_suffix + ')</div>';
+    h += '<div class="q-text">' + q.question + '</div>';
+
+    if (q.type === 'choice') {
+      var opts = q.options || [];
+      for (var j = 0; j < opts.length; j++) {
+        h += '<label class="option" id="opt-' + qid + '-' + j + '" onclick="sel(\'' + qid + '\',' + j + ')">';
+        h += '<input type="radio" name="' + qid + '" value="' + j + '">' + String.fromCharCode(65+j) + '. ' + opts[j] + '</label>';
+      }
+    } else if (q.type === 'tf') {
+      h += '<label class="option" id="opt-' + qid + '-0" onclick="sel(\'' + qid + '\',0)">';
+      h += '<input type="radio" name="' + qid + '" value="0">' + LABELS.true_label + '</label>';
+      h += '<label class="option" id="opt-' + qid + '-1" onclick="sel(\'' + qid + '\',1)">';
+      h += '<input type="radio" name="' + qid + '" value="1">' + LABELS.false_label + '</label>';
+    } else {
+      h += '<textarea class="q-textarea" id="text-' + qid + '" placeholder="' + LABELS.placeholder + '" rows="3"></textarea>';
+    }
+
+    h += '<div class="result" id="result-' + qid + '">';
+    h += '<span class="badge" id="badge-' + qid + '"></span><span id="correct-' + qid + '"></span>';
+    h += '<div class="explanation">' + q.explanation + '</div>';
+    if (q.pitfall) {
+      h += '<div class="pitfall">' + LABELS.pitfall_prefix + q.pitfall + '</div>';
+    }
+    h += '</div></div>';
+  }
+
+  container.innerHTML = h;
+
+  // Re-render MathJax for dynamically inserted formulas
+  if (window.MathJax && MathJax.typesetPromise) {
+    MathJax.typesetPromise([container]).catch(function(err) {
+      console.error('MathJax typeset error:', err);
+    });
+  }
+}
+
+document.addEventListener('DOMContentLoaded', build);
+if (document.readyState === 'interactive' || document.readyState === 'complete') {
+  build();
+}
+
+function sel(qid, idx) {
+  var prefix = 'opt-' + qid + '-';
+  var all = document.querySelectorAll('[id^="' + prefix + '"]');
+  for (var i = 0; i < all.length; i++) {
+    all[i].classList.remove('selected');
+  }
+  var target = document.getElementById('opt-' + qid + '-' + idx);
+  if (target) {
+    target.classList.add('selected');
+  }
+  var radio = document.querySelector('input[name="' + qid + '"][value="' + idx + '"]');
+  if (radio) {
+    radio.checked = true;
+  }
+}
+
+function gradeAll() {
+  var score = 0;
+  for (var i = 0; i < Q.length; i++) {
+    var q = Q[i];
+    var qid = 'q' + i;
+    var card = document.getElementById('card-' + qid);
+    var result = document.getElementById('result-' + qid);
+    var badge = document.getElementById('badge-' + qid);
+    var correctEl = document.getElementById('correct-' + qid);
+    if (!card || !result) continue;
+
+    result.style.display = 'block';
+
+    if (q.type === 'choice' || q.type === 'tf') {
+      var radio = document.querySelector('input[name="' + qid + '"]:checked');
+      if (radio && parseInt(radio.value) === q.answer) {
+        score += q.points;
+        card.classList.add('correct');
+        badge.className = 'badge badge-ok';
+        badge.textContent = LABELS.correct_label;
+        correctEl.innerHTML = '';
+        var correctOpt = document.getElementById('opt-' + qid + '-' + q.answer);
+        if (correctOpt) correctOpt.classList.add('correct-answer');
+      } else {
+        card.classList.add('wrong');
+        badge.className = 'badge badge-no';
+        badge.textContent = LABELS.wrong_label;
+        var ansText = q.type === 'choice'
+          ? String.fromCharCode(65+q.answer) + '. ' + (q.options ? q.options[q.answer] : '')
+          : (q.answer === 0 ? LABELS.true_label : LABELS.false_label);
+        correctEl.innerHTML = LABELS.answer_prefix + ansText;
+        if (radio) {
+          var wrongOpt = document.getElementById('opt-' + qid + '-' + radio.value);
+          if (wrongOpt) wrongOpt.classList.add('wrong-answer');
+        }
+        var correctOpt = document.getElementById('opt-' + qid + '-' + q.answer);
+        if (correctOpt) correctOpt.classList.add('correct-answer');
+      }
+    } else {
+      card.classList.add('correct');
+      badge.className = 'badge badge-ref';
+      badge.textContent = LABELS.reference_label;
+    }
+  }
+
+  var sb = document.getElementById('score-box');
+  if (sb) {
+    sb.style.display = 'block';
+    document.getElementById('score-num').textContent = score;
+    sb.scrollIntoView({behavior:'smooth'});
+  }
+
+  var opts = document.querySelectorAll('.option');
+  for (var i = 0; i < opts.length; i++) opts[i].style.pointerEvents = 'none';
+  var tas = document.querySelectorAll('.q-textarea');
+  for (var i = 0; i < tas.length; i++) tas[i].disabled = true;
+
+  var btn = document.getElementById('grade-btn');
+  if (btn) {
+    btn.disabled = true;
+    btn.textContent = LABELS.graded_label;
+  }
+
+  // Re-render MathJax for revealed explanations
+  if (window.MathJax && MathJax.typesetPromise) {
+    MathJax.typesetPromise().catch(function(err) {
+      console.error('MathJax typeset error:', err);
+    });
+  }
+}
+
+</script>
+</body>
+</html>

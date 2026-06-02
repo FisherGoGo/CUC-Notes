@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>数字信号处理前四章知识清单</title>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\(', '\)']],
+    displayMath: [['$$', '$$'], ['\[', '\]']]
+  }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"></script>
+<style>
+/* === ExamPass Shared Styles === */
+/* Paper-like warm background, clean typography, responsive */
+
+:root {
+  --paper: #fdf6e3;
+  --paper-dark: #f5ecd7;
+  --ink: #2c2c2c;
+  --ink-light: #555;
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+  --divider: #d6c8a8;
+  --card-bg: #fef9ef;
+  --card-border: #e8dcc8;
+  --correct: #22c55e;
+  --correct-bg: #f0fdf4;
+  --wrong: #ef4444;
+  --wrong-bg: #fef2f2;
+  --tag-bg: #fef3c7;
+  --tag-text: #92400e;
+  --radius: 6px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: "Microsoft YaHei", "Noto Sans SC", "SimSun", sans-serif;
+  font-size: 12pt; line-height: 1.75; color: var(--ink);
+  max-width: 860px; margin: auto; padding: 24px 20px 60px;
+  background: var(--paper);
+}
+
+@media print {
+  body { font-size: 10.5pt; background: #fff; }
+  .no-print { display: none !important; }
+  h1, h2, h3 { page-break-after: avoid; }
+}
+
+/* ── Header ── */
+#exampass-header {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: 6px 0; margin-bottom: 0;
+}
+.header-brand { font-size: 1.2em; font-weight: 700; color: #1a1a2e; letter-spacing: 0.3px; }
+.header-url  { font-size: 0.78em; color: #999; }
+.header-divider { border: none; border-top: 2px solid var(--divider); margin: 4px 0 20px 0; }
+
+/* ── Typography ── */
+h1 { font-size: 1.55em; text-align: center; border-bottom: 2px solid var(--divider); padding-bottom: 8px; margin-top: 0; }
+h2 { font-size: 1.25em; border-bottom: 1px solid var(--divider); padding-bottom: 4px; margin-top: 28px; }
+h3 { font-size: 1.08em; margin-top: 20px; color: var(--ink); }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ── Tables ── */
+table { border-collapse: collapse; width: 100%; margin: 10px 0; font-size: 0.95em; }
+td, th { border: 1px solid var(--card-border); padding: 5px 9px; text-align: left; }
+th { background: var(--paper-dark); font-weight: 700; }
+
+/* ── Knowledge point vs explanation ── */
+.kp { font-weight: 700; color: var(--ink); }           /* key point: bold dark */
+.exp { font-weight: 400; color: var(--ink-light); }    /* explanation: lighter */
+.exp em, .exp strong { color: var(--ink); }             /* emphasis inside explanation */
+
+/* ── Block elements ── */
+blockquote {
+  border-left: 3px solid #c0392b; background: #fef9ef;
+  padding: 6px 14px; margin: 10px 0; font-size: 0.95em;
+}
+code { background: #f0ede0; padding: 2px 5px; border-radius: 3px; font-size: 0.92em; }
+pre { background: #f0ede0; padding: 10px; border-radius: var(--radius); overflow-x: auto; }
+
+/* ── TOC ── */
+div.toc {
+  background: var(--card-bg); padding: 14px 18px;
+  border: 1px solid var(--card-border); border-radius: var(--radius); margin-bottom: 22px;
+}
+div.toc ul { padding-left: 18px; }
+div.toc li { margin: 3px 0; font-size: 0.95em; }
+
+/* ── Priority tags ── */
+.tag-must   { background: #fee2e2; color: #991b1b; padding: 1px 6px; border-radius: 3px; font-size: 0.82em; font-weight: 600; }
+.tag-key    { background: #fef3c7; color: #92400e; padding: 1px 6px; border-radius: 3px; font-size: 0.82em; font-weight: 600; }
+.tag-freq   { background: #dbeafe; color: #1e40af; padding: 1px 6px; border-radius: 3px; font-size: 0.82em; font-weight: 600; }
+.tag-info   { background: #f0fdf4; color: #166534; padding: 1px 6px; border-radius: 3px; font-size: 0.82em; font-weight: 600; }
+
+
+</style>
+</head>
+<body>
+
+<header id="exampass-header">
+  <div class="header-left"><span class="header-brand">ExamPass Assistant</span></div>
+  <div class="header-right"><span class="header-url">github.com/WUBING2023/ExamPass-Assistant</span></div>
+</header>
+<hr class="header-divider">
+
+<h1>数字信号处理前四章知识清单</h1>
+<div class="toc">
+<h2>目录</h2>
+<ul>
+<li><a href="#s21527543">第一章：离散时间信号与系统</a></li>
+  <li><a href="#s54137156">序列与基本运算 必考</a></li>
+  <li><a href="#s77773628">常用序列 重点</a></li>
+  <li><a href="#s30483468">离散正弦序列的周期性 必考</a></li>
+  <li><a href="#s59898742">数字频率与模拟频率 高频</a></li>
+<li><a href="#s43841076">第二章：Z 变换与 DTFT</a></li>
+  <li><a href="#s33119139">DTFT 定义与反变换 必考</a></li>
+  <li><a href="#s52169675">DTFT 与 Z 变换 重点</a></li>
+  <li><a href="#s39449875">DTFT 高频性质 必考</a></li>
+  <li><a href="#s75918454">对称性 重点</a></li>
+<li><a href="#s89516849">第三章：DFS 与 DFT</a></li>
+  <li><a href="#s64607594">DFS 到 DFT 必考</a></li>
+  <li><a href="#s64252681">DFT 与 DTFT / Z 变换 重点</a></li>
+  <li><a href="#s42719662">DFT 高频性质 必考</a></li>
+  <li><a href="#s46595315">用 DFT 逼近频谱的三类误差 高频</a></li>
+<li><a href="#s41289290">第四章：FFT</a></li>
+  <li><a href="#s21733191">为什么需要 FFT 重点</a></li>
+  <li><a href="#s28354691">基-2 DIT FFT 必考</a></li>
+  <li><a href="#s18704025">用 FFT 实现 IFFT 高频</a></li>
+</ul>
+</div>
+
+<h2 id="s21527543">第一章：离散时间信号与系统</h2>
+<p><span class="exp">这一章先解决「连续信号进计算机以后怎么表示」的问题。连续信号采样后变成序列，后面所有 DTFT、DFT、FFT 都是在处理这些序列。</span></p>
+
+<h3 id="s54137156">序列与基本运算 <span class="tag-must">必考</span></h3>
+<p><span class="kp">序列 $x(n)$ 是离散时间信号</span><span class="exp">，$n$ 是整数下标，不再是连续时间。考试常让你做移位、翻转、卷积或判断系统性质。</span></p>
+<p><span class="kp">卷积公式</span>：</p>
+$$
+x(n)*h(n)=\sum_{m=-\infty}^{\infty}x(m)h(n-m)
+$$
+<p><span class="exp">这个公式在算 LTI 系统输出：$x(m)$ 是输入，$h(n-m)$ 是系统响应翻转后平移，逐点相乘再求和。直觉是「输入的每个样值都会激发一份移位后的冲激响应」。</span></p>
+<blockquote>易错：手算卷积时，$h(n-m)$ 要先按 $m$ 翻转再平移；不要把 $n-m$ 看成普通右移。</blockquote>
+
+<h3 id="s77773628">常用序列 <span class="tag-key">重点</span></h3>
+<p><span class="kp">单位抽样序列</span>：</p>
+$$
+\delta(n)=\begin{cases}1,&n=0\\0,&otherwise\end{cases}
+$$
+<p><span class="kp">单位阶跃序列</span>：</p>
+$$
+u(n)=\begin{cases}1,&n\ge0\\0,&otherwise\end{cases}
+$$
+<p><span class="kp">二者关系</span>：</p>
+$$
+\delta(n)=u(n)-u(n-1),\qquad u(n)=\sum_{m=0}^{\infty}\delta(n-m)
+$$
+<p><span class="exp">$\delta(n)$ 是一个点，$u(n)$ 是从 0 开始把这些点累加起来。矩形序列 $R_N(n)=u(n)-u(n-N)$，就是从 0 到 $N-1$ 截一段。</span></p>
+
+<h3 id="s30483468">离散正弦序列的周期性 <span class="tag-must">必考</span></h3>
+<p><span class="kp">周期定义</span><span class="exp">：若存在最小正整数 $N$，使所有 $n$ 都满足 $x(n+N)=x(n)$，则 $N$ 为周期。</span></p>
+<p>对 $x(n)=A\sin(\omega_0 n+\phi)$，周期条件来自：</p>
+$$
+N\omega_0=2k\pi
+$$
+<p>因此判断：</p>
+$$
+\frac{2\pi}{\omega_0}\in\mathbb{Q}
+$$
+<p><span class="exp">如果 $\frac{2\pi}{\omega_0}$ 是整数，周期就是它；如果是有理数，取能让 $N\omega_0$ 变成 $2\pi$ 整数倍的最小正整数；如果是无理数，则非周期。</span></p>
+<blockquote>易错：连续正弦一定周期，但离散正弦不一定周期。离散周期必须是整数点数。</blockquote>
+
+<h3 id="s59898742">数字频率与模拟频率 <span class="tag-freq">高频</span></h3>
+<p><span class="kp">数字角频率</span>：</p>
+$$
+\omega=\Omega T=2\pi\frac{f}{f_s}
+$$
+<p><span class="exp">$\Omega$ 是模拟角频率，$T$ 是采样间隔，$f_s$ 是采样频率。$\omega$ 表示「每采一个样点相位前进多少弧度」，所以它是相对频率。</span></p>
+
+<h2 id="s43841076">第二章：Z 变换与 DTFT</h2>
+<p><span class="exp">这一章回答「序列在频域长什么样」。Z 变换给出复平面描述，DTFT 是 Z 变换在单位圆上的频率切片。</span></p>
+
+<h3 id="s33119139">DTFT 定义与反变换 <span class="tag-must">必考</span></h3>
+$$
+X(e^{j\omega})=\sum_{n=-\infty}^{\infty}x(n)e^{-j\omega n}
+$$
+$$
+x(n)=\frac{1}{2\pi}\int_{-\pi}^{\pi}X(e^{j\omega})e^{j\omega n}d\omega
+$$
+<p><span class="exp">DTFT 把离散非周期序列变成连续且 $2\pi$ 周期的频谱。频谱周期的根源是 $e^{-j(\omega+2\pi)n}=e^{-j\omega n}$。</span></p>
+<blockquote>易错：DTFT 的频域变量 $\omega$ 是连续的，不是 DFT 那种有限个点。</blockquote>
+
+<h3 id="s52169675">DTFT 与 Z 变换 <span class="tag-key">重点</span></h3>
+$$
+X(e^{j\omega})=X(z)\big|_{z=e^{j\omega}}
+$$
+<p><span class="exp">把 $z$ 放在单位圆 $z=e^{j\omega}$ 上，就得到 DTFT。若 Z 变换收敛域不包含单位圆，通常不能直接得到普通意义下的 DTFT。</span></p>
+
+<h3 id="s39449875">DTFT 高频性质 <span class="tag-must">必考</span></h3>
+<table>
+<tr><th>性质</th><th>时域</th><th>频域</th></tr>
+<tr><td>线性</td><td>$ax(n)+by(n)$</td><td>$aX(e^{j\omega})+bY(e^{j\omega})$</td></tr>
+<tr><td>时移</td><td>$x(n-m)$</td><td>$e^{-j\omega m}X(e^{j\omega})$</td></tr>
+<tr><td>频移</td><td>$e^{j\omega_0n}x(n)$</td><td>$X(e^{j(\omega-\omega_0)})$</td></tr>
+<tr><td>卷积</td><td>$x(n)*h(n)$</td><td>$X(e^{j\omega})H(e^{j\omega})$</td></tr>
+<tr><td>相乘</td><td>$x(n)h(n)$</td><td>$\frac{1}{2\pi}X(e^{j\omega})*H(e^{j\omega})$</td></tr>
+</table>
+<p><span class="kp">帕塞瓦定理</span>：</p>
+$$
+\sum_{n=-\infty}^{\infty}|x(n)|^2=\frac{1}{2\pi}\int_{-\pi}^{\pi}|X(e^{j\omega})|^2d\omega
+$$
+<p><span class="exp">它说明时域能量和频域能量是一回事，只是频域积分前要乘 $\frac{1}{2\pi}$。</span></p>
+
+<h3 id="s75918454">对称性 <span class="tag-key">重点</span></h3>
+$$
+x_e(n)=\frac{1}{2}[x(n)+x^*(-n)],\qquad x_o(n)=\frac{1}{2}[x(n)-x^*(-n)]
+$$
+<p><span class="exp">任意序列都能拆成共轭对称分量和共轭反对称分量。若 $x(n)$ 是实序列，则 $X(e^{j\omega})$ 的实部为偶函数，虚部为奇函数，幅度为偶函数，相位为奇函数。</span></p>
+<blockquote>易错：DTFT 对称性用 $-\omega$，DFT 对称性用圆周下标 $N-k$。</blockquote>
+
+<h2 id="s89516849">第三章：DFS 与 DFT</h2>
+<p><span class="exp">这一章把连续频率进一步离散化。DFT 的核心不是凭空定义一组公式，而是把有限长序列看成周期序列的一个周期。</span></p>
+
+<h3 id="s64607594">DFS 到 DFT <span class="tag-must">必考</span></h3>
+<p><span class="kp">旋转因子</span>：</p>
+$$
+W_N=e^{-j\frac{2\pi}{N}}
+$$
+<p><span class="kp">DFT 与 IDFT</span>：</p>
+$$
+X(k)=\sum_{n=0}^{N-1}x(n)W_N^{nk}
+$$
+$$
+x(n)=\frac{1}{N}\sum_{k=0}^{N-1}X(k)W_N^{-nk}
+$$
+<p><span class="exp">DFT 默认 $x(n)$ 和 $X(k)$ 都以 $N$ 为周期，所以它的移位、卷积、对称性都要按圆周意义理解。</span></p>
+<blockquote>易错：DFT 的结果和选取的点数 $N$ 有关；同一段数据补零到不同 $N$，频域采样点也会变化。</blockquote>
+
+<h3 id="s64252681">DFT 与 DTFT / Z 变换 <span class="tag-key">重点</span></h3>
+$$
+X(k)=X(e^{j\omega})\big|_{\omega=\frac{2\pi}{N}k}
+=X(z)\big|_{z=e^{j\frac{2\pi}{N}k}}
+$$
+<p><span class="exp">一句话：DFT 是在单位圆上等间隔采样 $N$ 个点。</span></p>
+
+<h3 id="s42719662">DFT 高频性质 <span class="tag-must">必考</span></h3>
+<p><span class="kp">直流分量与初始值</span>：</p>
+$$
+X(0)=\sum_{n=0}^{N-1}x(n),\qquad x(0)=\frac{1}{N}\sum_{k=0}^{N-1}X(k)
+$$
+<p><span class="kp">圆周卷积定理</span>：</p>
+$$
+x_1(n)\circledast_Nx_2(n)\leftrightarrow X_1(k)X_2(k)
+$$
+<p><span class="kp">圆周卷积等于线性卷积的条件</span>：</p>
+$$
+N\ge N_1+N_2-1
+$$
+<p><span class="exp">补零长度足够时，线性卷积尾部不会折回到前面；否则就产生时域混叠。</span></p>
+
+<h3 id="s46595315">用 DFT 逼近频谱的三类误差 <span class="tag-freq">高频</span></h3>
+<table>
+<tr><th>误差</th><th>原因</th><th>改进</th></tr>
+<tr><td>混叠</td><td>采样频率不满足奈奎斯特条件</td><td>提高 $f_s$，采样前低通</td></tr>
+<tr><td>泄漏</td><td>时域截断导致频谱扩散</td><td>加窗，增加记录长度</td></tr>
+<tr><td>栅栏效应</td><td>频域只看有限采样点，可能错过峰值</td><td>补零增大 $N$，提高频率采样密度</td></tr>
+</table>
+
+<h2 id="s41289290">第四章：FFT</h2>
+<p><span class="exp">这一章解决 DFT 计算量太大的问题。FFT 不改变 DFT 的数学结果，只是利用旋转因子的性质更快地算。</span></p>
+
+<h3 id="s21733191">为什么需要 FFT <span class="tag-key">重点</span></h3>
+<table>
+<tr><th>算法</th><th>复数乘法</th><th>复数加法</th></tr>
+<tr><td>直接 DFT</td><td>$N^2$</td><td>$N(N-1)$</td></tr>
+<tr><td>基-2 FFT</td><td>$\frac{N}{2}\log_2N$</td><td>$N\log_2N$</td></tr>
+</table>
+<p><span class="exp">当 $N$ 很大时，复杂度从 $O(N^2)$ 降到 $O(N\log_2N)$，这是 FFT 的根本价值。</span></p>
+
+<h3 id="s28354691">基-2 DIT FFT <span class="tag-must">必考</span></h3>
+<p><span class="kp">适用条件</span>：$N=2^L$。</p>
+<p><span class="exp">DIT 是按时间抽取，把输入序列按偶下标和奇下标拆成两个 $N/2$ 点序列：</span></p>
+$$
+x_1(r)=x(2r),\qquad x_2(r)=x(2r+1)
+$$
+<p><span class="kp">蝶形公式</span>：</p>
+$$
+X(k)=X_1(k)+W_N^kX_2(k)
+$$
+$$
+X(k+\frac{N}{2})=X_1(k)-W_N^kX_2(k)
+$$
+<p><span class="exp">前半和后半频点共享 $X_1(k)$、$X_2(k)$，差别只在旋转因子项符号相反。</span></p>
+<blockquote>易错：DIT 是按时间下标奇偶拆分；常见流程是输入倒位序，输出自然序。</blockquote>
+
+<h3 id="s18704025">用 FFT 实现 IFFT <span class="tag-freq">高频</span></h3>
+$$
+x(n)=\frac{1}{N}\left[FFT(X^*(k))\right]^*
+$$
+<p><span class="exp">步骤是：频域取共轭 --&gt; 做 FFT --&gt; 结果取共轭 --&gt; 除以 $N$。</span></p>
+
+
+
+</body>
+</html>

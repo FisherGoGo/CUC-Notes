@@ -1,0 +1,550 @@
+ 
+
+1
+
+
+
+  T  2 f
+fs
+
+2,
+x(n)  Asin( n0  ) x(n)  e j0n
+
+3
+
+1. (DTFT)
+
+
+
+ X (e j )  x(n)e jn
+
+ n
+
+  x(n)
+
+
+
+1
+2
+
+ X (e j )e jnd
+
+
+x(n)  X (e j )
+
+  (2 )
+
+2. (DTFT)Z
+
+X ( z) |ze j  X (e j )
+
+3. (DTFT)
+
+
+
+
+
+  
+x(n) 2
+n
+
+
+
+1
+2
+
+ X (e j ) 2 d
+
+
+Re[ x(n)]  X e (e j ) xe (n)  Re[ X (e j )]
+
+j Im[ x(n)]  X o (e j ) xo (n)  j Im[ X (e j )]
+
+x(n)  xe (n)  xo (n)
+
+  
+
+xe (n) xo (n)
+
+ 
+
+1 [x(n)  2 1 [x(n)  2
+
+x* (n)] x* (n)]
+
+1.4
+ 
+
+2.DFT
+
+N 1
+
+  X (k)  x(n)WNnk 0  k  N 1
+
+n0
+
+  x(n) 
+
+1 N
+
+N 1
+X (k )WNnk
+k 0
+
+0  n  N 1
+
+N 1
+X (0)   x(n) n0
+
+ x(0) 
+
+1
+
+N 1
+X (k )
+
+N k0
+
+x(n)DFTN
+
+3. DFTzDTFT
+
+X(k) 
+
+X (e j )  2 k
+
+
+
+X (z) j2 k ze N
+
+N
+
+4. 
+
+1) y(n)  x((n  m))N RN (n)
+Y (k )  X (k )WNkm
+2) x(n) DFT X (k)
+
+X (n) DFT N  x((k)) N RN (k)
+3) 
+
+Re[ x(n)]  X ep (k)
+
+xep (n)  Re[ X (k)]
+
+j Im[ x(n)]  X op (k)
+
+xop (n)  j Im[ X (k)]
+
+xep (n)
+
+
+
+1 2
+
+[ x(n)
+
+
+
+x*(N
+
+
+
+n)]
+
+xop (n)
+
+
+
+1 [x(n) 2
+
+
+
+x*(N
+
+
+
+n)]
+
+4. 
+
+4 DFT 5
+
+  N1
+| x(n) |2
+
+
+
+1
+
+N 1
+| X (k) |2
+
+n0
+
+N k0
+
+x1(n) N x2 (n) DFT X1(k) X 2 (k)
+
+x1(n)x2 (n) 
+
+1 N
+
+X1(k)
+
+N
+
+X 2(k)
+
+6
+
+x1(n) N x2 (n)  ((x1(n)  x2 (n)))N RN (n)
+
+5
+
+N
+
+x(n) DTFT X (e j )  X (k ) IDFT xN (n)
+
+M
+
+N
+
+xN (n)  x((n))N RN (n)
+
+N N  M
+
+xN (n)  x((n))N RN (n)  x(n)
+
+6.DFT 
+
+7.DFT
+
+
+
+T0 F0 (:Hz)
+N
+
+F0
+
+
+
+1 T0
+
+fs
+
+
+
+1 T
+
+F0  fs N
+
+T fh fs
+
+N  T0 / T  f s F0
+fs  2 fh
+
+1.DIT-2 FFTDIT 2. DIF-2 FFTDIF
+
+1. 
+
+ X (k)  X1(k)  WNk X 2 (k)
+
+
+
+
+
+X (k
+
+
+
+N) 2
+
+X1(k) WNk X 2 (k)
+
+k  0,1,..., N 1 2
+k  0,1,..., N 1 2
+
+X1(k)
+
+X1(k)  WNk X 2 (k)
+
+X 2(k)
+x(n)
+
+WNk
+x1(r) x2(r)
+
+1 X1(k) WNk X 2 (k)
+
+X1(k)
+
+X (k)
+
+X2(k)
+
+2. 
+
+ x1(n)  x(n)  x(n  N / 2)
+
+ 
+
+x2
+
+(n)
+
+
+
+x(n)
+
+
+
+x(n
+
+
+
+N
+
+/
+
+2)WNn
+
+n  0,1,..., N 1 2
+
+N 1
+
+2
+
+ X (2r)  x1(n)WNnr/2
+ n0  N 1
+2
+  X (2r 1)  x2 (n)WNnr/2
+
+r  0,1,..., N 1 2
+
+n0
+
+x(n)
+
+x(n)x(nN / 2)
+
+x(nN / 2)
+
+1
+
+WNn
+
+[x(n)x(nN / 2)] WNn
+
+3. DFT2 FFT
+4.IDFT ----FFTIFFT
+5.FFT 1FFT 2FFT
+
+1. IIRFIR 2. IIRII 3. FIR
+
+1.
+
+2.  
+
+
+
+H
+
+ap
+
+( z)
+
+
+
+
+
+z N  a1z N 1  a2 z N 2    aN 1  a1z 1  a2 z 2    aN z N
+
+
+
+3.  
+   I
+ p () p  s () s
+
+1N
+
+2HaN(s)d0
+
+3H(s)
+
+c
+
+
+
+s 10 2 N s /10
+
+1
+
+ss/c s/p
+
+N
+
+
+
+lg
+
+100.1s 100.1 p
+
+1 1
+
+2 lg s /  p
+
+
+
+4. H(s)  H(z)
+
+1 h(n)  Tha (t ) tnT
+
+  N
+H (s) 
+
+Ak
+
+k1 s  sk
+
+
+
+H (z)
+
+
+
+N TAk k 1 1  eskT
+
+z 1
+
+
+
+
+
+
+T
+
+
+
+2
+
+H(z) 
+
+Ha(s) s 2 T
+
+1 z 1 1 z 1
+
+ 
+
+ 
+
+
+
+  2 tan  
+T 2
+
+ IIR
+1) 
+2) 
+3)I
+4) 
+5) 
+
+1.FIR
+
+FIRh(n) h(n)=±h(N-1-n)
+
+2. FIR
+
+N 1
+
+ H (e j )  h(n)e jn
+
+h(n)  h(N 1 n)   ()   h(n)  h(N 1 n)  ()   
+
+n0
+ H()ej()
+
+2. FIR
+
+N 1
+ H (e j )  h(n)e jn n0  H ()e j()
+
+FIR
+
+ h(n)
+
+
+  N 
+
+3. FIR
+
+4. FIR
+
+1Hd (e j )  hd (n)  hd (n)w(n)
+
+H (e j )
+
+
+
+
+h(n)
+
+
+
+N
+
+2
+
+1.  2. 3.
+
+""
+
+x(n)
+fs D
+X (e j )
+
+xd (n) xd (n)  x(Dn)
+fs/D
+
+ 2
+
+  h 0 h 
+
+1 D
+
+X d (e j )
+
+2 
+
+ 2    Dh 0
+""
+
+Dh 
+
+2
+
+x(n)
+X (e j ) fs I
+
+
+xe (n)  x(n / I )
+xe (n) h(n) xI (n)
+Ifs
+
+ 2    h 0 h 
+X I (e j )
+
+2
+
+
+
+ 2    h 0 h 
+
+I
+
+I
+
+2 
+
+

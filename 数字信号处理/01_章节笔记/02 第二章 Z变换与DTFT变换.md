@@ -19,7 +19,7 @@ $$
 	- $\sum\limits|x(n)|^{2}<\infty$ ，序列平方绝对可和 - 能量有限信号
 ## DTFT 的性质
 
-- 些许性质证明：[[数字信号处理/Proof/DTFT性质证明]]
+- 些许性质证明：[[Proof/DTFT性质证明]]
 ### 线性
 $$
 ax(n)\pm by(n)\Leftrightarrow aX(e^{j\omega})\pm bY(e^{j\omega})

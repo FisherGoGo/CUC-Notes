@@ -2,4 +2,6 @@
 .obsidian/workspace-mobile.json
 .obsidian/hotkeys.json
 .DS_Store
-
+tmp/
+__pycache__/
+*.pyc

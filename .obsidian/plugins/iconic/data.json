@@ -38,7 +38,7 @@
     "信号与系统/信号第3章 离散时间系统的时域分析.md": {
       "color": "red"
     },
-    "信号与系统/信号第4章 频域分析.md": {
+    "信号与系统/信号第4章频域分析.md": {
       "color": "red"
     },
     "信号与系统/信号第5章 复频域分析.md": {
@@ -60,15 +60,6 @@
         "b3878cf971dbf24b",
         "dd7676202939b3be"
       ]
-    },
-    "数字信号处理/第一章 离散时间信号与系统.md": {
-      "icon": "lucide-notebook"
-    },
-    "数字信号处理/第三章 离散傅里叶变换 DFT.md": {
-      "icon": "lucide-notebook"
-    },
-    "数字信号处理/第二章 Z变换与DTFT变换.md": {
-      "icon": "lucide-notebook"
     }
   },
   "bookmarkIcons": {},

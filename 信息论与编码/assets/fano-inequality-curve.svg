@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="620" viewBox="0 0 520 620">
+  <rect width="100%" height="100%" fill="#ffffff"/>
+  <defs>
+    <clipPath id="region">
+      <path d="M82 542 C166 450 262 374 342 276 C384 225 407 170 388 118 C404 120 421 121 437 122 L437 294 L82 294 Z"/>
+    </clipPath>
+  </defs>
+
+  <!-- hatched Fano region -->
+  <g clip-path="url(#region)" stroke="#8d8790" stroke-width="2" opacity="0.75">
+    <line x1="-40" y1="520" x2="300" y2="750"/>
+    <line x1="-5" y1="485" x2="335" y2="715"/>
+    <line x1="30" y1="450" x2="370" y2="680"/>
+    <line x1="65" y1="415" x2="405" y2="645"/>
+    <line x1="100" y1="380" x2="440" y2="610"/>
+    <line x1="135" y1="345" x2="475" y2="575"/>
+    <line x1="170" y1="310" x2="510" y2="540"/>
+    <line x1="205" y1="275" x2="545" y2="505"/>
+    <line x1="240" y1="240" x2="580" y2="470"/>
+    <line x1="275" y1="205" x2="615" y2="435"/>
+    <line x1="310" y1="170" x2="650" y2="400"/>
+    <line x1="345" y1="135" x2="685" y2="365"/>
+  </g>
+
+  <!-- axes -->
+  <g stroke="#4b4650" stroke-width="3" fill="none">
+    <line x1="82" y1="542" x2="476" y2="542"/>
+    <path d="M476 542 L465 536 L465 548 Z" fill="#4b4650"/>
+    <line x1="82" y1="542" x2="82" y2="58"/>
+    <path d="M82 58 L76 69 L88 69 Z" fill="#4b4650"/>
+  </g>
+
+  <!-- boundary curve -->
+  <path d="M82 542 C166 450 262 374 342 276 C384 225 407 170 388 118 C404 120 421 121 437 122"
+        fill="none" stroke="#5a535c" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- guide lines -->
+  <g stroke="#c8c1cc" stroke-width="2" stroke-dasharray="2 8" fill="none">
+    <line x1="82" y1="294" x2="342" y2="294"/>
+    <line x1="342" y1="294" x2="342" y2="542"/>
+    <line x1="82" y1="122" x2="437" y2="122"/>
+    <line x1="437" y1="122" x2="437" y2="542"/>
+  </g>
+
+  <!-- ticks -->
+  <g stroke="#4b4650" stroke-width="2">
+    <line x1="74" y1="294" x2="90" y2="294"/>
+    <line x1="74" y1="122" x2="90" y2="122"/>
+    <line x1="342" y1="534" x2="342" y2="550"/>
+    <line x1="437" y1="534" x2="437" y2="550"/>
+  </g>
+
+  <!-- labels -->
+  <g fill="#4b4650" font-family="Times New Roman, serif" font-size="26">
+    <text x="53" y="49" font-style="italic">P</text>
+    <text x="69" y="57" font-size="17" font-style="italic">E</text>
+    <text x="408" y="505" font-style="italic">H(X|Y)</text>
+    <text x="60" y="570" font-style="italic">O</text>
+    <text x="20" y="301" font-size="22">
+      <tspan x="20" y="287">r − 1</tspan>
+      <tspan x="32" y="314">r</tspan>
+    </text>
+    <line x1="18" y1="294" x2="66" y2="294" stroke="#4b4650" stroke-width="1.5"/>
+    <text x="284" y="583" font-size="24">log(r − 1)</text>
+    <text x="408" y="583" font-size="24">log r</text>
+  </g>
+</svg>

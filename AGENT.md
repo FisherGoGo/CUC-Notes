@@ -60,3 +60,16 @@
 - 不要只做排版美化，却不检查理解、考点和错误。
 - 不要输出过长的材料让用户再次变成“看别人写的笔记”。
 - 不要默认把所有内容都压缩到极简，除非用户已经完成第一轮理解。
+
+## 编码与文件处理要求
+
+- 所有文件读写默认使用 UTF-8 编码，修改文件时不得改变原有编码、换行风格和无关内容。
+- 在 PowerShell 中读取含中文文件前，先执行 `chcp 65001`，并设置：
+  - `[Console]::OutputEncoding = [System.Text.Encoding]::UTF8`
+  - `$OutputEncoding = [System.Text.Encoding]::UTF8`
+- 读取含中文文件时优先使用 `Get-Content -Raw -Encoding UTF8`。
+- 禁止用 PowerShell 的 here-string 管道、重定向、`Set-Content`、`Out-File` 写入含中文源码、JSON 或文档。
+- 不要用 `sed`、`awk` 处理含中文文件，改用 Python 或 Node.js。
+- 使用 Python 或 Node.js 脚本处理中文文件时，必须显式以 UTF-8 读写。
+- 代码注释使用中文。
+- 不要为了修编码而整文件重写、全文件格式化或全文件字符串替换。

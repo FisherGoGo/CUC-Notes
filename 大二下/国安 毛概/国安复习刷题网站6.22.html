@@ -1,0 +1,1503 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>国安复习刷题网站</title>
+  <style>
+    :root {
+      --bg: #f6f7f5;
+      --panel: #ffffff;
+      --ink: #1e2520;
+      --muted: #667169;
+      --line: #dfe5df;
+      --accent: #0f6f5c;
+      --accent-2: #9b5b24;
+      --accent-3: #315a8a;
+      --danger: #b83d39;
+      --ok: #267145;
+      --warn-bg: #fff7e8;
+      --soft: #eef5f1;
+      --shadow: 0 14px 34px rgba(25, 36, 31, .08);
+      --radius: 8px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.55;
+      letter-spacing: 0;
+    }
+
+    button, input, select, textarea {
+      font: inherit;
+      color: inherit;
+    }
+
+    button {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      border-radius: 8px;
+      min-height: 38px;
+      padding: 8px 12px;
+      cursor: pointer;
+      transition: .16s ease;
+    }
+
+    button:hover { border-color: var(--accent); color: var(--accent); }
+    button.primary { background: var(--accent); border-color: var(--accent); color: white; }
+    button.secondary { background: var(--soft); border-color: #cfe1d7; }
+    button.danger { color: var(--danger); border-color: #edc9c7; background: #fff7f7; }
+    button.icon { width: 38px; padding: 0; display: inline-grid; place-items: center; }
+
+    .app {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      padding: 22px 16px;
+      border-right: 1px solid var(--line);
+      background: #fbfcfa;
+      overflow: auto;
+    }
+
+    .brand {
+      padding: 4px 8px 18px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 14px;
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: 22px;
+      line-height: 1.2;
+      letter-spacing: 0;
+    }
+
+    .brand p { margin: 8px 0 0; color: var(--muted); font-size: 13px; }
+
+    .nav { display: grid; gap: 6px; }
+    .nav button {
+      width: 100%;
+      text-align: left;
+      border-color: transparent;
+      background: transparent;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+    }
+    .nav button.active {
+      background: var(--soft);
+      border-color: #cfe1d7;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .main {
+      padding: 24px;
+      max-width: 1320px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .topbar h2 { margin: 0; font-size: 26px; letter-spacing: 0; }
+    .top-actions { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+
+    .grid { display: grid; gap: 14px; }
+    .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid.four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 16px;
+    }
+
+    .panel.flat { box-shadow: none; }
+    .panel h3 { margin: 0 0 10px; font-size: 18px; }
+    .panel h4 { margin: 14px 0 8px; font-size: 15px; }
+    .panel p { margin: 8px 0; }
+
+    .muted { color: var(--muted); }
+    .small { font-size: 13px; }
+    .tiny { font-size: 12px; }
+
+    .metric {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      min-height: 92px;
+      justify-content: center;
+    }
+    .metric strong { font-size: 28px; line-height: 1; }
+    .metric span { color: var(--muted); font-size: 13px; }
+
+    .progressbar {
+      height: 10px;
+      border-radius: 999px;
+      background: #e8ece8;
+      overflow: hidden;
+      border: 1px solid #d8ded8;
+    }
+    .progressbar > i {
+      display: block;
+      height: 100%;
+      width: 0;
+      background: var(--accent);
+      transition: width .2s ease;
+    }
+
+    .tabs, .segmented {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .tabs button, .segmented button {
+      min-height: 36px;
+      padding: 7px 10px;
+      background: #fbfcfa;
+    }
+    .tabs button.active, .segmented button.active {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    .filters {
+      display: grid;
+      grid-template-columns: 1.2fr .9fr .9fr .9fr auto;
+      gap: 10px;
+      align-items: end;
+      margin-bottom: 14px;
+    }
+    .field { display: grid; gap: 5px; }
+    label { font-size: 12px; color: var(--muted); }
+    select, input[type="search"], textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      padding: 9px 10px;
+      min-height: 38px;
+    }
+    textarea { min-height: 120px; resize: vertical; }
+    textarea.answer-input {
+      min-height: 86px;
+      margin-top: 10px;
+      background: #fbfcfa;
+    }
+
+    .tagrow { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      border: 1px solid var(--line);
+      background: #fbfcfa;
+      color: var(--muted);
+      border-radius: 999px;
+      padding: 3px 8px;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+    .tag.high { color: var(--danger); border-color: #efc7c5; background: #fff6f5; }
+    .tag.mid { color: var(--accent-2); border-color: #edd7c4; background: #fff8ef; }
+    .tag.low { color: var(--accent-3); border-color: #cbd9ea; background: #f4f8fd; }
+    .tag.done { color: var(--ok); border-color: #c7e1d2; background: #f2fbf5; }
+
+    .knowledge-list, .question-list { display: grid; gap: 12px; }
+    .knowledge-card, .question-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      padding: 14px;
+    }
+    .card-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .card-head h3, .card-head h4 { margin: 0; }
+    .card-tools { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+
+    details {
+      border-top: 1px solid var(--line);
+      margin-top: 10px;
+      padding-top: 10px;
+    }
+    summary {
+      cursor: pointer;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .answer {
+      background: var(--soft);
+      border-left: 4px solid var(--accent);
+      padding: 10px 12px;
+      border-radius: 0 8px 8px 0;
+      margin-top: 10px;
+    }
+
+    .attempt-box {
+      border-top: 1px solid var(--line);
+      margin-top: 12px;
+      padding-top: 12px;
+    }
+    .attempt-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-top: 8px;
+    }
+    .score {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 64px;
+      min-height: 32px;
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-weight: 800;
+      background: #eef5f1;
+      color: var(--accent);
+      border: 1px solid #cfe1d7;
+    }
+    .score.low {
+      color: var(--danger);
+      background: #fff6f5;
+      border-color: #efc7c5;
+    }
+    .score.mid {
+      color: var(--accent-2);
+      background: #fff8ef;
+      border-color: #edd7c4;
+    }
+    .feedback {
+      margin-top: 10px;
+      border: 1px solid var(--line);
+      background: #fbfcfa;
+      border-radius: 8px;
+      padding: 10px;
+    }
+    .rubric-list {
+      display: grid;
+      gap: 6px;
+      padding: 0;
+      margin: 8px 0 0;
+      list-style: none;
+    }
+    .rubric-list li {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 7px 9px;
+      background: #fff;
+    }
+    .rubric-list li.hit { border-color: #c7e1d2; background: #f2fbf5; color: var(--ok); }
+    .rubric-list li.miss { border-color: #edc9c7; background: #fff7f7; color: var(--danger); }
+
+    .blank {
+      color: var(--accent);
+      font-weight: 800;
+      border-bottom: 2px solid rgba(15,111,92,.35);
+      padding: 0 2px;
+    }
+
+    .essay-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 340px;
+      gap: 14px;
+      align-items: start;
+    }
+    .checklist {
+      display: grid;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .checkline {
+      display: grid;
+      grid-template-columns: 22px 1fr;
+      gap: 8px;
+      align-items: start;
+    }
+    input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--accent); }
+
+    .table-wrap { overflow-x: auto; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 640px;
+      font-size: 14px;
+    }
+    th, td {
+      border-bottom: 1px solid var(--line);
+      padding: 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th { background: #f2f5f2; font-weight: 800; }
+
+    .view { display: none; }
+    .view.active { display: block; }
+
+    .note {
+      border: 1px solid #ead7b9;
+      background: var(--warn-bg);
+      border-radius: var(--radius);
+      padding: 12px;
+    }
+
+    .print-only { display: none; }
+
+    @media (max-width: 980px) {
+      .app { grid-template-columns: 1fr; }
+      .sidebar {
+        position: static;
+        height: auto;
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+      .nav { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .nav button { justify-content: center; text-align: center; padding: 9px 8px; }
+      .main { padding: 16px; }
+      .grid.two, .grid.three, .grid.four { grid-template-columns: 1fr 1fr; }
+      .filters { grid-template-columns: 1fr 1fr; }
+      .filters button { grid-column: span 2; }
+      .essay-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 620px) {
+      .topbar { align-items: stretch; flex-direction: column; }
+      .top-actions { justify-content: stretch; }
+      .top-actions button { flex: 1; }
+      .nav { grid-template-columns: 1fr 1fr; }
+      .grid.two, .grid.three, .grid.four { grid-template-columns: 1fr; }
+      .filters { grid-template-columns: 1fr; }
+      .filters button { grid-column: auto; }
+      .card-head { flex-direction: column; }
+      .card-tools { justify-content: flex-start; }
+      .main { padding: 12px; }
+      table { min-width: 560px; }
+    }
+
+    @media print {
+      body { background: #fff; }
+      .sidebar, .top-actions, .filters, .tabs, .segmented, button, textarea { display: none !important; }
+      .app { display: block; }
+      .main { max-width: none; padding: 0; }
+      .view { display: block !important; page-break-before: always; }
+      .panel, .knowledge-card, .question-card { box-shadow: none; break-inside: avoid; }
+      .print-only { display: block; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <h1>国安复习刷题</h1>
+        <p>知识点全覆盖 + 按题型刷题 + 进度继承</p>
+      </div>
+      <nav class="nav" aria-label="主导航">
+        <button class="active" data-view="dashboard">总览</button>
+        <button data-view="intel">情报</button>
+        <button data-view="knowledge">知识点</button>
+        <button data-view="practice">刷题</button>
+        <button data-view="essay">论述</button>
+        <button data-view="wrongbook">错题</button>
+        <button data-view="plan">速通</button>
+        <button data-view="settings">设置</button>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <div class="topbar">
+        <h2 id="viewTitle">总览</h2>
+        <div class="top-actions">
+          <button class="secondary" id="prioritySessionBtn">高优先级刷题</button>
+          <button class="secondary" id="resumeBtn">继续上次</button>
+          <button id="printBtn">打印复习稿</button>
+        </div>
+      </div>
+
+      <section class="view active" id="dashboard">
+        <div class="grid four">
+          <div class="panel metric"><strong id="statDone">0</strong><span>已掌握题目</span></div>
+          <div class="panel metric"><strong id="statWrong">0</strong><span>错题/薄弱点</span></div>
+          <div class="panel metric"><strong id="statKnowledge">0%</strong><span>知识点复习进度</span></div>
+          <div class="panel metric"><strong id="statEssay">0%</strong><span>论述模板完成度</span></div>
+        </div>
+
+        <div class="panel">
+          <h3>今日建议</h3>
+          <p class="muted">先用“情报”理解出题逻辑，再按“知识点 - 刷题 - 论述”的顺序循环。填空靠原文关键词，名词解释靠定义句，论述靠五段式结构。</p>
+          <div class="progressbar" aria-label="总体进度"><i id="overallProgress"></i></div>
+          <div class="tagrow">
+            <span class="tag high">论述重点：经济、文化、社会</span>
+            <span class="tag mid">备选：核、网络、科技</span>
+            <span class="tag low">已考参考：政治、生态、海外利益、新型领域</span>
+          </div>
+        </div>
+
+        <div class="grid two">
+          <div class="panel">
+            <h3>三步拿分路线</h3>
+            <div class="checklist">
+              <label class="checkline"><input type="checkbox" data-daily="fill"><span>填空：把重要论述中的固定搭配刷到能闭眼补词。</span></label>
+              <label class="checkline"><input type="checkbox" data-daily="definition"><span>名词解释：每个安全背一条“定义 + 核心范围”。</span></label>
+              <label class="checkline"><input type="checkbox" data-daily="essay"><span>论述：每个重点安全都按“是什么、分类、重要性、挑战、应对”写一遍。</span></label>
+            </div>
+          </div>
+          <div class="panel">
+            <h3>考试题型提醒</h3>
+            <p>没有选择题。填空、名词解释、论述三类要分开练，因为它们调用的记忆方式不同。</p>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>题型</th><th>拿分动作</th><th>避免失分</th></tr></thead>
+                <tbody>
+                  <tr><td>填空</td><td>背关键词和固定顺序</td><td>不要只懂意思，原词更重要</td></tr>
+                  <tr><td>名词解释</td><td>一句定义写准</td><td>不要写成论述，先给定义</td></tr>
+                  <tr><td>论述</td><td>五段式完整覆盖</td><td>不要只写重要性，挑战和应对必须有</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="view" id="intel">
+        <div class="grid two">
+          <div class="panel">
+            <h3>已知情报整理</h3>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>时间</th><th>填空</th><th>名词解释</th><th>论述</th></tr></thead>
+                <tbody>
+                  <tr><td>上学期/去年</td><td>总体国家安全观、军事安全</td><td>科技安全、资源安全</td><td>政治安全、生态安全、海外利益安全</td></tr>
+                  <tr><td>上上学期</td><td>未明确</td><td>军事安全、网络安全</td><td>新型领域安全</td></tr>
+                  <tr><td>更早</td><td>未明确</td><td>未明确</td><td>国土安全等三选一</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="panel note">
+            <h3>推理结论</h3>
+            <p>更像“题库轮换 + 题型避重 + 覆盖章节”，不是严格数学规律。优先级只能指导先刷什么，不能删除任何知识点。</p>
+            <p>已知“前面的填空内容和名词解释不重复”，所以临场看到填空集中在某个安全时，名词解释可适当降低该安全的猜测权重。</p>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3>今年复习优先级</h3>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>题型</th><th>高优先级</th><th>中优先级</th><th>低优先级但仍需覆盖</th></tr></thead>
+              <tbody>
+                <tr><td>论述</td><td>经济安全、文化安全、社会安全</td><td>核安全、网络安全、科技安全</td><td>政治安全、生态安全、海外利益安全、新型领域安全、国土安全</td></tr>
+                <tr><td>名词解释</td><td>政治、国土、经济、文化、社会、生态、核、海外利益</td><td>新型领域、生物、太空、深海、极地</td><td>科技、资源、军事、网络</td></tr>
+                <tr><td>填空</td><td>总体国家安全观、网络、科技、文化、生态、核</td><td>军事、经济、资源、海外利益、生物</td><td>所有重要论述原文</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="view" id="knowledge">
+        <div class="panel flat">
+          <div class="filters">
+            <div class="field">
+              <label for="knowledgeSearch">搜索知识点</label>
+              <input type="search" id="knowledgeSearch" placeholder="如：经济安全、五对关系、挑战" />
+            </div>
+            <div class="field">
+              <label for="knowledgeUnit">单元</label>
+              <select id="knowledgeUnit"></select>
+            </div>
+            <div class="field">
+              <label for="knowledgePriority">优先级</label>
+              <select id="knowledgePriority"></select>
+            </div>
+            <div class="field">
+              <label for="knowledgeStatus">状态</label>
+              <select id="knowledgeStatus">
+                <option value="all">全部</option>
+                <option value="todo">未掌握</option>
+                <option value="done">已掌握</option>
+              </select>
+            </div>
+            <button id="resetKnowledgeFilters">重置</button>
+          </div>
+        </div>
+        <div class="knowledge-list" id="knowledgeList"></div>
+      </section>
+
+      <section class="view" id="practice">
+        <div class="panel flat">
+          <div class="filters">
+            <div class="field">
+              <label for="questionSearch">搜索题目</label>
+              <input type="search" id="questionSearch" placeholder="如：人民安全、依法治网、核安全" />
+            </div>
+            <div class="field">
+              <label for="questionType">题型</label>
+              <select id="questionType"></select>
+            </div>
+            <div class="field">
+              <label for="questionUnit">单元</label>
+              <select id="questionUnit"></select>
+            </div>
+            <div class="field">
+              <label for="questionPriority">刷题顺序</label>
+              <select id="questionPriority">
+                <option value="all">全部题目</option>
+                <option value="priority">优先级从高到低</option>
+                <option value="wrong">只刷错题</option>
+                <option value="todo">只刷未掌握</option>
+              </select>
+            </div>
+            <button id="shuffleBtn">打乱</button>
+          </div>
+          <div class="tabs" id="quickTypeTabs"></div>
+          <p class="muted small">判分说明：填空题按原文关键词逐空判分，允许标点和合理前后缀差异；名词解释按老师阅卷式得分点判分，重点看定义方向、分类范围和核心关键词。</p>
+        </div>
+        <div class="question-list" id="questionList"></div>
+      </section>
+
+      <section class="view" id="essay">
+        <div class="essay-grid">
+          <div class="panel">
+            <div class="filters" style="grid-template-columns: 1fr 1fr auto;">
+              <div class="field">
+                <label for="essaySelect">选择论述题</label>
+                <select id="essaySelect"></select>
+              </div>
+              <div class="field">
+                <label for="essayMode">训练模式</label>
+                <select id="essayMode">
+                  <option value="outline">看提纲复述</option>
+                  <option value="blank">先写后对照</option>
+                </select>
+              </div>
+              <button id="essayResetBtn">清空草稿</button>
+            </div>
+            <div id="essayPrompt"></div>
+            <textarea id="essayDraft" placeholder="先按五段式写：是什么、分类、重要性、挑战、应对。写完后展开答案对照。"></textarea>
+            <details id="essayAnswerBox">
+              <summary>展开参考答案骨架</summary>
+              <div id="essayAnswer" class="answer"></div>
+            </details>
+          </div>
+          <div class="panel">
+            <h3>论述五段式检查</h3>
+            <div class="checklist" id="essayChecklist"></div>
+            <div class="answer">
+              <strong>通用开头：</strong>
+              某某安全是总体国家安全体系的重要组成部分，关系国家主权、发展利益和人民福祉。作答时先定义，再分类，随后写重要性、挑战和应对。
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="view" id="wrongbook">
+        <div class="panel">
+          <h3>错题与薄弱点</h3>
+          <p class="muted">这里自动收集你标记为“不会/错题”的题目。考前优先清空这一页。</p>
+        </div>
+        <div class="question-list" id="wrongList"></div>
+      </section>
+
+      <section class="view" id="plan">
+        <div class="grid two">
+          <div class="panel">
+            <h3>6小时速通方案</h3>
+            <div class="checklist">
+              <label class="checkline"><input type="checkbox" data-plan="p1"><span>第1小时：读情报页，掌握题型；背总体国家安全观“五大要素、五对关系”。</span></label>
+              <label class="checkline"><input type="checkbox" data-plan="p2"><span>第2小时：刷全部高优先级填空，重点纠正原词顺序。</span></label>
+              <label class="checkline"><input type="checkbox" data-plan="p3"><span>第3小时：名词解释全覆盖，每个安全背一句定义。</span></label>
+              <label class="checkline"><input type="checkbox" data-plan="p4"><span>第4小时：论述第一梯队：经济、文化、社会，各写一遍。</span></label>
+              <label class="checkline"><input type="checkbox" data-plan="p5"><span>第5小时：论述第二梯队：核、网络、科技，背挑战和应对。</span></label>
+              <label class="checkline"><input type="checkbox" data-plan="p6"><span>第6小时：刷错题页，再过一遍低优先级定义，防止轮换出题。</span></label>
+            </div>
+          </div>
+          <div class="panel">
+            <h3>考场答题模板</h3>
+            <p><strong>名词解释：</strong>“某某安全是指……的状态以及保障这种状态的能力。它主要包括……，在总体国家安全体系中具有……意义。”</p>
+            <p><strong>论述：</strong>先定义，再列分类，然后用三点写重要性，三点写挑战，三到五点写应对。最后回扣总体国家安全观。</p>
+            <p><strong>填空：</strong>看到“以……为宗旨/根本/基础/保障/依托”直接想到总体国家安全观核心表述。</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="view" id="settings">
+        <div class="grid two">
+          <div class="panel">
+            <h3>本地进度</h3>
+            <p class="muted">进度保存在当前浏览器本地，不会上传。换浏览器或清缓存后会消失。</p>
+            <button class="danger" id="clearProgressBtn">清空全部进度</button>
+          </div>
+          <div class="panel">
+            <h3>资料来源</h3>
+            <p>本网站根据当前文件夹中的教材、老师精要、填空题、名词解释、论述题和个人浓缩版整理制作。</p>
+            <p class="muted">优先级来自你提供的历年题型情报，只作为复习排序，不作为删题依据。</p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const DB = {
+      units: [
+        "导论与总体国家安全观", "中国特色国家安全道路", "制度体系与保障机制",
+        "政治安全", "国土安全", "军事安全", "经济安全", "文化安全", "社会安全",
+        "科技安全", "网络安全", "生态安全", "资源安全", "核安全", "海外利益安全", "新型领域安全"
+      ],
+      priorityLabel: { high: "高", mid: "中", low: "低" },
+      knowledge: [
+        {
+          id: "k0", unit: "导论与总体国家安全观", priority: "high", title: "国家安全的定义",
+          summary: "国家安全是国家政权、主权、统一和领土完整、人民福祉、经济社会可持续发展和国家其他重大利益相对处于没有危险和不受内外威胁的状态，以及保障持续安全状态的能力。",
+          points: ["定义来自《国家安全法》。", "名词解释可直接写这一句。", "关键词：政权、主权、统一、领土完整、人民福祉、可持续发展、保障能力。"],
+          exam: "名词解释、填空都可能出现。"
+        },
+        {
+          id: "k1", unit: "导论与总体国家安全观", priority: "high", title: "学习国家安全的意义",
+          summary: "符合当前国家安全形势需要，提高公民维护国家安全能力，夯实维护国家安全群众基础，增强国家认同和政治认同。",
+          points: ["口诀：要、能、群、同。", "可用于导论简答或论述开头。"],
+          exam: "填空与简短问答。"
+        },
+        {
+          id: "k2", unit: "导论与总体国家安全观", priority: "high", title: "总体国家安全观五大要素",
+          summary: "以人民安全为宗旨，以政治安全为根本，以经济安全为基础，以军事、科技、文化、社会安全为保障，以促进国际安全为依托。",
+          points: ["这是填空最高频结构。", "注意有些材料写军事、文化、社会安全为保障，老师精要扩展加入科技。按材料语境作答。"],
+          exam: "填空核心。"
+        },
+        {
+          id: "k3", unit: "导论与总体国家安全观", priority: "high", title: "总体国家安全观五对关系",
+          summary: "既重视外部安全又重视内部安全；既重视国土安全又重视国民安全；既重视传统安全又重视非传统安全；既重视发展问题又重视安全问题；既重视自身安全又重视共同安全。",
+          points: ["顺序要熟：内外、土民、传统非传统、发展安全、自身共同。", "常以挖空方式考。"],
+          exam: "填空核心。"
+        },
+        {
+          id: "k4", unit: "中国特色国家安全道路", priority: "high", title: "中国特色国家安全道路的十个坚持",
+          summary: "坚持党对国家安全工作的绝对领导；坚持中国特色国家安全道路；坚持以人民安全为宗旨；坚持统筹发展和安全；坚持把政治安全放在首要位置；坚持统筹推进各领域安全；坚持把防范化解国家安全风险摆在突出位置；坚持推进国际共同安全；坚持推进国家安全体系和能力现代化；坚持加强国家安全干部队伍建设。",
+          points: ["论述中可作为总纲。", "注意政治安全放在首要位置，风险防范摆在突出位置。"],
+          exam: "填空、论述背景。"
+        },
+        {
+          id: "k5", unit: "制度体系与保障机制", priority: "mid", title: "中央国家安全委员会职能",
+          summary: "中央国家安全委员会是处理国家安全事务的最高决策机构，主要有决策、协调、咨询三方面职能。",
+          points: ["决策：制定战略规划和重要决策。", "协调：统筹资源、协调力量。", "咨询：研判形势并提出政策建议。"],
+          exam: "知识点问答。"
+        },
+        {
+          id: "k6", unit: "制度体系与保障机制", priority: "mid", title: "维护国家安全五大制度体系",
+          summary: "国家安全信息情报制度、风险预判预警制度、决策咨询制度、审查监管制度、危机管控制度。",
+          points: ["口诀：情报、预警、咨询、审查、管控。", "常和保障机制一起考。"],
+          exam: "填空、简答。"
+        },
+        {
+          id: "k7", unit: "制度体系与保障机制", priority: "mid", title: "能力保障机制",
+          summary: "包括军事保障、法治保障、财政和物质保障、科技和人才保障。",
+          points: ["用于制度体系章节。", "也可作论述应对部分的通用语言。"],
+          exam: "填空、论述通用。"
+        },
+        {
+          id: "k8", unit: "政治安全", priority: "low", title: "政治安全",
+          summary: "政治安全是国家安全的根本所在，包含政权安全、制度安全和意识形态安全，是维护人民安全和国家利益的根本保证。",
+          points: ["分类：政权安全、制度安全、意识形态安全。", "重要性：攸关党和国家安危；维护人民安全和国家利益；坚持和发展中国特色社会主义的根本前提。", "挑战：意识形态渗透、颜色革命、政治认同弱化、三股势力、腐败和社会矛盾风险。", "应对：加强党的建设、强化意识形态工作、抵御颜色革命、坚持群众路线。"],
+          exam: "去年论述已考，仍需掌握。"
+        },
+        {
+          id: "k9", unit: "国土安全", priority: "low", title: "国土安全",
+          summary: "广义国土安全指国土不受威胁、不受侵害，国民处于安全状态，重要基础设施不遭破坏；狭义指领土完整、国家统一、边疆边境及海洋权益不受侵害或免受威胁。",
+          points: ["重要性：国家安全基础中的基础。", "挑战：边境和海洋安全、反分裂斗争、国际舆论环境。", "应对：完善法律和教育体系，兴边富民，建设海洋强国，加强国防和外交能力。"],
+          exam: "更早论述出现过，名词解释仍可能。"
+        },
+        {
+          id: "k10", unit: "军事安全", priority: "low", title: "军事安全",
+          summary: "军事安全是国家处于不受战争威胁、军事入侵和军事利益不受侵害的状态，以及保障持续安全状态的能力。",
+          points: ["重要性：维护国家安全的保底手段；建设巩固国防的重要前提。", "挑战：世界新军事革命、军事秘密泄露、缺乏忧患意识。", "应对：加强领导指挥体制和武装力量建设，贯彻强军思想，加强军事保密教育，拓展军事外交。"],
+          exam: "上上学期名词解释、上学期填空出现，仍需保底。"
+        },
+        {
+          id: "k11", unit: "经济安全", priority: "high", title: "经济安全",
+          summary: "经济安全是国家经济主权的重要内容，是国家安全的基础，主要包括基本经济制度安全、经济秩序安全、经济主权安全和经济发展安全。",
+          points: ["重要性：一发而动全身，是政治、军事、文化、社会安全的基础。", "挑战：国际金融动荡、国际经济秩序变革、主要经济领域风险、战略产业安全问题。", "应对：维护基本经济制度、经济秩序、经济主权，保障关键产业和基础设施安全。"],
+          exam: "今年论述第一梯队。"
+        },
+        {
+          id: "k12", unit: "文化安全", priority: "high", title: "文化安全",
+          summary: "文化安全是指一国文化相对处于没有危险和不受内外威胁的状态，以及保障持续安全状态的能力。",
+          points: ["分类：文化主权安全，优秀传统文化、革命文化、社会主义先进文化安全，文化价值观安全。", "重要性：文化是国家和民族的灵魂；文化安全是国家安全重要保障；是建设文化强国的重要基础。", "挑战：西方文化和意识形态侵蚀，文化自信弱化，消极娱乐消费文化，不良网络文化。", "应对：加强文化认同教育，坚持党的领导，培育社会主义核心价值观，保护文化遗产，抵制不良文化影响。"],
+          exam: "今年论述第一梯队。"
+        },
+        {
+          id: "k13", unit: "社会安全", priority: "high", title: "社会安全",
+          summary: "社会安全是国家安全的重要内容，关系每个社会成员切身利益，也关系经济发展和社会稳定。",
+          points: ["内容：社会治安、突发公共事件、社会舆情。", "重要性：建设平安中国、创新社会治理、维护和谐稳定。", "挑战：违法犯罪、公共卫生和自然灾害、群体性事件、网络舆情风险。", "应对：完善社会治理体系，防范化解公共风险，推进平安中国建设，加强舆情治理和公共服务。"],
+          exam: "今年论述第一梯队。"
+        },
+        {
+          id: "k14", unit: "科技安全", priority: "mid", title: "科技安全",
+          summary: "科技安全是总体国家安全框架中的重要支撑和竞争力体现，是其他安全领域的重要保障。",
+          points: ["关键词：基础研究短板、原创性成果缺乏、关键核心技术受制于人。", "挑战：底层技术、工业母机、高端芯片、基础软硬件、基础算法、基础材料等瓶颈。", "应对：加强基础研究、关键核心技术攻关、科技体制改革、人才培养和自主创新。"],
+          exam: "去年名词解释已考，可能转为论述或填空。"
+        },
+        {
+          id: "k15", unit: "网络安全", priority: "mid", title: "网络安全",
+          summary: "网络安全作为非传统安全问题，是总体国家安全观的重要组成部分，关系经济发展与社会稳定。",
+          points: ["填空原文：网络空间不是法外之地。", "依法治网、依法办网、依法上网。", "既要提倡自由，也要保持秩序；自由是秩序的目的，秩序是自由的保障。", "应对：网络法治、网络伦理、网络文明、关键信息基础设施保护。"],
+          exam: "上上学期名词解释已考，仍是高频填空源。"
+        },
+        {
+          id: "k16", unit: "生态安全", priority: "low", title: "生态安全",
+          summary: "生态安全是人类生存发展的基本条件，维护生态安全关系人民福祉、经济可持续发展和社会长久稳定。",
+          points: ["重要表述：建设绿色家园是人类共同梦想。", "挑战：生态破坏、环境污染、气候变化、资源约束。", "应对：推进国土绿化、建设美丽中国、一带一路绿色合作、应对全球生态挑战。"],
+          exam: "去年论述已考，但填空仍可能。"
+        },
+        {
+          id: "k17", unit: "资源安全", priority: "low", title: "资源安全",
+          summary: "资源安全是指国家或地区可以持续、稳定、及时、足量和经济地获取所需自然资源的状态。",
+          points: ["类型：可再生资源安全和不可再生资源安全。", "能源安全相关：我国是能源生产和消费大国，面临需求压力、供给制约、生态损害和技术落后挑战。", "应对：增强供给保障、节约资源、发展新能源和可再生能源、提升技术水平。"],
+          exam: "去年名词解释已考，低优先级但不能删。"
+        },
+        {
+          id: "k18", unit: "核安全", priority: "mid", title: "核安全",
+          summary: "核安全是总体国家安全的新兴领域和关键组成部分，涉及核能利用、核扩散、核事故、核恐怖主义等重大安全议题。",
+          points: ["挑战：核事故风险，核扩散形势严峻，核武器扩散阴影。", "应对：四个强化，确保核设施安全运行，提升应急处置能力，信息公开和舆论引导，监督检查，加强国际合作。"],
+          exam: "今年论述第二梯队，名词解释高价值。"
+        },
+        {
+          id: "k19", unit: "海外利益安全", priority: "low", title: "海外利益安全",
+          summary: "海外利益即境外的国家利益，是国家利益的组成部分和自然延伸，主要包括海外公民侨民人身财产安全、境外政治经济军事利益安全、驻外机构和企业人员财产安全、战略运输通道和贸易线安全。",
+          points: ["中国海外利益主要体现为资产利益、人身利益、海外市场拓展利益、重要物资和能源获取与运输安全保障利益。", "挑战：地区冲突、外部政局动荡、国际恐怖主义、自然灾害和突发传染病。", "应对：健全体制机制，加强国际合作，强化海外非战争军事行动。"],
+          exam: "去年论述已考。"
+        },
+        {
+          id: "k20", unit: "新型领域安全", priority: "low", title: "新型领域安全",
+          summary: "新型领域安全主要包括太空安全、深海安全、极地安全和生物安全，对其进行合理开发利用、探索和治理是基本内容。",
+          points: ["重要性：战略新疆域安全，未来国际竞争新焦点。", "挑战：技术差距、国际规则塑造、环境风险、疫情与生物技术风险。", "应对：顶层设计、科技创新和人才培养、国际合作、参与和引领国际治理规则。"],
+          exam: "上上学期论述已考，但可拆成生物、太空、深海、极地名词解释。"
+        }
+      ],
+      questions: [
+        {id:"q1", type:"填空", unit:"导论与总体国家安全观", priority:"high", prompt:"（____）是人民群众最基本、最普遍的愿望。", answer:"国泰民安", note:"来自导论重要论述。"},
+        {id:"q2", type:"填空", unit:"导论与总体国家安全观", priority:"high", prompt:"实现中华民族伟大复兴的中国梦，保证人民安居乐业，（____）是头等大事。", answer:"国家安全", note:"导论高频。"},
+        {id:"q3", type:"填空", unit:"导论与总体国家安全观", priority:"high", prompt:"要以设立（____）为契机，以（____）为指导，全面实施国家安全法。", answer:"全民国家安全教育日；总体国家安全观", note:"两个空按顺序写。"},
+        {id:"q4", type:"填空", unit:"导论与总体国家安全观", priority:"high", prompt:"坚持国家安全（____）、（____），动员全党全社会共同努力。", answer:"一切为了人民；一切依靠人民", note:"人民性表述。"},
+        {id:"q5", type:"填空", unit:"导论与总体国家安全观", priority:"high", prompt:"总体国家安全观：以（____）为宗旨，以（____）为根本，以（____）为基础。", answer:"人民安全；政治安全；经济安全", note:"核心三连。"},
+        {id:"q6", type:"填空", unit:"导论与总体国家安全观", priority:"high", prompt:"总体国家安全观以（____）为保障，以（____）为依托，走出一条中国特色国家安全道路。", answer:"军事、文化、社会安全；促进国际安全", note:"有材料扩展为军事、科技、文化、社会安全。"},
+        {id:"q7", type:"填空", unit:"导论与总体国家安全观", priority:"high", prompt:"贯彻总体国家安全观，必须既重视（____）安全，又重视（____）安全。", answer:"外部；内部", note:"五对关系之一。"},
+        {id:"q8", type:"填空", unit:"导论与总体国家安全观", priority:"high", prompt:"既重视国土安全，又重视（____）安全；坚持（____）、（____）。", answer:"国民；以民为本；以人为本", note:"五对关系之一。"},
+        {id:"q9", type:"填空", unit:"导论与总体国家安全观", priority:"high", prompt:"既重视传统安全，又重视（____）安全，构建集政治、国土、军事、经济、文化、社会、科技、信息、生态、资源、核安全等于一体的国家安全体系。", answer:"非传统", note:"体系题。"},
+        {id:"q10", type:"填空", unit:"导论与总体国家安全观", priority:"high", prompt:"发展是安全的（____），安全是发展的（____）。", answer:"基础；条件", note:"固定搭配。"},
+        {id:"q11", type:"填空", unit:"中国特色国家安全道路", priority:"high", prompt:"坚持中国特色国家安全道路，要坚持（____）、（____）、（____）有机统一。", answer:"政治安全；人民安全；国家利益至上", note:"道路章节高频。"},
+        {id:"q12", type:"填空", unit:"制度体系与保障机制", priority:"mid", prompt:"全面贯彻总体国家安全观，必须坚持（____）和（____）两件大事。", answer:"统筹发展；安全", note:"制度体系重要论述。"},
+        {id:"q13", type:"填空", unit:"制度体系与保障机制", priority:"mid", prompt:"人民安全是国家安全的（____），政治安全是国家安全的（____），国家利益至上是国家安全的（____）。", answer:"宗旨；根本；准则", note:"三项定位。"},
+        {id:"q14", type:"填空", unit:"政治安全", priority:"mid", prompt:"必须增强（____）、坚持（____），随时准备应对更加复杂困难的局面。", answer:"忧患意识；底线思维", note:"政治安全重要论述。"},
+        {id:"q15", type:"填空", unit:"政治安全", priority:"mid", prompt:"既要敢于（____），也要善于（____），全面做强自己。", answer:"斗争；斗争", note:"政治安全填空。"},
+        {id:"q16", type:"填空", unit:"国土安全", priority:"low", prompt:"中方岛礁建设主要是为了改善岛上人员工作生活条件，并提供相应（____）服务，也有助于维护南海（____）和安全。", answer:"国际公共产品；航行自由", note:"国土安全论述。"},
+        {id:"q17", type:"填空", unit:"军事安全", priority:"low", prompt:"要把新时代军事战略思想立起来，把新时代军事战略方针立起来，把（____）指挥棒立起来，把抓备战打仗的（____）立起来。", answer:"备战打仗；责任担当", note:"上学期填空出现过。"},
+        {id:"q18", type:"填空", unit:"军事安全", priority:"low", prompt:"要强化（____）思想，坚持（____）这个唯一的根本的标准。", answer:"战斗队；战斗力", note:"军事安全高频原文。"},
+        {id:"q19", type:"填空", unit:"经济安全", priority:"high", prompt:"经济运行（____）、（____），既要保持战略定力，又要增强忧患意识。", answer:"稳中有变；变中有忧", note:"经济安全重要表述。"},
+        {id:"q20", type:"填空", unit:"经济安全", priority:"high", prompt:"推进（____）改革过程中不可避免会遇到一些困难和挑战。", answer:"供给侧结构性", note:"经济安全填空。"},
+        {id:"q21", type:"填空", unit:"文化安全", priority:"high", prompt:"文化自信是更（____）、更（____）、更（____）的力量。", answer:"基本；深沉；持久", note:"文化安全必背。"},
+        {id:"q22", type:"填空", unit:"文化安全", priority:"high", prompt:"坚定中国特色社会主义道路自信、理论自信、制度自信，说到底是要坚定（____）。", answer:"文化自信", note:"文化安全。"},
+        {id:"q23", type:"填空", unit:"社会安全", priority:"high", prompt:"安全稳定工作连着千家万户，宁可（____），不可（____）。", answer:"百日紧；一日松", note:"社会安全原文。"},
+        {id:"q24", type:"填空", unit:"社会安全", priority:"high", prompt:"面对公共安全事故，要做到一方出事故、（____），一地有隐患、（____）。", answer:"多方受教育；全国受警示", note:"社会安全高频。"},
+        {id:"q25", type:"填空", unit:"科技安全", priority:"mid", prompt:"我国科技在视野格局、（____）、资源配置、（____）等方面存在诸多不适应。", answer:"创新能力；体制政策", note:"科技安全。"},
+        {id:"q26", type:"填空", unit:"科技安全", priority:"mid", prompt:"我国（____）短板依然突出，重大（____）成果缺乏，关键核心技术受制于人的局面没有得到根本性改变。", answer:"基础科学研究；原创性", note:"科技安全高频。"},
+        {id:"q27", type:"填空", unit:"网络安全", priority:"mid", prompt:"网络空间不是（____）。", answer:"法外之地", note:"网络安全必背。"},
+        {id:"q28", type:"填空", unit:"网络安全", priority:"mid", prompt:"要坚持依法（____）、依法（____）、依法（____），让互联网在法治轨道上健康运行。", answer:"治网；办网；上网", note:"网络安全固定三连。"},
+        {id:"q29", type:"填空", unit:"网络安全", priority:"mid", prompt:"自由是秩序的（____），秩序是自由的（____）。", answer:"目的；保障", note:"网络安全原文。"},
+        {id:"q30", type:"填空", unit:"生态安全", priority:"low", prompt:"（____）是人类的共同梦想。", answer:"建设绿色家园", note:"生态安全。"},
+        {id:"q31", type:"填空", unit:"生态安全", priority:"low", prompt:"要着力推进（____）、建设（____），积极应对气候变化等全球性生态挑战。", answer:"国土绿化；美丽中国", note:"生态安全。"},
+        {id:"q32", type:"填空", unit:"资源安全", priority:"low", prompt:"我国已成为世界上最大的能源（____）国和（____）国。", answer:"生产；消费", note:"资源/能源安全。"},
+        {id:"q33", type:"填空", unit:"资源安全", priority:"low", prompt:"我国能源发展面临能源需求压力巨大、能源供给制约较多、能源生产和消费对生态环境损害严重、（____）总体落后等挑战。", answer:"能源技术", note:"资源安全。"},
+        {id:"q34", type:"填空", unit:"核安全", priority:"mid", prompt:"中国将继续加强本国核安全，同时积极推进（____）。", answer:"核安全国际合作", note:"核安全。"},
+        {id:"q35", type:"填空", unit:"核安全", priority:"mid", prompt:"中国将构建（____）网络，推广减少高浓缩铀合作模式。", answer:"核安全能力建设", note:"核安全。"},
+        {id:"q36", type:"填空", unit:"海外利益安全", priority:"low", prompt:"我们要坚持走（____），但决不能放弃我们的正当权益，决不能牺牲国家核心利益。", answer:"和平发展道路", note:"海外利益/国际安全。"},
+        {id:"q37", type:"填空", unit:"海外利益安全", priority:"low", prompt:"不要指望我们会吞下损害我国（____）、（____）、（____）利益的苦果。", answer:"主权；发展；安全", note:"核心利益三项。"},
+        {id:"q38", type:"填空", unit:"新型领域安全", priority:"low", prompt:"要从保护人民健康、保障国家安全、维护国家长治久安的高度，把（____）纳入国家安全体系。", answer:"生物安全", note:"新型领域。"},
+        {id:"q39", type:"填空", unit:"新型领域安全", priority:"low", prompt:"要尽快推动出台（____），加快构建生物安全法律法规体系、制度保障体系。", answer:"生物安全法", note:"生物安全。"},
+        {id:"q40", type:"填空", unit:"制度体系与保障机制", priority:"mid", prompt:"国家安全是（____）的重要基石，维护国家安全是全国各族人民根本利益所在。", answer:"安邦定国", note:"重要论述。"},
+
+        {id:"d1", type:"名词解释", unit:"政治安全", priority:"high", prompt:"解释：政治安全", answer:"政治安全是国家安全的根本所在，包含政权安全、制度安全和意识形态安全，关乎党和国家安危，是维护人民安全和国家利益的根本保证。", note:"去年论述已考，但名词解释仍高价值。"},
+        {id:"d2", type:"名词解释", unit:"国土安全", priority:"high", prompt:"解释：国土安全", answer:"国土安全是指国家领土完整、国家统一、边疆边境及海洋权益等不受侵害或免受威胁的状态，以及持续保持这种状态的能力。", note:"更早论述出现，定义仍应掌握。"},
+        {id:"d3", type:"名词解释", unit:"军事安全", priority:"low", prompt:"解释：军事安全", answer:"军事安全是国家处于不受战争威胁、军事入侵和军事利益不受侵害的状态，以及保障持续安全状态的能力。", note:"上上学期名词解释考过。"},
+        {id:"d4", type:"名词解释", unit:"经济安全", priority:"high", prompt:"解释：经济安全", answer:"经济安全是国家经济主权的重要内容，是国家安全的基础，主要包括基本经济制度安全、经济秩序安全、经济主权安全和经济发展安全。", note:"论述第一梯队，也适合名词解释。"},
+        {id:"d5", type:"名词解释", unit:"文化安全", priority:"high", prompt:"解释：文化安全", answer:"文化安全是指一国文化相对处于没有危险和不受内外威胁的状态，以及保障持续安全状态的能力。", note:"论述第一梯队。"},
+        {id:"d6", type:"名词解释", unit:"社会安全", priority:"high", prompt:"解释：社会安全", answer:"社会安全是国家安全的重要内容，关系每个社会成员切身利益，也事关国家经济发展和社会稳定。其内容包括社会治安、突发公共事件和社会舆情等。", note:"论述第一梯队。"},
+        {id:"d7", type:"名词解释", unit:"科技安全", priority:"low", prompt:"解释：科技安全", answer:"科技安全是总体国家安全框架中的重要支撑和竞争力体现，是政治、军事、国土、经济等安全领域的重要保障。", note:"去年名词解释已考。"},
+        {id:"d8", type:"名词解释", unit:"网络安全", priority:"low", prompt:"解释：网络安全", answer:"网络安全作为非传统安全问题，是总体国家安全观的重要组成部分，关系经济发展与社会稳定，影响人们社会活动和生活方式。", note:"上上学期名词解释已考。"},
+        {id:"d9", type:"名词解释", unit:"生态安全", priority:"high", prompt:"解释：生态安全", answer:"生态安全是人类生存发展的基本条件，是关系人民福祉、经济可持续发展和社会长久稳定的重要安全领域。", note:"去年论述已考，但名词解释仍可能。"},
+        {id:"d10", type:"名词解释", unit:"资源安全", priority:"low", prompt:"解释：资源安全", answer:"资源安全是指一个国家或地区可以持续、稳定、及时、足量和经济地获取所需自然资源的状态。", note:"去年名词解释已考。"},
+        {id:"d11", type:"名词解释", unit:"核安全", priority:"high", prompt:"解释：核安全", answer:"核安全是总体国家安全的新兴领域和关键组成部分，涉及核设施安全、核材料安全、核扩散防范、核事故应对和国际核安全合作等。", note:"今年名词解释高价值。"},
+        {id:"d12", type:"名词解释", unit:"海外利益安全", priority:"high", prompt:"解释：海外利益安全", answer:"海外利益安全是指我国在境外的国家利益，包括海外公民和侨民人身财产、境外政治经济军事利益、驻外机构和企业人员财产、战略运输通道和贸易线等安全。", note:"去年论述已考，但定义很容易考。"},
+        {id:"d13", type:"名词解释", unit:"新型领域安全", priority:"mid", prompt:"解释：新型领域安全", answer:"新型领域安全主要包括太空安全、深海安全、极地安全和生物安全等，对这些领域进行合理开发利用、探索和治理，是其基本内容。", note:"上上学期论述已考。"},
+        {id:"d14", type:"名词解释", unit:"新型领域安全", priority:"mid", prompt:"解释：生物安全", answer:"生物安全是指国家有效防范和应对危险生物因子及相关因素威胁，生物技术稳定健康发展，人民生命健康和生态系统相对处于没有危险和不受威胁的状态。", note:"可作为新型领域拆分题。"},
+        {id:"d15", type:"名词解释", unit:"新型领域安全", priority:"mid", prompt:"解释：太空安全", answer:"太空安全包括对太空资源的合理开发和利用、对太空军事的合理发展与探索、对太空区域的科学考察与技术研究以及太空区域开发中的国际战略竞争。", note:"可作为新型领域拆分题。"},
+        {id:"d16", type:"名词解释", unit:"新型领域安全", priority:"mid", prompt:"解释：深海安全", answer:"深海安全是指国家深海权益不受侵害或遭遇风险的状态，主要包括深海资源开发利用、深海军事发展探索、深海科学考察和技术研究。", note:"可作为新型领域拆分题。"},
+        {id:"d17", type:"名词解释", unit:"新型领域安全", priority:"mid", prompt:"解释：极地安全", answer:"极地安全是指维护国家和平探索和利用极地，增强安全进出、科学考察、开发利用能力，涉及极地资源、航道治理和科学研究等。", note:"可作为新型领域拆分题。"}
+      ],
+      essays: [
+        {
+          id:"e1", title:"经济安全", unit:"经济安全", priority:"high",
+          prompt:"论述经济安全：是什么、有什么分类、有什么重要性、面临什么挑战、怎么应对。",
+          outline:["是什么：国家经济主权的重要内容，国家安全的基础。","分类：基本经济制度安全、经济秩序安全、经济主权安全、经济发展安全。","重要性：支撑政治、军事、文化、社会安全；关系发展全局；大国经济安全也是国际安全基础。","挑战：国际金融动荡、国际经济秩序变革、重点领域风险、战略产业安全。","应对：维护基本经济制度和市场秩序，维护经济主权，保障关键产业、基础设施和重大经济利益安全。"]
+        },
+        {
+          id:"e2", title:"文化安全", unit:"文化安全", priority:"high",
+          prompt:"论述文化安全：是什么、有什么分类、有什么重要性、面临什么挑战、怎么应对。",
+          outline:["是什么：一国文化处于没有危险和不受威胁的状态及保障能力。","分类：文化主权安全，优秀传统文化/革命文化/社会主义先进文化安全，文化价值观安全。","重要性：文化是国家民族灵魂；文化安全是国家安全重要保障；是建设文化强国基础；是国际博弈重要领域。","挑战：西方文化和意识形态侵蚀，文化自信弱化，消极娱乐和消费文化，不良网络文化。","应对：加强文化认同教育，坚持党对文化的领导，培育社会主义核心价值观，保护文化遗产，抵制不良文化影响，营造国际文化安全环境。"]
+        },
+        {
+          id:"e3", title:"社会安全", unit:"社会安全", priority:"high",
+          prompt:"论述社会安全：是什么、有什么分类、有什么重要性、面临什么挑战、怎么应对。",
+          outline:["是什么：国家安全重要内容，关系社会成员利益、经济发展和社会稳定。","分类：社会治安、突发公共事件、社会舆情。","重要性：维护和谐稳定；建设平安中国；推进社会治理现代化；保障人民安全。","挑战：违法犯罪、自然灾害和事故灾难、公共卫生事件、群体性事件、网络舆情。","应对：完善社会治理体系，防范化解风险，强化公共安全治理，提升应急能力，加强舆情管理和公共服务。"]
+        },
+        {
+          id:"e4", title:"核安全", unit:"核安全", priority:"mid",
+          prompt:"论述核安全：是什么、重要性、挑战和应对。",
+          outline:["是什么：总体国家安全的新兴领域和关键组成部分，涉及核设施、核材料、核扩散、核事故和核恐怖主义。","分类：民用核安全、军用核安全、核扩散防控、核应急和核安全国际合作。","重要性：关系总体国家安全和人类文明前途；是核能利用和核科技发展的前提。","挑战：核事故风险，核扩散形势严峻，核武器扩散阴影，核恐怖主义风险。","应对：践行四个强化，确保核设施安全运行，提升应急处置，信息公开和舆论引导，加强监管检查和国际合作。"]
+        },
+        {
+          id:"e5", title:"网络安全", unit:"网络安全", priority:"mid",
+          prompt:"论述网络安全：是什么、重要性、挑战和应对。",
+          outline:["是什么：非传统安全问题，总体国家安全观重要组成部分，关系经济发展与社会稳定。","分类：网络空间秩序、数据和信息安全、关键基础设施安全、网络伦理与文明。","重要性：影响国家安全、经济运行、社会治理和人民生活。","挑战：网络攻击、数据泄露、网络犯罪、网络舆论风险、法治和伦理问题。","应对：依法治网、依法办网、依法上网，保护关键基础设施，加强网络伦理和网络文明建设，提升技术防护能力。"]
+        },
+        {
+          id:"e6", title:"科技安全", unit:"科技安全", priority:"mid",
+          prompt:"论述科技安全：是什么、重要性、挑战和应对。",
+          outline:["是什么：总体国家安全框架的重要支撑和竞争力体现，是其他安全领域保障。","分类：基础研究安全、关键核心技术安全、科技产业链安全、科技人才和制度安全。","重要性：支撑大国竞争，保障经济、军事、网络等安全，影响高质量发展。","挑战：基础科学短板，原创成果缺乏，工业母机、高端芯片、基础软硬件、算法、材料等瓶颈，关键核心技术受制于人。","应对：加强基础研究和原始创新，推进关键核心技术攻关，完善科技体制政策，加强人才培养和自主可控能力。"]
+        },
+        {
+          id:"e7", title:"政治安全", unit:"政治安全", priority:"low",
+          prompt:"论述政治安全：是什么、分类、重要性、挑战和应对。",
+          outline:["是什么：总体国家安全体系核心支柱，国家安全根本所在。","分类：政权安全、制度安全、意识形态安全。","重要性：攸关党和国家安危；维护人民安全和国家利益；坚持和发展中国特色社会主义的根本前提。","挑战：意识形态渗透和颜色革命，发展道路和制度被歪曲打压，政治认同弱化，三股势力，腐败和社会矛盾风险。","应对：加强党的自身建设，强化意识形态工作，坚决抵御颜色革命，坚持群众路线，全面从严治党。"]
+        },
+        {
+          id:"e8", title:"生态安全", unit:"生态安全", priority:"low",
+          prompt:"论述生态安全：是什么、重要性、挑战和应对。",
+          outline:["是什么：人类生存发展的基本条件，关系人民福祉、可持续发展和长久稳定。","分类：生态系统安全、环境质量安全、气候安全、生态资源安全。","重要性：关系民生福祉、经济可持续发展和社会稳定，是国家安全重要领域。","挑战：环境污染、生态破坏、资源约束、气候变化。","应对：推进国土绿化，建设美丽中国，绿色发展，参与国际生态合作，应对全球生态挑战。"]
+        },
+        {
+          id:"e9", title:"海外利益安全", unit:"海外利益安全", priority:"low",
+          prompt:"论述海外利益安全：是什么、分类、重要性、挑战和应对。",
+          outline:["是什么：境外的国家利益，是国家利益组成部分和自然延伸。","分类：海外公民侨民人身财产安全，境外政治经济军事利益安全，驻外机构和企业安全，战略运输通道和贸易线安全。","重要性：对外开放格局必然要求；保护国家利益和人民福祉；统筹国内国际两个大局。","挑战：地区冲突和外部政局动荡，国际恐怖主义，自然灾害和突发传染病。","应对：健全维护海外利益安全体制机制，加强国际合作，强化海外非战争军事行动。"]
+        },
+        {
+          id:"e10", title:"新型领域安全", unit:"新型领域安全", priority:"low",
+          prompt:"论述新型领域安全：是什么、分类、重要性、挑战和应对。",
+          outline:["是什么：太空、深海、极地、生物等战略新领域的安全。","分类：太空安全、深海安全、极地安全、生物安全。","重要性：战略新疆域安全，未来国际竞争新焦点，其他安全领域的重要保障。","挑战：技术挑战、国际规则塑造、环境风险、疫情和生物技术风险。","应对：推进顶层设计，加强科技创新和人才培养，开展国际合作，参与并引领国际治理规则制定。"]
+        },
+        {
+          id:"e11", title:"国土安全", unit:"国土安全", priority:"low",
+          prompt:"论述国土安全：是什么、重要性、挑战和应对。",
+          outline:["是什么：领土完整、国家统一、边疆边境及海洋权益不受侵害或免受威胁的状态和能力。","分类：领土安全、边疆边境安全、海洋权益安全、重要基础设施安全。","重要性：国家安全基础中的基础，是国家存在和人民生存的物理依托。","挑战：边境和海洋安全挑战，反分裂斗争，国际舆论环境。","应对：完善法律和教育体系，兴边富民、强边固边稳边，建设海洋强国，加强国防和外交能力。"]
+        },
+        {
+          id:"e12", title:"军事安全", unit:"军事安全", priority:"low",
+          prompt:"论述军事安全：是什么、重要性、挑战和应对。",
+          outline:["是什么：国家不受战争威胁、军事入侵和军事利益不受侵害的状态及保障能力。","分类：国防安全、军事能力安全、军事秘密安全、军事斗争准备。","重要性：维护国家安全的保底手段，建设巩固国防的重要前提。","挑战：新军事革命，军事秘密泄露，忧患意识不足。","应对：加强领导指挥体制和武装力量建设，贯彻强军思想，强化军事保密教育，拓展军事外交。"]
+        },
+        {
+          id:"e13", title:"资源安全", unit:"资源安全", priority:"low",
+          prompt:"论述资源安全：是什么、分类、重要性、挑战和应对。",
+          outline:["是什么：国家能持续、稳定、及时、足量、经济地获取所需自然资源的状态。","分类：可再生资源安全和不可再生资源安全；能源、水、粮食、矿产等资源安全。","重要性：支撑经济社会发展，关系生态安全、经济安全和人民生活。","挑战：需求压力、供给制约、生态损害、资源技术落后。","应对：提升资源供给保障，节约集约利用，发展新能源和可再生能源，加强资源科技创新和国际合作。"]
+        }
+      ]
+    };
+
+    const DEFINITION_RUBRICS = {
+      d1: [
+        { label: "写出政治安全是国家安全的根本/核心", weight: 3, groups: [["政治安全"], ["根本", "核心", "关键"]] },
+        { label: "覆盖政权安全、制度安全、意识形态安全", weight: 4, groups: [["政权"], ["制度"], ["意识形态"]] },
+        { label: "说明其关系党和国家安危、人民安全或国家利益", weight: 3, groups: [["党", "国家", "人民", "利益"]] }
+      ],
+      d2: [
+        { label: "写出领土完整或国土不受侵害", weight: 4, groups: [["领土", "国土"], ["完整", "侵害", "威胁"]] },
+        { label: "覆盖国家统一、边疆边境或海洋权益", weight: 3, groups: [["统一", "边疆", "边境", "海洋"]] },
+        { label: "写出持续保持安全状态的能力", weight: 3, groups: [["能力", "保障", "保持", "持续"]] }
+      ],
+      d3: [
+        { label: "写出不受战争威胁或军事入侵", weight: 4, groups: [["战争", "军事"], ["威胁", "入侵"]] },
+        { label: "写出军事利益不受侵害", weight: 3, groups: [["军事利益", "利益"], ["侵害", "安全"]] },
+        { label: "写出保障持续安全状态的能力", weight: 3, groups: [["保障", "能力", "持续"]] }
+      ],
+      d4: [
+        { label: "写出经济安全与国家经济主权/国家安全基础相关", weight: 3, groups: [["经济"], ["主权", "基础", "国家安全"]] },
+        { label: "覆盖基本经济制度或经济秩序", weight: 3, groups: [["经济制度", "制度", "经济秩序", "秩序"]] },
+        { label: "覆盖经济主权或经济发展安全", weight: 3, groups: [["经济主权", "经济发展", "发展安全"]] },
+        { label: "表达没有危险、不受威胁或保障能力", weight: 1, groups: [["危险", "威胁", "保障", "能力"]] }
+      ],
+      d5: [
+        { label: "写出一国文化处于安全状态", weight: 4, groups: [["文化"], ["安全", "危险", "威胁"]] },
+        { label: "写出不受内外威胁或没有危险", weight: 3, groups: [["内外", "威胁", "危险"]] },
+        { label: "写出保障持续安全状态的能力", weight: 3, groups: [["保障", "持续", "能力"]] }
+      ],
+      d6: [
+        { label: "写出社会安全关系社会成员利益或社会稳定", weight: 4, groups: [["社会"], ["稳定", "利益", "安全"]] },
+        { label: "覆盖社会治安、突发公共事件或舆情", weight: 4, groups: [["治安", "突发", "公共事件", "舆情"]] },
+        { label: "联系经济发展或国家安全", weight: 2, groups: [["经济", "国家安全", "发展"]] }
+      ],
+      d7: [
+        { label: "写出科技安全是国家安全重要支撑", weight: 4, groups: [["科技"], ["支撑", "保障", "竞争力"]] },
+        { label: "联系总体国家安全或其他安全领域", weight: 3, groups: [["总体国家安全", "国家安全", "政治", "军事", "经济"]] },
+        { label: "体现自主创新/关键核心技术安全", weight: 3, groups: [["创新", "关键核心技术", "自主", "技术"]] }
+      ],
+      d8: [
+        { label: "写出网络安全属于非传统安全/总体国家安全组成", weight: 4, groups: [["网络"], ["非传统", "总体国家安全", "国家安全"]] },
+        { label: "联系经济发展或社会稳定", weight: 3, groups: [["经济", "社会稳定", "稳定"]] },
+        { label: "体现网络空间秩序、法治或信息安全", weight: 3, groups: [["秩序", "法治", "信息", "数据"]] }
+      ],
+      d9: [
+        { label: "写出生态安全是人类生存发展的基本条件", weight: 4, groups: [["生态"], ["生存", "发展", "条件"]] },
+        { label: "联系人民福祉、可持续发展或社会稳定", weight: 4, groups: [["人民", "福祉", "可持续", "稳定"]] },
+        { label: "表达重要安全领域或国家安全影响", weight: 2, groups: [["国家安全", "安全领域", "重要"]] }
+      ],
+      d10: [
+        { label: "写出资源安全是获取自然资源的状态", weight: 4, groups: [["资源"], ["获取", "自然资源", "所需"]] },
+        { label: "覆盖持续、稳定、及时、足量、经济等特征", weight: 4, groups: [["持续", "稳定", "及时", "足量", "经济"]] },
+        { label: "可区分可再生/不可再生资源", weight: 2, groups: [["可再生", "不可再生", "能源", "矿产", "水"]] }
+      ],
+      d11: [
+        { label: "写出核安全是总体国家安全重要/新兴领域", weight: 3, groups: [["核"], ["总体国家安全", "国家安全", "新兴", "关键"]] },
+        { label: "覆盖核设施、核材料或核能利用", weight: 3, groups: [["核设施", "核材料", "核能", "核电"]] },
+        { label: "覆盖核扩散、核事故、核恐怖主义或国际合作", weight: 4, groups: [["核扩散", "核事故", "核恐怖", "国际合作", "应急"]] }
+      ],
+      d12: [
+        { label: "写出海外利益是境外国家利益", weight: 3, groups: [["海外", "境外"], ["国家利益", "利益"]] },
+        { label: "覆盖海外公民/侨民人身财产安全", weight: 3, groups: [["公民", "侨民", "人身", "财产"]] },
+        { label: "覆盖驻外机构企业、通道、贸易线或境外政治经济军事利益", weight: 4, groups: [["驻外", "企业", "通道", "贸易", "政治", "经济", "军事"]] }
+      ],
+      d13: [
+        { label: "写出新型领域安全的范围", weight: 5, groups: [["太空", "深海", "极地", "生物"]] },
+        { label: "体现合理开发利用、探索或治理", weight: 3, groups: [["开发", "利用", "探索", "治理"]] },
+        { label: "联系战略新疆域或未来竞争", weight: 2, groups: [["战略", "竞争", "新领域", "新疆域"]] }
+      ],
+      d14: [
+        { label: "写出防范危险生物因子及相关威胁", weight: 4, groups: [["生物"], ["危险", "威胁", "防范"]] },
+        { label: "写出生物技术稳定健康发展", weight: 2, groups: [["生物技术", "技术"], ["稳定", "健康", "发展"]] },
+        { label: "联系人民生命健康或生态系统安全", weight: 4, groups: [["生命", "健康", "生态系统", "生态"]] }
+      ],
+      d15: [
+        { label: "覆盖太空资源开发利用", weight: 3, groups: [["太空"], ["资源", "开发", "利用"]] },
+        { label: "覆盖太空军事或科学考察技术研究", weight: 4, groups: [["军事", "科学", "考察", "技术", "研究"]] },
+        { label: "体现国际战略竞争", weight: 3, groups: [["国际", "战略", "竞争"]] }
+      ],
+      d16: [
+        { label: "写出深海权益不受侵害或风险", weight: 4, groups: [["深海"], ["权益", "侵害", "风险"]] },
+        { label: "覆盖深海资源开发利用", weight: 3, groups: [["资源", "开发", "利用"]] },
+        { label: "覆盖深海军事、科学考察或技术研究", weight: 3, groups: [["军事", "科学", "考察", "技术", "研究"]] }
+      ],
+      d17: [
+        { label: "写出和平探索和利用极地", weight: 4, groups: [["极地"], ["探索", "利用", "和平"]] },
+        { label: "覆盖安全进出、科学考察或开发利用能力", weight: 3, groups: [["安全进出", "科学考察", "开发", "能力"]] },
+        { label: "覆盖资源、航道治理或科学研究", weight: 3, groups: [["资源", "航道", "治理", "科学研究", "研究"]] }
+      ]
+    };
+
+    const LS_KEY = "guoan_review_v1";
+    const state = loadState();
+    let currentQuestionOrder = [];
+
+    function loadState() {
+      try {
+        const loaded = JSON.parse(localStorage.getItem(LS_KEY)) || {};
+        return {
+          done: loaded.done || {},
+          wrong: loaded.wrong || {},
+          knowledge: loaded.knowledge || {},
+          attempts: loaded.attempts || {},
+          essayChecks: loaded.essayChecks || {},
+          essayDrafts: loaded.essayDrafts || {},
+          daily: loaded.daily || {},
+          plan: loaded.plan || {},
+          lastView: loaded.lastView || "dashboard"
+        };
+      } catch {
+        return { done:{}, wrong:{}, knowledge:{}, attempts:{}, essayChecks:{}, essayDrafts:{}, daily:{}, plan:{}, lastView:"dashboard" };
+      }
+    }
+    function saveState() { localStorage.setItem(LS_KEY, JSON.stringify(state)); updateStats(); }
+    const $ = (sel, root=document) => root.querySelector(sel);
+    const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+
+    function priorityClass(p) { return p === "high" ? "high" : p === "mid" ? "mid" : "low"; }
+    function priorityText(p) { return DB.priorityLabel[p] || "低"; }
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+    }
+    function highlightBlanks(text) {
+      return escapeHtml(text).replace(/（____）|\(____\)|____/g, '<span class="blank">____</span>');
+    }
+    function normalizeAnswer(s) {
+      return String(s || "")
+        .toLowerCase()
+        .replace(/[，。、“”‘’；;：:\s　,.\-—_]/g, "")
+        .replace(/[（）()【】\[\]《》<>]/g, "")
+        .trim();
+    }
+    function splitAnswers(s) {
+      return String(s || "")
+        .split(/[；;\n]/)
+        .map(x => x.trim())
+        .filter(Boolean);
+    }
+    function scoreClass(score) {
+      return score >= 80 ? "" : score >= 60 ? "mid" : "low";
+    }
+    function getQuestionById(id) {
+      return DB.questions.find(q => q.id === id);
+    }
+    function gradeQuestion(item, raw) {
+      return item.type === "填空" ? gradeFill(item, raw) : gradeDefinition(item, raw);
+    }
+    function gradeFill(item, raw) {
+      const expected = splitAnswers(item.answer);
+      const given = splitAnswers(raw);
+      const whole = normalizeAnswer(raw);
+      const hits = [];
+      const misses = [];
+      expected.forEach((exp, index) => {
+        const normExp = normalizeAnswer(exp);
+        const normGiven = normalizeAnswer(given[index] || "");
+        const direct = normGiven === normExp || normGiven.includes(normExp);
+        const grouped = exp.includes("、") && exp.split("、").every(part => whole.includes(normalizeAnswer(part)));
+        const fallback = given.length !== expected.length && whole.includes(normExp);
+        if (direct || grouped || fallback) hits.push(`第${index + 1}空：${exp}`);
+        else misses.push(`第${index + 1}空应为：${exp}`);
+      });
+      const score = expected.length ? Math.round(hits.length / expected.length * 100) : 0;
+      return {
+        score,
+        hits,
+        misses,
+        advice: score === 100 ? "填空题按原文关键词给分，这题已经稳了。" : "填空题更接近原文默写，建议按答案顺序再背一遍。"
+      };
+    }
+    function rubricHit(text, point) {
+      const norm = normalizeAnswer(text);
+      return point.groups.every(group => group.some(term => norm.includes(normalizeAnswer(term))));
+    }
+    function gradeDefinition(item, raw) {
+      const rubric = DEFINITION_RUBRICS[item.id] || [
+        { label: "写出核心概念", weight: 5, groups: [[item.unit.replace("安全", ""), item.unit], ["安全"]] },
+        { label: "写出范围或保障能力", weight: 5, groups: [["状态", "能力", "保障", "不受威胁", "没有危险"]] }
+      ];
+      const hits = [];
+      const misses = [];
+      let earned = 0;
+      let total = 0;
+      rubric.forEach(point => {
+        total += point.weight;
+        if (rubricHit(raw, point)) {
+          earned += point.weight;
+          hits.push(`${point.label}（+${point.weight}）`);
+        } else {
+          misses.push(`${point.label}（${point.weight}分）`);
+        }
+      });
+      const score = total ? Math.round(earned / total * 100) : 0;
+      let advice = "方向不够稳，先补定义句，再补范围。";
+      if (score >= 80) advice = "得分点覆盖较完整，按老师判卷思路基本能拿高分。";
+      else if (score >= 60) advice = "方向对，但还有关键点缺漏；补上漏点就接近满分。";
+      return { score, hits, misses, advice };
+    }
+    function feedbackHtml(attempt) {
+      if (!attempt || typeof attempt.score !== "number") return "";
+      const hitItems = attempt.hits.length
+        ? attempt.hits.map(x => `<li class="hit">${escapeHtml(x)}</li>`).join("")
+        : '<li>暂无命中项，先补核心关键词。</li>';
+      const missItems = attempt.misses.length
+        ? attempt.misses.map(x => `<li class="miss">${escapeHtml(x)}</li>`).join("")
+        : '<li class="hit">无明显缺漏</li>';
+      return `
+        <div class="feedback">
+          <div class="tagrow">
+            <span class="score ${scoreClass(attempt.score)}">${attempt.score}分</span>
+            <span class="tag ${attempt.score >= 80 ? "done" : attempt.score >= 60 ? "mid" : "high"}">${escapeHtml(attempt.advice)}</span>
+          </div>
+          <h4>命中的得分点</h4>
+          <ul class="rubric-list">${hitItems}</ul>
+          <h4>需要补上的点</h4>
+          <ul class="rubric-list">${missItems}</ul>
+        </div>
+      `;
+    }
+
+    function init() {
+      initNavigation();
+      initFilters();
+      renderKnowledge();
+      renderQuestions();
+      renderEssay();
+      renderWrongbook();
+      bindChecks();
+      updateStats();
+      if (state.lastView && $("#" + state.lastView)) showView(state.lastView);
+    }
+
+    function initNavigation() {
+      $$(".nav button").forEach(btn => {
+        btn.addEventListener("click", () => showView(btn.dataset.view));
+      });
+      $("#printBtn").addEventListener("click", () => window.print());
+      $("#resumeBtn").addEventListener("click", () => showView(state.lastView || "practice"));
+      $("#prioritySessionBtn").addEventListener("click", () => {
+        showView("practice");
+        $("#questionPriority").value = "priority";
+        renderQuestions();
+      });
+      $("#clearProgressBtn").addEventListener("click", () => {
+        if (confirm("确定清空全部本地进度吗？")) {
+          localStorage.removeItem(LS_KEY);
+          location.reload();
+        }
+      });
+    }
+
+    function showView(id) {
+      $$(".view").forEach(v => v.classList.toggle("active", v.id === id));
+      $$(".nav button").forEach(b => b.classList.toggle("active", b.dataset.view === id));
+      const titles = {dashboard:"总览", intel:"情报", knowledge:"知识点", practice:"刷题", essay:"论述", wrongbook:"错题", plan:"速通", settings:"设置"};
+      $("#viewTitle").textContent = titles[id] || "国安复习";
+      state.lastView = id;
+      saveState();
+      if (id === "wrongbook") renderWrongbook();
+    }
+
+    function initFilters() {
+      fillSelect($("#knowledgeUnit"), ["all", ...DB.units], ["全部单元", ...DB.units]);
+      fillSelect($("#questionUnit"), ["all", ...DB.units], ["全部单元", ...DB.units]);
+      fillSelect($("#knowledgePriority"), ["all","high","mid","low"], ["全部优先级","高优先级","中优先级","低优先级"]);
+      fillSelect($("#questionType"), ["all","填空","名词解释"], ["全部题型","填空","名词解释"]);
+      $("#knowledgeSearch").addEventListener("input", renderKnowledge);
+      $("#knowledgeUnit").addEventListener("change", renderKnowledge);
+      $("#knowledgePriority").addEventListener("change", renderKnowledge);
+      $("#knowledgeStatus").addEventListener("change", renderKnowledge);
+      $("#resetKnowledgeFilters").addEventListener("click", () => {
+        $("#knowledgeSearch").value = "";
+        $("#knowledgeUnit").value = "all";
+        $("#knowledgePriority").value = "all";
+        $("#knowledgeStatus").value = "all";
+        renderKnowledge();
+      });
+      $("#questionSearch").addEventListener("input", renderQuestions);
+      $("#questionType").addEventListener("change", renderQuestions);
+      $("#questionUnit").addEventListener("change", renderQuestions);
+      $("#questionPriority").addEventListener("change", renderQuestions);
+      $("#shuffleBtn").addEventListener("click", () => {
+        currentQuestionOrder = shuffle(getFilteredQuestions()).map(q => q.id);
+        renderQuestions(true);
+      });
+      const tabs = ["全部","填空","名词解释"];
+      $("#quickTypeTabs").innerHTML = tabs.map((t,i) => `<button class="${i===0?"active":""}" data-type="${t}">${t}</button>`).join("");
+      $$("#quickTypeTabs button").forEach(btn => btn.addEventListener("click", () => {
+        $$("#quickTypeTabs button").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        $("#questionType").value = btn.dataset.type === "全部" ? "all" : btn.dataset.type;
+        renderQuestions();
+      }));
+    }
+
+    function fillSelect(el, values, labels) {
+      el.innerHTML = values.map((v,i) => `<option value="${escapeHtml(v)}">${escapeHtml(labels[i])}</option>`).join("");
+    }
+
+    function renderKnowledge() {
+      const q = $("#knowledgeSearch").value.trim().toLowerCase();
+      const unit = $("#knowledgeUnit").value;
+      const pr = $("#knowledgePriority").value;
+      const status = $("#knowledgeStatus").value;
+      const items = DB.knowledge.filter(k => {
+        const hit = !q || (k.title + k.summary + k.points.join("") + k.unit).toLowerCase().includes(q);
+        const unitOk = unit === "all" || k.unit === unit;
+        const prOk = pr === "all" || k.priority === pr;
+        const done = !!state.knowledge[k.id];
+        const statusOk = status === "all" || (status === "done" ? done : !done);
+        return hit && unitOk && prOk && statusOk;
+      });
+      $("#knowledgeList").innerHTML = items.map(k => `
+        <article class="knowledge-card">
+          <div class="card-head">
+            <div>
+              <h3>${escapeHtml(k.title)}</h3>
+              <div class="tagrow">
+                <span class="tag">${escapeHtml(k.unit)}</span>
+                <span class="tag ${priorityClass(k.priority)}">${priorityText(k.priority)}优先级</span>
+                ${state.knowledge[k.id] ? '<span class="tag done">已掌握</span>' : ''}
+              </div>
+            </div>
+            <div class="card-tools">
+              <button class="secondary" data-know-toggle="${k.id}">${state.knowledge[k.id] ? "取消掌握" : "标记掌握"}</button>
+            </div>
+          </div>
+          <p>${escapeHtml(k.summary)}</p>
+          <details>
+            <summary>展开考点细节</summary>
+            <ul>${k.points.map(p => `<li>${escapeHtml(p)}</li>`).join("")}</ul>
+            <p class="muted small">考试用途：${escapeHtml(k.exam)}</p>
+          </details>
+        </article>
+      `).join("") || `<div class="panel">没有匹配的知识点。</div>`;
+      $$("[data-know-toggle]").forEach(btn => btn.addEventListener("click", () => {
+        const id = btn.dataset.knowToggle;
+        state.knowledge[id] ? delete state.knowledge[id] : state.knowledge[id] = true;
+        saveState();
+        renderKnowledge();
+      }));
+    }
+
+    function getFilteredQuestions() {
+      const q = $("#questionSearch").value.trim().toLowerCase();
+      const type = $("#questionType").value;
+      const unit = $("#questionUnit").value;
+      const mode = $("#questionPriority").value;
+      let items = DB.questions.filter(item => {
+        const hit = !q || (item.prompt + item.answer + item.note + item.unit).toLowerCase().includes(q);
+        const typeOk = type === "all" || item.type === type;
+        const unitOk = unit === "all" || item.unit === unit;
+        return hit && typeOk && unitOk;
+      });
+      if (mode === "wrong") items = items.filter(x => state.wrong[x.id]);
+      if (mode === "todo") items = items.filter(x => !state.done[x.id]);
+      if (mode === "priority") {
+        const order = {high: 0, mid: 1, low: 2};
+        items = items.slice().sort((a,b) => order[a.priority] - order[b.priority] || a.unit.localeCompare(b.unit, "zh-CN"));
+      }
+      return items;
+    }
+
+    function renderQuestions(useExistingOrder=false) {
+      let items = getFilteredQuestions();
+      if (useExistingOrder && currentQuestionOrder.length) {
+        const map = new Map(items.map(x => [x.id, x]));
+        items = currentQuestionOrder.map(id => map.get(id)).filter(Boolean);
+      } else {
+        currentQuestionOrder = items.map(x => x.id);
+      }
+      $("#questionList").innerHTML = items.map(item => renderQuestionCard(item, "practice")).join("") || `<div class="panel">没有匹配的题目。</div>`;
+      bindQuestionButtons($("#questionList"));
+      updateStats();
+    }
+
+    function renderQuestionCard(item, surface = "practice") {
+      const attempt = state.attempts[item.id] || {};
+      const cardId = `${surface}-${item.id}`;
+      const placeholder = item.type === "填空"
+        ? "按空作答，多个空用分号或换行隔开。例如：人民安全；政治安全；经济安全"
+        : "先自己写定义。系统会按关键词、得分点和知识点判分，不要求和参考答案逐字相同。";
+      return `
+        <article class="question-card" id="${cardId}" data-question-card="${item.id}">
+          <div class="card-head">
+            <div>
+              <h3>${escapeHtml(item.type)}：${highlightBlanks(item.prompt)}</h3>
+              <div class="tagrow">
+                <span class="tag">${escapeHtml(item.unit)}</span>
+                <span class="tag ${priorityClass(item.priority)}">${priorityText(item.priority)}优先级</span>
+                ${state.done[item.id] ? '<span class="tag done">已掌握</span>' : ''}
+                ${state.wrong[item.id] ? '<span class="tag high">错题</span>' : ''}
+              </div>
+            </div>
+            <div class="card-tools">
+              <button class="secondary" data-done="${item.id}">${state.done[item.id] ? "取消掌握" : "会了"}</button>
+              <button class="${state.wrong[item.id] ? "danger" : ""}" data-wrong="${item.id}">${state.wrong[item.id] ? "移出错题" : "不会/错题"}</button>
+            </div>
+          </div>
+          <div class="attempt-box">
+            <label for="answer-${cardId}">你的作答</label>
+            <textarea class="answer-input" id="answer-${cardId}" data-answer-input="${item.id}" placeholder="${escapeHtml(placeholder)}">${escapeHtml(attempt.text || "")}</textarea>
+            <div class="attempt-actions">
+              <button class="primary" data-grade="${item.id}">提交判分</button>
+              <button data-save-attempt="${item.id}">保存草稿</button>
+              <button data-clear-attempt="${item.id}">清空</button>
+              ${typeof attempt.score === "number" ? `<span class="score ${scoreClass(attempt.score)}">${attempt.score}分</span>` : '<span class="muted small">尚未判分</span>'}
+            </div>
+            ${feedbackHtml(attempt)}
+          </div>
+          <details>
+            <summary>查看答案</summary>
+            <div class="answer"><strong>答案：</strong>${escapeHtml(item.answer)}</div>
+            <p class="muted small">${escapeHtml(item.note || "")}</p>
+          </details>
+        </article>
+      `;
+    }
+
+    function refreshQuestionSurfaces() {
+      renderQuestions(true);
+      if (state.lastView === "wrongbook") renderWrongbook();
+    }
+
+    function bindQuestionButtons(root = document) {
+      $$("[data-answer-input]", root).forEach(input => input.addEventListener("input", () => {
+        const id = input.dataset.answerInput;
+        state.attempts[id] = { ...(state.attempts[id] || {}), text: input.value };
+        saveState();
+      }));
+      $$("[data-save-attempt]", root).forEach(btn => btn.addEventListener("click", () => {
+        const id = btn.dataset.saveAttempt;
+        const input = btn.closest(".question-card")?.querySelector(`[data-answer-input="${id}"]`);
+        state.attempts[id] = { ...(state.attempts[id] || {}), text: input ? input.value : "" };
+        saveState();
+      }));
+      $$("[data-clear-attempt]", root).forEach(btn => btn.addEventListener("click", () => {
+        const id = btn.dataset.clearAttempt;
+        delete state.attempts[id];
+        saveState();
+        refreshQuestionSurfaces();
+      }));
+      $$("[data-grade]", root).forEach(btn => btn.addEventListener("click", () => {
+        const id = btn.dataset.grade;
+        const item = getQuestionById(id);
+        const input = btn.closest(".question-card")?.querySelector(`[data-answer-input="${id}"]`);
+        const text = input ? input.value : "";
+        const result = gradeQuestion(item, text);
+        state.attempts[id] = { text, ...result, gradedAt: new Date().toISOString() };
+        if (result.score >= 80) {
+          state.done[id] = true;
+          delete state.wrong[id];
+        } else if (result.score < 60) {
+          state.wrong[id] = true;
+          delete state.done[id];
+        }
+        saveState();
+        refreshQuestionSurfaces();
+      }));
+      $$("[data-done]", root).forEach(btn => btn.addEventListener("click", () => {
+        const id = btn.dataset.done;
+        state.done[id] ? delete state.done[id] : state.done[id] = true;
+        if (state.done[id]) delete state.wrong[id];
+        saveState();
+        refreshQuestionSurfaces();
+      }));
+      $$("[data-wrong]", root).forEach(btn => btn.addEventListener("click", () => {
+        const id = btn.dataset.wrong;
+        state.wrong[id] ? delete state.wrong[id] : state.wrong[id] = true;
+        if (state.wrong[id]) delete state.done[id];
+        saveState();
+        refreshQuestionSurfaces();
+      }));
+    }
+
+    function renderWrongbook() {
+      const wrong = DB.questions.filter(q => state.wrong[q.id]);
+      $("#wrongList").innerHTML = wrong.map(q => renderQuestionCard(q, "wrong")).join("") || `<div class="panel">暂时没有错题。保持这个页面空着，就是考前最舒服的状态。</div>`;
+      bindQuestionButtons($("#wrongList"));
+    }
+
+    function renderEssay() {
+      const select = $("#essaySelect");
+      select.innerHTML = DB.essays.map(e => `<option value="${e.id}">${e.title}（${priorityText(e.priority)}优先级）</option>`).join("");
+      select.addEventListener("change", updateEssay);
+      $("#essayMode").addEventListener("change", updateEssay);
+      $("#essayDraft").addEventListener("input", () => {
+        const id = $("#essaySelect").value;
+        state.essayDrafts[id] = $("#essayDraft").value;
+        saveState();
+      });
+      $("#essayResetBtn").addEventListener("click", () => {
+        const id = $("#essaySelect").value;
+        delete state.essayDrafts[id];
+        $("#essayDraft").value = "";
+        saveState();
+      });
+      updateEssay();
+    }
+
+    function updateEssay() {
+      const essay = DB.essays.find(e => e.id === $("#essaySelect").value) || DB.essays[0];
+      $("#essayPrompt").innerHTML = `
+        <h3>${escapeHtml(essay.prompt)}</h3>
+        <div class="tagrow">
+          <span class="tag">${escapeHtml(essay.unit)}</span>
+          <span class="tag ${priorityClass(essay.priority)}">${priorityText(essay.priority)}优先级</span>
+        </div>
+      `;
+      $("#essayDraft").value = state.essayDrafts[essay.id] || "";
+      const mode = $("#essayMode").value;
+      $("#essayAnswerBox").open = mode === "outline";
+      $("#essayAnswer").innerHTML = `<ol>${essay.outline.map(x => `<li>${escapeHtml(x)}</li>`).join("")}</ol>`;
+      const checks = ["写出定义", "写出分类", "写出重要性", "写出挑战", "写出应对", "结尾回扣总体国家安全观"];
+      $("#essayChecklist").innerHTML = checks.map((c,i) => {
+        const key = essay.id + "_" + i;
+        return `<label class="checkline"><input type="checkbox" data-essay-check="${key}" ${state.essayChecks[key] ? "checked" : ""}><span>${escapeHtml(c)}</span></label>`;
+      }).join("");
+      $$("[data-essay-check]").forEach(box => box.addEventListener("change", () => {
+        box.checked ? state.essayChecks[box.dataset.essayCheck] = true : delete state.essayChecks[box.dataset.essayCheck];
+        saveState();
+      }));
+    }
+
+    function bindChecks() {
+      $$("[data-daily]").forEach(box => {
+        box.checked = !!state.daily[box.dataset.daily];
+        box.addEventListener("change", () => {
+          box.checked ? state.daily[box.dataset.daily] = true : delete state.daily[box.dataset.daily];
+          saveState();
+        });
+      });
+      $$("[data-plan]").forEach(box => {
+        box.checked = !!state.plan[box.dataset.plan];
+        box.addEventListener("change", () => {
+          box.checked ? state.plan[box.dataset.plan] = true : delete state.plan[box.dataset.plan];
+          saveState();
+        });
+      });
+    }
+
+    function updateStats() {
+      const done = Object.keys(state.done).length;
+      const wrong = Object.keys(state.wrong).length;
+      const know = Object.keys(state.knowledge).length;
+      const essayChecks = Object.keys(state.essayChecks).length;
+      const totalQuestions = DB.questions.length;
+      const totalKnowledge = DB.knowledge.length;
+      const totalEssayChecks = DB.essays.length * 6;
+      $("#statDone").textContent = done;
+      $("#statWrong").textContent = wrong;
+      $("#statKnowledge").textContent = Math.round(know / totalKnowledge * 100) + "%";
+      $("#statEssay").textContent = Math.round(essayChecks / totalEssayChecks * 100) + "%";
+      const overall = Math.round(((done / totalQuestions) * .45 + (know / totalKnowledge) * .35 + (essayChecks / totalEssayChecks) * .2) * 100);
+      $("#overallProgress").style.width = overall + "%";
+    }
+
+    function shuffle(arr) {
+      const a = arr.slice();
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    init();
+  </script>
+</body>
+</html>

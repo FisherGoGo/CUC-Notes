@@ -59,9 +59,9 @@ def render_inline(text: str) -> str:
 
 def heading(level: int, text: str) -> str:
     commands = {
-        1: "section",
-        2: "subsection",
-        3: "subsubsection",
+        1: "section*",
+        2: "subsection*",
+        3: "subsubsection*",
         4: "paragraph",
     }
     command = commands.get(level, "paragraph")
@@ -71,9 +71,11 @@ def heading(level: int, text: str) -> str:
 def item_line(text: str) -> str:
     indent = len(text) - len(text.lstrip(" \t"))
     stripped = text.strip()
-    clean = re.sub(r"^[-*]\s+", "", stripped)
-    clean = re.sub(r"^\d+\.\s+", "", clean)
     level = max(0, indent // 2)
+    numbered = re.match(r"^(\d+\.)\s+(.+)$", stripped)
+    if numbered:
+        return rf"\noindent\hspace*{{{level * 1.2}em}}{numbered.group(1)}\ {render_inline(numbered.group(2))}\par"
+    clean = re.sub(r"^[-*]\s+", "", stripped)
     return rf"\noindent\hspace*{{{level * 1.2}em}}\textbullet\ {render_inline(clean)}\par"
 
 
@@ -119,6 +121,9 @@ def markdown_to_latex(md: str, title: str) -> str:
     for raw in lines:
         line = raw.rstrip()
         stripped = line.strip()
+
+        if not body and stripped.startswith("# "):
+            continue
 
         if stripped.startswith("|") and stripped.endswith("|") and not in_display_math:
             table_buffer.append(line)

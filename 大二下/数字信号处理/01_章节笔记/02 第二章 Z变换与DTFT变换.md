@@ -194,30 +194,29 @@ $$
 
 ### DTFT 的对称关系
 
-$$
-Re[x(n)]\Leftrightarrow X_e(e^{j\omega})
-$$
+我们结合对称性和 DTFT 的共轭性质：
 
 $$
-jIm[x(n)]\Leftrightarrow X_o(e^{j\omega})
+x^{*}(n) \leftrightarrow X^{*}(e^{-j\omega}) \quad x^{*}(-n) \leftrightarrow X^{*}(e^{j\omega})
 $$
 
-$$
-x_e(n)\Leftrightarrow Re[X(e^{j\omega})]
-$$
+我们可以推导出：
 
 $$
-x_o(n)\Leftrightarrow jIm[X(e^{j\omega})]
+\begin{aligned}x_{e}(n)&=\frac{1}{2}[x(n)+x^{*}(-n)]
+\\&\leftrightarrow \frac{1}{2}[X(e^{j\omega})+X^{*}(e^{j\omega})]=Re[X(e^{j\omega} )]\end{aligned}
+$$
+$$
+\begin{aligned}x_{o}(n)&=\frac{1}{2}[x(n)-x^{*}(-n)]
+\\&\leftrightarrow \frac{1}{2}[X(e^{j\omega})-X^{*}(e^{j\omega})]=jIm[X(e^{j\omega} )]\end{aligned}
 $$
 
-若 $x(n)$ 是实数序列，则：
+同上有：
 
-- $Re[X(e^{j\omega})]$ 为偶函数。
-- $Im[X(e^{j\omega})]$ 为奇函数。
-- $|X(e^{j\omega})|$ 为偶函数。
-- $\arg[X(e^{j\omega})]$ 为奇函数。
+$$
+X_{e}(e^{j\omega})\leftrightarrow Re[x(n)] \quad X_{o}(e^{j\omega})\leftrightarrow jIm[x(n)]
+$$
 
-> 易错点：共轭对称不是简单的“取共轭”，而是同时涉及 $-n$ 或 $-\omega$。
 
 ## 离散系统的系统函数与频率响应
 

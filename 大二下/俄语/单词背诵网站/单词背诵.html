@@ -455,26 +455,86 @@
       white-space: nowrap;
     }
 
-    .options {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+    .quiz-answer {
       gap: 12px;
+      display: grid;
     }
 
-    .option {
-      min-height: 66px;
-      padding: 12px 14px;
+    .quiz-input-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .quiz-input {
+      min-width: min(360px, 100%);
+      min-height: 48px;
+      padding: 0 14px;
       border: 1px solid var(--line);
       border-radius: var(--radius);
+      outline: 0;
       background: #fff;
-      text-align: left;
-      font-size: 17px;
+      font-family: "Times New Roman", Cambria, serif;
+      font-size: 25px;
       font-weight: 750;
     }
 
-    .option:hover { border-color: var(--red); }
-    .option.correct { border-color: var(--green); background: rgba(32, 122, 85, .10); color: var(--green); }
-    .option.wrong { border-color: var(--red); background: rgba(179, 38, 50, .09); color: var(--red); }
+    .quiz-input:focus {
+      border-color: var(--red);
+      box-shadow: 0 0 0 3px rgba(179, 38, 50, .10);
+    }
+
+    .quiz-feedback {
+      min-height: 24px;
+      color: var(--muted);
+      font-size: 15px;
+      font-weight: 750;
+    }
+
+    .quiz-feedback.correct { color: var(--green); }
+    .quiz-feedback.wrong { color: var(--red); }
+
+    .keyboard {
+      display: grid;
+      grid-template-columns: repeat(11, minmax(34px, 1fr));
+      gap: 6px;
+      max-width: 620px;
+    }
+
+    .key {
+      min-height: 36px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #fff;
+      font-family: "Times New Roman", Cambria, serif;
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    .key:hover {
+      border-color: var(--red);
+      color: var(--red);
+    }
+
+    .cloze-prompt {
+      display: grid;
+      gap: 8px;
+    }
+
+    .cloze-word {
+      font-family: "Times New Roman", Cambria, serif;
+      font-size: clamp(42px, 6vw, 72px);
+      line-height: 1;
+      font-weight: 800;
+      letter-spacing: 0;
+      word-break: break-word;
+    }
+
+    .cloze-meaning {
+      font-size: 24px;
+      line-height: 1.25;
+      font-weight: 800;
+    }
 
     .list-view {
       display: none;
@@ -593,6 +653,14 @@
       visibility: hidden;
     }
 
+    .reverse-card.hidden-answer .ru-word, .reverse-card.hidden-answer .details {
+      visibility: hidden;
+    }
+
+    .reverse-card.hidden-answer .meaning {
+      visibility: visible;
+    }
+
     .toast {
       position: fixed;
       left: 50%;
@@ -689,7 +757,9 @@
         padding: 0 8px;
         font-size: 15px;
       }
-      .options { grid-template-columns: 1fr; }
+      .keyboard { grid-template-columns: repeat(7, minmax(34px, 1fr)); }
+      .quiz-input-row { display: grid; }
+      .quiz-input { min-width: 0; width: 100%; }
       .quiz { padding: 24px 18px; }
       .tool-actions { justify-content: flex-start; }
     }
@@ -734,6 +804,7 @@
       <div class="topbar">
         <div class="mode-tabs" role="tablist" aria-label="学习模式">
           <button class="active" data-mode="flash">闪卡</button>
+          <button data-mode="reverse">中译俄</button>
           <button data-mode="quiz">测验</button>
           <button data-mode="list">词表</button>
         </div>
@@ -778,10 +849,20 @@
 
       <section id="quizPane" class="quiz" aria-live="polite">
         <div class="quiz-question">
-          <small id="quizType">选择中文意思</small>
-          <strong id="quizPrompt">банк</strong>
+          <small id="quizType">补全被挖掉的俄语字母</small>
+          <div class="cloze-prompt" id="clozePrompt">
+            <div class="cloze-word" id="clozeWord">б_нк</div>
+            <div class="cloze-meaning" id="clozeMeaning">银行</div>
+          </div>
         </div>
-        <div class="options" id="options"></div>
+        <div class="quiz-answer" id="typedAnswer">
+          <div class="quiz-input-row">
+            <input class="quiz-input" id="quizInput" type="text" autocomplete="off" spellcheck="false" aria-label="输入俄语答案" />
+            <button class="text-btn primary" id="submitQuizBtn">提交</button>
+          </div>
+          <div class="keyboard" id="ruKeyboard" aria-label="俄语键盘"></div>
+        </div>
+        <div class="quiz-feedback" id="quizFeedback"></div>
         <button class="text-btn primary" id="nextQuizBtn">下一题</button>
       </section>
 
@@ -792,11 +873,11 @@
       <h2 class="panel-title">学习进度 <span id="activeLabel">全部</span></h2>
       <div class="stat-grid">
         <div class="stat"><b id="totalCount">0</b><span>当前词数</span></div>
-        <div class="stat"><b id="learnedCount">0</b><span>已认识</span></div>
+        <div class="stat"><b id="learnedCount">0</b><span>本轮已做</span></div>
         <div class="stat"><b id="wrongCount">0</b><span>错题</span></div>
-        <div class="stat"><b id="accuracy">0%</b><span>正确率</span></div>
+        <div class="stat"><b id="accuracy">0%</b><span>本轮错误率</span></div>
       </div>
-      <div class="progress" aria-label="已认识比例"><div id="progressBar"></div></div>
+      <div class="progress" aria-label="本轮错误率"><div id="progressBar"></div></div>
 
       <h2 class="panel-title">错题本 <span id="wrongLabel">0</span></h2>
       <div class="review-list" id="wrongList"></div>
@@ -827,7 +908,6 @@
       { zh: "市场", ru: "ры́нок", ipa: "[ˈrɨnək]", roman: "(RY-nak)", category: "地点" },
       { zh: "房子", ru: "дом", ipa: "[dom]", roman: "(dom)", category: "地点" },
       { zh: "桥", ru: "мост", ipa: "[most]", roman: "(most)", category: "地点" },
-      { zh: "中小学", ru: "шко́ла", ipa: "[ˈʂkoɫə]", roman: "(SHKO-la)", category: "地点" },
       { zh: "大学", ru: "университе́т", ipa: "[ʊnʲɪvʲɪrsʲɪˈtʲet]", roman: "(u-ni-ver-si-TYET)", category: "地点" },
       { zh: "海", ru: "мо́ре", ipa: "[ˈmorʲɪ]", roman: "(MO-rye)", category: "地点" },
       { zh: "博物馆", ru: "музе́й", ipa: "[mʊˈzʲeɪ̯]", roman: "(mu-ZYEY)", category: "地点" },
@@ -900,6 +980,9 @@
       revealed: false,
       quizWord: null,
       quizLocked: false,
+      quizAnswer: "",
+      cloze: null,
+      round: { seen: 0, bad: 0, lastRate: null },
       progress: JSON.parse(localStorage.getItem("ru-vocab-progress") || "{}"),
       search: "",
       deck: [],
@@ -908,6 +991,7 @@
 
     const $ = (id) => document.getElementById(id);
     const categories = ["全部", ...Array.from(new Set(words.map((word) => word.category))), "错题"];
+    const russianLetters = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя".split("");
 
     function idFor(word) {
       return `${word.ru}|${word.zh}`;
@@ -917,12 +1001,41 @@
       localStorage.setItem("ru-vocab-progress", JSON.stringify(state.progress));
     }
 
+    function progressFor(word) {
+      return state.progress[idFor(word)] || { seen: 0, good: 0, bad: 0 };
+    }
+
+    function badCount(word) {
+      return progressFor(word).bad || 0;
+    }
+
+    function sortByBadCount(list) {
+      return [...list].sort((a, b) =>
+        badCount(b) - badCount(a) || (progressFor(b).seen || 0) - (progressFor(a).seen || 0) || a.zh.localeCompare(b.zh, "zh-CN")
+      );
+    }
+
+    function currentRoundRate() {
+      if (state.round.seen > 0) return Math.round(state.round.bad / state.round.seen * 100);
+      return state.round.lastRate ?? 0;
+    }
+
+    function normalizeRussian(text) {
+      return text
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/\s+/g, "")
+        .toLowerCase();
+    }
+
     function record(word, correct) {
       const id = idFor(word);
       const item = state.progress[id] || { seen: 0, good: 0, bad: 0 };
       item.seen += 1;
       if (correct) item.good += 1;
       else item.bad += 1;
+      state.round.seen += 1;
+      if (!correct) state.round.bad += 1;
       state.progress[id] = item;
       saveProgress();
       render();
@@ -991,9 +1104,11 @@
       if (!deck.length) return;
       state.index += 1;
       if (state.index >= deck.length) {
+        state.round.lastRate = currentRoundRate();
+        toast(`这一轮结束，错误率 ${state.round.lastRate}%`);
+        state.round = { seen: 0, bad: 0, lastRate: state.round.lastRate };
         state.deck = shuffleList(deck);
         state.index = 0;
-        toast("这一轮结束，已重新洗牌");
       }
       state.revealed = false;
       render();
@@ -1038,7 +1153,9 @@
     function renderFlash() {
       const list = getFiltered();
       const word = currentWord();
+      const isReverse = state.mode === "reverse";
       $("flashCard").classList.toggle("hidden-answer", !state.revealed);
+      $("flashCard").classList.toggle("reverse-card", isReverse);
       if (!word) {
         $("ruWord").style.removeProperty("--word-size");
         $("ruWord").textContent = "没有词条";
@@ -1052,9 +1169,11 @@
       }
 
       const deck = getDeck();
-      $("cardCount").textContent = `随机队列 ${state.index + 1} / ${deck.length}`;
+      $("cardCount").textContent = `${isReverse ? "中译俄队列" : "随机队列"} ${state.index + 1} / ${deck.length}`;
       $("queueRemaining").textContent = Math.max(deck.length - state.index - 1, 0);
-      $("queueHint").textContent = "后续词条已隐藏，点“认识”或方向键进入下一张。";
+      $("queueHint").textContent = isReverse
+        ? "先看中文回忆俄语，翻答案后记录背对或忘记。"
+        : "后续词条已隐藏，点“认识”或方向键进入下一张。";
       const plainLength = word.ru.replace(/[́\s-]/g, "").length;
       const size = plainLength > 11 ? 74 : plainLength > 9 ? 82 : plainLength > 7 ? 98 : 112;
       $("ruWord").style.setProperty("--word-size", `${size}px`);
@@ -1067,35 +1186,40 @@
       $("goodBtn").classList.toggle("is-hidden", !state.revealed);
     }
 
+    function makeCloze(word) {
+      const letters = Array.from(normalizeRussian(word.ru));
+      const span = Math.min(letters.length, Math.floor(Math.random() * 3) + 1);
+      const start = Math.max(0, Math.floor(Math.random() * (letters.length - span + 1)));
+      const answer = letters.slice(start, start + span).join("");
+      const masked = letters.map((letter, index) =>
+        index >= start && index < start + span ? "_" : letter
+      ).join("");
+      return { masked, answer };
+    }
+
     function makeQuiz() {
       const list = getFiltered();
       if (!list.length) return;
       state.quizWord = list[Math.floor(Math.random() * list.length)];
       state.quizLocked = false;
-      const askRussian = Math.random() > .5;
-      const correct = askRussian ? state.quizWord.ru : state.quizWord.zh;
-      const prompt = askRussian ? state.quizWord.zh : state.quizWord.ru;
-      const pool = words
-        .filter((word) => idFor(word) !== idFor(state.quizWord))
-        .sort(() => Math.random() - .5)
-        .slice(0, 3)
-        .map((word) => askRussian ? word.ru : word.zh);
-      const options = [...pool, correct].sort(() => Math.random() - .5);
-
-      $("quizType").textContent = askRussian ? "选择俄语单词" : "选择中文意思";
-      $("quizPrompt").textContent = prompt;
-      $("quizPrompt").style.fontFamily = askRussian
-        ? '"Microsoft YaHei UI", "PingFang SC", sans-serif'
-        : '"Times New Roman", Cambria, serif';
-      $("options").innerHTML = options.map((option) =>
-        `<button class="option" data-answer="${option}" data-correct="${correct}">${option}</button>`
-      ).join("");
+      state.quizAnswer = "";
+      state.cloze = null;
+      $("quizInput").value = "";
+      $("quizFeedback").textContent = "";
+      $("quizFeedback").className = "quiz-feedback";
+      state.cloze = makeCloze(state.quizWord);
+      state.quizAnswer = state.cloze.answer;
+      $("quizType").textContent = "补全被挖掉的俄语字母";
+      $("clozeWord").textContent = state.cloze.masked;
+      $("clozeMeaning").textContent = state.quizWord.zh;
+      $("quizInput").placeholder = `输入缺少的 ${state.quizAnswer.length} 个字母`;
+      $("quizInput").focus();
     }
 
     function renderList() {
-      const list = getFiltered();
+      const list = sortByBadCount(getFiltered());
       $("listPane").innerHTML = list.map((word) => {
-        const p = state.progress[idFor(word)] || { good: 0, bad: 0 };
+        const p = progressFor(word);
         return `<article class="vocab-card">
           <h3>${word.ru}</h3>
           <p>${word.zh}</p>
@@ -1107,29 +1231,20 @@
 
     function renderStats() {
       const list = getFiltered();
-      const learned = list.filter((word) => {
-        const p = state.progress[idFor(word)] || {};
-        return (p.good || 0) > 0;
-      }).length;
-      const wrong = words.filter((word) => {
-        const p = state.progress[idFor(word)] || {};
+      const wrong = sortByBadCount(words.filter((word) => {
+        const p = progressFor(word);
         return (p.bad || 0) > (p.good || 0);
-      });
-      const totals = Object.values(state.progress).reduce((acc, item) => {
-        acc.good += item.good || 0;
-        acc.bad += item.bad || 0;
-        return acc;
-      }, { good: 0, bad: 0 });
-      const attempts = totals.good + totals.bad;
+      }));
+      const errorRate = currentRoundRate();
       $("totalCount").textContent = list.length;
-      $("learnedCount").textContent = learned;
+      $("learnedCount").textContent = state.round.seen;
       $("wrongCount").textContent = wrong.length;
-      $("accuracy").textContent = attempts ? `${Math.round(totals.good / attempts * 100)}%` : "0%";
-      $("progressBar").style.width = list.length ? `${learned / list.length * 100}%` : "0%";
+      $("accuracy").textContent = `${errorRate}%`;
+      $("progressBar").style.width = `${errorRate}%`;
       $("activeLabel").textContent = state.category;
       $("wrongLabel").textContent = wrong.length;
       $("wrongList").innerHTML = wrong.slice(0, 12).map((word) => {
-        const p = state.progress[idFor(word)] || {};
+        const p = progressFor(word);
         return `<div class="word-row">
           <button data-review="${idFor(word)}"><b>${word.ru}</b><small>${word.zh}</small></button>
           <span class="score-dot">${p.bad || 0}</span>
@@ -1137,11 +1252,17 @@
       }).join("") || `<div class="empty">还没有错题。</div>`;
     }
 
+    function renderKeyboard() {
+      $("ruKeyboard").innerHTML = russianLetters.map((letter) =>
+        `<button class="key" type="button" data-letter="${letter}">${letter}</button>`
+      ).join("");
+    }
+
     function renderMode() {
       document.querySelectorAll(".mode-tabs button").forEach((button) => {
         button.classList.toggle("active", button.dataset.mode === state.mode);
       });
-      $("flashPane").style.display = state.mode === "flash" ? "grid" : "none";
+      $("flashPane").style.display = state.mode === "flash" || state.mode === "reverse" ? "grid" : "none";
       $("quizPane").classList.toggle("active", state.mode === "quiz");
       $("listPane").classList.toggle("active", state.mode === "list");
       if (state.mode === "quiz" && !state.quizWord) makeQuiz();
@@ -1244,15 +1365,27 @@
       render();
     });
 
-    $("options").addEventListener("click", (event) => {
-      const button = event.target.closest("button[data-answer]");
-      if (!button || state.quizLocked || !state.quizWord) return;
+    $("ruKeyboard").addEventListener("click", (event) => {
+      const button = event.target.closest("button[data-letter]");
+      if (!button || state.quizLocked) return;
+      const input = $("quizInput");
+      const start = input.selectionStart ?? input.value.length;
+      const end = input.selectionEnd ?? input.value.length;
+      input.value = `${input.value.slice(0, start)}${button.dataset.letter}${input.value.slice(end)}`;
+      input.focus();
+      input.setSelectionRange(start + 1, start + 1);
+    });
+
+    $("submitQuizBtn").addEventListener("click", () => {
+      if (state.quizLocked || !state.quizWord) return;
+      const input = normalizeRussian($("quizInput").value);
+      const correct = normalizeRussian(state.quizAnswer);
+      const isCorrect = input === correct;
       state.quizLocked = true;
-      const isCorrect = button.dataset.answer === button.dataset.correct;
-      button.classList.add(isCorrect ? "correct" : "wrong");
-      document.querySelectorAll(".option").forEach((option) => {
-        if (option.dataset.answer === button.dataset.correct) option.classList.add("correct");
-      });
+      $("quizFeedback").textContent = isCorrect
+        ? "答对了"
+        : `答案：${state.quizAnswer}（完整单词：${state.quizWord.ru}）`;
+      $("quizFeedback").className = `quiz-feedback ${isCorrect ? "correct" : "wrong"}`;
       record(state.quizWord, isCorrect);
       toast(isCorrect ? "答对了" : "加入错题本");
     });
@@ -1263,7 +1396,12 @@
     });
 
     document.addEventListener("keydown", (event) => {
-      if (state.mode !== "flash") return;
+      if (state.mode === "quiz" && event.key === "Enter") {
+        event.preventDefault();
+        $("submitQuizBtn").click();
+        return;
+      }
+      if (state.mode !== "flash" && state.mode !== "reverse") return;
       if (event.code === "Space") {
         event.preventDefault();
         state.revealed = !state.revealed;
@@ -1273,6 +1411,7 @@
       if (event.key.toLowerCase() === "s") speak(currentWord());
     });
 
+    renderKeyboard();
     render();
   </script>
 </body>

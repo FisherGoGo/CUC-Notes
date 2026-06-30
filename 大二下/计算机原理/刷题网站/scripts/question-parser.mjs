@@ -1,18 +1,37 @@
 const CIRCLED_NUMBERS = '①②③④⑤⑥⑦⑧⑨⑩';
 
+export const CHAPTER_TITLES = Object.freeze({
+  1: '计算机基础与数制',
+  2: '16 位和 32 位微处理器',
+  3: '8086/8088 指令系统',
+  4: '汇编语言程序设计',
+  5: '存储器',
+  6: '输入输出与中断',
+  7: '并行接口',
+  8: '串行接口',
+  9: '计数定时器',
+  10: '数模和模数转换',
+  11: '总线技术',
+});
+
 const EXCLUDED_QUESTIONS = new Set([
   '4-14',
+  '5-13',
+  '5-15',
   '7-17',
   '7-18',
   '7-19',
   '9-10',
   '9-11',
+  '9-12',
 ]);
 
 const BLOCK_MARKERS = [
   '题目',
   '选项',
   '答案',
+  '平台答案',
+  '答案要点',
   '解析',
   '干扰项分析',
 ];
@@ -73,7 +92,7 @@ function extractBlock(section, label) {
 }
 
 function extractAnswer(section) {
-  const inline = /\*\*答案：([\s\S]*?)\*\*/.exec(section);
+  const inline = /\*\*(?:答案|平台答案|答案要点)：([\s\S]*?)\*\*/.exec(section);
   if (!inline) return '';
   const inside = cleanBlock(inline[1]);
   if (inside) return inside;
@@ -100,7 +119,22 @@ function normalizeInlineAnswer(value) {
   return cleanBlock(value)
     .replace(/^\*\*|\*\*$/g, '')
     .replace(/\n+/g, ' ')
+    .replace(/[；;，,、]\s*$/g, '')
     .trim();
+}
+
+function expandAcceptedAnswers(value) {
+  const cleaned = normalizeInlineAnswer(value).replaceAll('`', '');
+  const parentheticalAlternative = /^(.*?)（或(.+?)）$/.exec(cleaned);
+  if (parentheticalAlternative) {
+    return [parentheticalAlternative[1].trim(), parentheticalAlternative[2].trim()];
+  }
+
+  const slashAlternatives = cleaned
+    .split(/\s*[\/／]\s*/)
+    .map((item) => item.trim())
+    .filter(Boolean);
+  return slashAlternatives.length > 1 ? slashAlternatives : [cleaned];
 }
 
 export function extractNumberedAnswers(answerText) {
@@ -147,7 +181,7 @@ export function parseQuestionSection(section, chapterNumber, sourceNumber, title
   } else if (blankMarkers.length) {
     type = 'fill';
     answer = extractNumberedAnswers(rawAnswer);
-    acceptedAnswers = answer.map((item) => [item]);
+    acceptedAnswers = answer.map(expandAcceptedAnswers);
   }
 
   const paddedChapter = String(chapterNumber).padStart(2, '0');
@@ -156,7 +190,7 @@ export function parseQuestionSection(section, chapterNumber, sourceNumber, title
   return {
     id: `ch${paddedChapter}-q${paddedQuestion}`,
     chapter: Number(chapterNumber),
-    chapterTitle: `第${chapterNumber}章`,
+    chapterTitle: CHAPTER_TITLES[chapterNumber] ?? `第${chapterNumber}章`,
     sourceNumber: Number(sourceNumber),
     type,
     title: cleanBlock(title),
@@ -186,4 +220,17 @@ export function parseChapter(markdown, chapterNumber) {
   });
 
   return questions;
+}
+
+export function serializeQuestions(questions) {
+  const payload = JSON.stringify(questions, null, 2)
+    .replaceAll('</script', '<\\/script');
+  return `/* Generated from the answered Markdown banks. Do not edit by hand. */
+(function (root) {
+  'use strict';
+  const questions = ${payload};
+  root.QUIZ_QUESTIONS = questions;
+  if (typeof module === 'object' && module.exports) module.exports = questions;
+})(typeof globalThis !== 'undefined' ? globalThis : this);
+`;
 }

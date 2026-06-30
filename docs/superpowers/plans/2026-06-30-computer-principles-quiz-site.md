@@ -1,5 +1,7 @@
 # Computer Principles Offline Quiz Site Implementation Plan
 
+> **Final delivery adjustment:** The user requested one shareable HTML file for immediate use. The implementation therefore generates `大二下/计算机原理/计算机原理刷题.html` with embedded data, styles, and logic; it excludes the six programming questions plus three image-dependent questions, for 177 retained questions. This adjustment supersedes the earlier multi-file delivery steps below.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Build a zero-dependency offline static quiz website from the 11 answered computer-principles Markdown question banks, excluding the six approved programming questions.

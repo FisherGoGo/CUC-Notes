@@ -1,0 +1,1145 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>计算机原理刷题</title>
+  <style>:root {
+  color-scheme: light;
+  --bg: #f4f6f8;
+  --surface: #ffffff;
+  --surface-soft: #f8fafc;
+  --text: #172033;
+  --muted: #667085;
+  --line: #d9e0e8;
+  --primary: #1d4ed8;
+  --primary-hover: #1e40af;
+  --primary-soft: #e8efff;
+  --success: #167044;
+  --success-soft: #e9f7ef;
+  --danger: #b42318;
+  --danger-soft: #fff0ee;
+  --warning: #9a6700;
+  --shadow: 0 10px 28px rgba(23, 32, 51, 0.08);
+  --radius: 12px;
+  font-family: "Segoe UI", "Microsoft YaHei UI", "Microsoft YaHei", system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+  background: var(--bg);
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.65;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button,
+select,
+input[type="text"],
+textarea {
+  min-height: 44px;
+}
+
+button {
+  border: 1px solid transparent;
+  border-radius: 9px;
+  cursor: pointer;
+  font-weight: 650;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.48;
+}
+
+:focus-visible {
+  outline: 3px solid rgba(29, 78, 216, 0.28);
+  outline-offset: 2px;
+}
+
+.skip-link {
+  position: fixed;
+  z-index: 100;
+  top: 8px;
+  left: 8px;
+  transform: translateY(-150%);
+  padding: 8px 12px;
+  border-radius: 8px;
+  color: #fff;
+  background: var(--primary);
+}
+
+.skip-link:focus {
+  transform: none;
+}
+
+.site-header {
+  border-bottom: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.96);
+}
+
+.header-inner,
+.page-shell {
+  width: min(1100px, calc(100% - 32px));
+  margin-inline: auto;
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 64px;
+  gap: 16px;
+}
+
+.brand {
+  margin: 0;
+  font-size: clamp(1.08rem, 2vw, 1.28rem);
+  letter-spacing: -0.02em;
+}
+
+.header-note {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.page-shell {
+  padding-block: 34px 96px;
+}
+
+.screen-heading {
+  margin: 0 0 8px;
+  font-size: clamp(1.65rem, 4vw, 2.3rem);
+  line-height: 1.2;
+  letter-spacing: -0.035em;
+}
+
+.screen-intro {
+  max-width: 700px;
+  margin: 0 0 28px;
+  color: var(--muted);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 28px 0;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.stat {
+  padding: 20px;
+  border-right: 1px solid var(--line);
+}
+
+.stat:last-child {
+  border-right: 0;
+}
+
+.stat-value {
+  display: block;
+  font-size: clamp(1.65rem, 4vw, 2.25rem);
+  font-weight: 750;
+  line-height: 1.15;
+}
+
+.stat-label {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.action-list {
+  display: grid;
+  gap: 12px;
+  max-width: 760px;
+}
+
+.action-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 18px 20px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.action-copy strong,
+.chapter-copy strong {
+  display: block;
+  font-size: 1rem;
+}
+
+.action-copy span,
+.chapter-copy span {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.button-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.btn-primary,
+.btn-secondary,
+.btn-quiet,
+.btn-danger {
+  padding: 10px 16px;
+}
+
+.btn-primary {
+  color: #fff;
+  background: var(--primary);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: var(--primary-hover);
+}
+
+.btn-secondary {
+  color: var(--primary);
+  border-color: #aac0f6;
+  background: var(--primary-soft);
+}
+
+.btn-quiet {
+  color: var(--text);
+  border-color: var(--line);
+  background: var(--surface);
+}
+
+.btn-danger {
+  color: var(--danger);
+  border-color: #efb6b0;
+  background: var(--danger-soft);
+}
+
+select,
+input[type="text"],
+textarea {
+  border: 1px solid #b9c3cf;
+  border-radius: 8px;
+  color: var(--text);
+  background: #fff;
+}
+
+select {
+  padding: 8px 34px 8px 10px;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.mode-label,
+.question-meta {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.chapter-list {
+  display: grid;
+  gap: 10px;
+}
+
+.chapter-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  padding: 16px 18px;
+  text-align: left;
+  color: var(--text);
+  border-color: var(--line);
+  background: var(--surface);
+}
+
+.chapter-row:hover {
+  border-color: #9db4e8;
+  background: #fbfcff;
+}
+
+.chapter-progress {
+  color: var(--primary);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.question-shell {
+  max-width: 800px;
+  margin-inline: auto;
+}
+
+.progress-track {
+  height: 6px;
+  margin: 12px 0 24px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: #dfe5ec;
+}
+
+.progress-bar {
+  height: 100%;
+  background: var(--primary);
+}
+
+.question-card {
+  padding: clamp(20px, 4vw, 36px);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.question-title {
+  margin: 0 0 18px;
+  font-size: clamp(1.25rem, 3vw, 1.65rem);
+  line-height: 1.35;
+}
+
+.type-tag {
+  display: inline-block;
+  margin-bottom: 10px;
+  color: var(--primary);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.markdown-body {
+  overflow-wrap: anywhere;
+}
+
+.markdown-body p:first-child {
+  margin-top: 0;
+}
+
+.markdown-body pre,
+.markdown-body .math-block {
+  max-width: 100%;
+  padding: 14px 16px;
+  overflow-x: auto;
+  border: 1px solid #dce3eb;
+  border-radius: 8px;
+  background: #f6f8fa;
+  font-family: Consolas, "Cascadia Code", monospace;
+  font-size: 0.91rem;
+  line-height: 1.55;
+  white-space: pre;
+}
+
+.markdown-body code {
+  padding: 0.12em 0.32em;
+  border-radius: 4px;
+  background: #eef1f5;
+  font-family: Consolas, "Cascadia Code", monospace;
+  font-size: 0.92em;
+}
+
+.markdown-body pre code {
+  padding: 0;
+  background: transparent;
+}
+
+.markdown-body blockquote {
+  margin: 16px 0;
+  padding: 2px 0 2px 14px;
+  color: #475467;
+  border-left: 3px solid #9db4e8;
+}
+
+.question-image {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 18px auto;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.answer-area {
+  margin-top: 26px;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+}
+
+.option-list,
+.fill-list {
+  display: grid;
+  gap: 10px;
+  margin: 0 0 18px;
+}
+
+.option {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 11px;
+  align-items: start;
+  padding: 13px 14px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  cursor: pointer;
+}
+
+.option:hover {
+  border-color: #9db4e8;
+  background: #fbfcff;
+}
+
+.option input {
+  width: 18px;
+  height: 18px;
+  margin-top: 3px;
+}
+
+.option.is-selected {
+  border-color: var(--primary);
+  background: var(--primary-soft);
+}
+
+.option.is-correct {
+  border-color: #73b692;
+  background: var(--success-soft);
+}
+
+.option.is-wrong {
+  border-color: #e49b94;
+  background: var(--danger-soft);
+}
+
+.fill-row {
+  display: grid;
+  grid-template-columns: 2.2rem minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
+}
+
+.fill-row input {
+  width: 100%;
+  padding: 9px 11px;
+}
+
+.fill-row input.is-correct {
+  border-color: var(--success);
+  background: var(--success-soft);
+}
+
+.fill-row input.is-wrong {
+  border-color: var(--danger);
+  background: var(--danger-soft);
+}
+
+.short-answer {
+  width: 100%;
+  min-height: 132px;
+  padding: 12px;
+  resize: vertical;
+}
+
+.feedback {
+  margin-top: 18px;
+  padding: 14px 16px;
+  border-radius: 9px;
+  font-weight: 650;
+}
+
+.feedback.success {
+  color: var(--success);
+  background: var(--success-soft);
+}
+
+.feedback.error {
+  color: var(--danger);
+  background: var(--danger-soft);
+}
+
+.feedback.info {
+  color: #344054;
+  background: #eef2f6;
+}
+
+.explanation {
+  margin-top: 16px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface-soft);
+}
+
+.explanation h3 {
+  margin: 0 0 10px;
+  font-size: 1rem;
+}
+
+.pitfall {
+  margin-top: 12px;
+  padding-left: 12px;
+  color: var(--warning);
+  border-left: 3px solid #e5b54a;
+}
+
+.question-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.empty-state,
+.summary-card {
+  max-width: 680px;
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.summary-card h2,
+.empty-state h2 {
+  margin-top: 0;
+}
+
+.storage-warning {
+  margin: 0 0 20px;
+  padding: 10px 14px;
+  color: var(--warning);
+  border: 1px solid #e6c56d;
+  border-radius: 8px;
+  background: #fff9e8;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 720px) {
+  .header-inner,
+  .page-shell {
+    width: min(100% - 22px, 1100px);
+  }
+
+  .header-note {
+    display: none;
+  }
+
+  .page-shell {
+    padding-top: 24px;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .stat:nth-child(2) {
+    border-right: 0;
+  }
+
+  .stat:nth-child(-n + 2) {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .action-row {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .button-group > button,
+  .button-group > select {
+    flex: 1;
+  }
+
+  .question-card {
+    padding: 20px 16px;
+    border-radius: 12px;
+  }
+
+  .question-actions {
+    position: sticky;
+    z-index: 10;
+    bottom: 0;
+    margin-inline: -11px;
+    padding: 10px 11px max(10px, env(safe-area-inset-bottom));
+    border-top: 1px solid var(--line);
+    background: rgba(244, 246, 248, 0.97);
+  }
+
+  .question-actions button {
+    flex: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+</style>
+</head>
+<body>
+  <a class="skip-link" href="#app-root">跳到主要内容</a>
+  <header class="site-header">
+    <div class="header-inner">
+      <h1 class="brand">计算机原理刷题</h1>
+      <span class="header-note">离线版 · 进度仅保存在本浏览器</span>
+    </div>
+  </header>
+  <main id="app-root" class="page-shell" tabindex="-1">
+    <p>正在加载题库……</p>
+  </main>
+  <div id="live-status" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+  <noscript><p class="page-shell">请启用浏览器 JavaScript 后使用刷题功能。</p></noscript>
+  <script>(function (root) { 'use strict'; const questions = [{"id":"ch01-q01","chapter":1,"chapterTitle":"计算机基础与数制","sourceNumber":1,"type":"choice","title":"数据总线的作用","prompt":"数据总线的作用是（ ）。","options":[{"key":"A","text":"确定 CPU 要访问的内存单元或 I/O 端口的地址"},{"key":"B","text":"传输计算机的电源信号"},{"key":"C","text":"控制计算机各部件的工作"},{"key":"D","text":"在 CPU 与内存储器或 I/O 设备之间交换信息"}],"answer":"D","acceptedAnswers":[],"explanation":"数据总线用于在 CPU、内存储器和 I/O 设备之间传送数据，也就是完成信息交换。CPU 读内存、写内存、读端口、写端口时，真正被传送的数据都经过数据总线。","distractorAnalysis":"- A 是地址总线的作用。地址总线负责指出 CPU 要访问哪个内存单元或哪个 I/O 端口。\n- B 不是系统总线中数据总线的功能，电源信号由供电线路提供。\n- C 是控制总线的作用。控制总线负责传送读、写、中断、时钟等控制信号。","pitfall":"三类总线要分清：地址总线“找位置”，数据总线“传内容”，控制总线“发命令/管时序”。","assets":[]},{"id":"ch01-q02","chapter":1,"chapterTitle":"计算机基础与数制","sourceNumber":2,"type":"choice","title":"总线的组成","prompt":"连接计算机各部件的一组公共通信线称为总线，它由（ ）组成。","options":[{"key":"A","text":"地址总线和数据总线"},{"key":"B","text":"数据总线和控制总线"},{"key":"C","text":"地址总线、数据总线和控制总线"},{"key":"D","text":"地址总线和控制总线"}],"answer":"C","acceptedAnswers":[],"explanation":"系统总线通常由三部分组成：地址总线、数据总线和控制总线。地址总线指出访问位置，数据总线传送数据，控制总线传送读写、中断、时钟等控制信号。","distractorAnalysis":"- A 少了控制总线，无法表达读、写等控制动作。\n- B 少了地址总线，CPU 无法指出要访问哪个存储单元或 I/O 端口。\n- D 少了数据总线，无法完成实际数据交换。","pitfall":"题干问“总线由什么组成”，标准答案是三类总线都要有：地址总线、数据总线、控制总线。","assets":[]},{"id":"ch01-q03","chapter":1,"chapterTitle":"计算机基础与数制","sourceNumber":3,"type":"choice","title":"补码减法","prompt":"已知 $[X]_{\\text{补}}=00110011B$，$[Y]_{\\text{补}}=11000100B$，求 $[X-Y]_{\\text{补}}$ 的值是（ ）。","options":[{"key":"A","text":"00110011B"},{"key":"B","text":"01101111B"},{"key":"C","text":"01111111B"},{"key":"D","text":"10000000B"}],"answer":"B","acceptedAnswers":[],"explanation":"$[X]_{\\text{补}}=00110011B$，最高位为 0，所以 $X=00110011B=51$。\n\n$[Y]_{\\text{补}}=11000100B$，最高位为 1，所以 $Y$ 是负数。求其绝对值：对 `11000100B` 按位取反得 `00111011B`，再加 1 得 `00111100B=60`，因此 $Y=-60$。\n\n所以：\n\n$$\nX-Y=51-(-60)=111\n$$\n\n把 111 转成 8 位二进制：\n\n$$\n111=01101111B\n$$\n\n因此 $[X-Y]_{\\text{补}}=01101111B$。","distractorAnalysis":"- A 是 $X$ 本身，不是 $X-Y$。\n- C 是 127，像是把结果误算成了 8 位正数最大值附近。\n- D 是 8 位补码中的 $-128$，不是本题结果。","pitfall":"补码中最高位为 1 不代表直接按无符号数计算。`11000100B` 表示的是负数 $-60$，所以 $X-Y$ 实际变成 $51+60$。","assets":[]},{"id":"ch01-q04","chapter":1,"chapterTitle":"计算机基础与数制","sourceNumber":4,"type":"choice","title":"不同进制数大小比较","prompt":"下列数中最小的数为（ ）。","options":[{"key":"A","text":"$(52)_8$"},{"key":"B","text":"$(50)_{10}$"},{"key":"C","text":"$(111001)_2$"},{"key":"D","text":"$(2B)_{16}$"}],"answer":"A","acceptedAnswers":[],"explanation":"比较不同进制数的大小时，先统一转换为十进制。\n\n$$\n(52)_8=5 \\times 8 + 2=42\n$$\n\n$$\n(50)_{10}=50\n$$\n\n$$\n(111001)_2=1 \\times 32+1 \\times 16+1 \\times 8+0 \\times 4+0 \\times 2+1=57\n$$\n\n$$\n(2B)_{16}=2 \\times 16 + 11=43\n$$\n\n所以四个数分别是 42、50、57、43，最小的是 $(52)_8$。","distractorAnalysis":"- B 是 50，比 42 大。\n- C 的二进制位数较多，转换后为 57。\n- D 中 `B` 表示十进制 11，所以 $(2B)_{16}=43$，只比 A 大 1。","pitfall":"十六进制中的 `B` 等于 11，不是字母或十进制中的某个独立符号；比较大小前一定先统一进制。","assets":[]},{"id":"ch01-q05","chapter":1,"chapterTitle":"计算机基础与数制","sourceNumber":5,"type":"choice","title":"8 位补码的最小值","prompt":"设寄存器的内容为 `10000000`，若它等于 -128，则为（ ）。","options":[{"key":"A","text":"ASCII 码"},{"key":"B","text":"反码"},{"key":"C","text":"原码"},{"key":"D","text":"补码"}],"answer":"D","acceptedAnswers":[],"explanation":"在 8 位有符号补码表示中，最高位为符号位，`10000000B` 表示最小负数 $-128$。8 位补码的表示范围是：\n\n$$\n-128 \\sim +127\n$$\n\n因此寄存器内容 `10000000` 若被解释为 -128，它采用的是补码表示。","distractorAnalysis":"- A ASCII 码用于表示字符，不用于直接表示整数 -128。\n- B 8 位反码中 `10000000B` 表示 $-127$，不是 -128。\n- C 8 位原码中 `10000000B` 表示 $-0$，不是 -128。","pitfall":"8 位补码中 `10000000B` 是一个特殊值，表示 $-128$；原码和反码中这个编码不表示 $-128$。","assets":[]},{"id":"ch01-q06","chapter":1,"chapterTitle":"计算机基础与数制","sourceNumber":6,"type":"choice","title":"不同进制数大小比较","prompt":"下列无符号数中，其值最大的数是（ ）。","options":[{"key":"A","text":"$(227)_8$"},{"key":"B","text":"$(152)_{10}$"},{"key":"C","text":"$(10010101)_2$"},{"key":"D","text":"$(96)_{16}$"}],"answer":"B","acceptedAnswers":[],"explanation":"无符号数比较大小时，先统一转换为十进制。\n\n$$\n(227)_8=2 \\times 8^2+2 \\times 8+7=151\n$$\n\n$$\n(152)_{10}=152\n$$\n\n$$\n(10010101)_2=128+16+4+1=149\n$$\n\n$$\n(96)_{16}=9 \\times 16+6=150\n$$\n\n四个数分别为 151、152、149、150，所以最大的是 $(152)_{10}$。","distractorAnalysis":"- A 转换后为 151，只比 B 小 1。\n- C 转换后为 149。\n- D 转换后为 150。","pitfall":"不同进制的“位数”和“表面大小”不能直接比较，必须先统一进制。","assets":[]},{"id":"ch01-q07","chapter":1,"chapterTitle":"计算机基础与数制","sourceNumber":7,"type":"choice","title":"ASCII 码大小","prompt":"下列字符中，ASCII 码值最小的是（ ）。","options":[{"key":"A","text":"`A`"},{"key":"B","text":"`x`"},{"key":"C","text":"`Y`"},{"key":"D","text":"`a`"}],"answer":"A","acceptedAnswers":[],"explanation":"ASCII 码中，大写字母排在小写字母之前；大写字母内部按字母顺序递增，小写字母内部也按字母顺序递增。常见值为：\n\n```text\nA = 65\nY = 89\na = 97\nx = 120\n```\n\n因此 ASCII 码值最小的是 `A`。","distractorAnalysis":"- B `x` 是小写字母，ASCII 码值较大。\n- C `Y` 虽然也是大写字母，但排在 `A` 后面。\n- D `a` 是小写字母，ASCII 码值大于所有大写字母。","pitfall":"ASCII 中不是按“字母本身的感觉”比较，而是按编码值比较；一般记住 `0-9` < `A-Z` < `a-z`。","assets":[]},{"id":"ch01-q08","chapter":1,"chapterTitle":"计算机基础与数制","sourceNumber":8,"type":"choice","title":"补码求真值","prompt":"已知 $[X]_{\\text{补}}=10111000$，其真值为（ ）。","options":[{"key":"A","text":"-73"},{"key":"B","text":"-71"},{"key":"C","text":"-72"},{"key":"D","text":"-75"}],"answer":"C","acceptedAnswers":[],"explanation":"最高位为 1，说明这是 8 位补码表示的负数。负数补码求真值时，可以“按位取反再加 1”得到绝对值。\n\n```text\n补码：10111000\n取反：01000111\n加 1：01001000\n```\n\n$$\n(01001000)_2=64+8=72\n$$\n\n所以 $X=-72$。","distractorAnalysis":"- A、B、D 都是符号判断正确但绝对值计算错误。\n- 若把 `10111000` 当作无符号数，会得到 184，这不是本题问的补码真值。","pitfall":"补码负数求真值时，不是直接把后 7 位转成十进制再加负号，而是对整个 8 位编码取反加 1 求绝对值。","assets":[]},{"id":"ch01-q09","chapter":1,"chapterTitle":"计算机基础与数制","sourceNumber":9,"type":"choice","title":"裸机的含义","prompt":"通常所说的“裸机”指的是（ ）。","options":[{"key":"A","text":"未装备任何软件的计算机"},{"key":"B","text":"不带输入输出设备的计算机"},{"key":"C","text":"计算机主机暴露在外"},{"key":"D","text":"只装备有操作系统的计算机"}],"answer":"A","acceptedAnswers":[],"explanation":"“裸机”指只有硬件系统、没有安装任何软件的计算机。这里的软件既包括操作系统，也包括应用软件。","distractorAnalysis":"- B 错在把裸机理解成缺少外设。裸机强调没有软件，不是没有输入输出设备。\n- C 是字面误解，和计算机组成原理中的“裸机”概念无关。\n- D 已经安装了操作系统，因此不再是裸机。","pitfall":"裸机不是“没有外设的机器”，而是“没有软件支撑的硬件机器”。","assets":[]},{"id":"ch01-q10","chapter":1,"chapterTitle":"计算机基础与数制","sourceNumber":10,"type":"choice","title":"CPU 的组成","prompt":"计算机中的 CPU 指的是（ ）。","options":[{"key":"A","text":"运算器、控制器和主存"},{"key":"B","text":"运算器和控制器"},{"key":"C","text":"控制器"},{"key":"D","text":"运算器"}],"answer":"B","acceptedAnswers":[],"explanation":"CPU 是中央处理器，主要由运算器和控制器组成。运算器负责算术运算和逻辑运算，控制器负责取指令、分析指令并发出控制信号。","distractorAnalysis":"- A 把主存也算进 CPU 了。主存属于存储器系统，不属于 CPU。\n- C 只包含控制器，不完整。\n- D 只包含运算器，也不完整。","pitfall":"计算机硬件五大部件包括运算器、控制器、存储器、输入设备、输出设备；其中 CPU = 运算器 + 控制器。","assets":[]},{"id":"ch01-q11","chapter":1,"chapterTitle":"计算机基础与数制","sourceNumber":11,"type":"choice","title":"机内加减运算采用的编码","prompt":"计算机内进行加、减法运算时常采用什么（ ）。","options":[{"key":"A","text":"反码"},{"key":"B","text":"原码"},{"key":"C","text":"补码"},{"key":"D","text":"ASCII 码"}],"answer":"C","acceptedAnswers":[],"explanation":"计算机中加减运算通常采用补码表示。使用补码后，减法可以转化为加法，例如：\n\n$$\nX-Y = X + (-Y)\n$$\n\n这样运算器可以用同一套加法电路完成加法和减法，简化硬件设计。","distractorAnalysis":"- A 反码虽然也能表示负数，但存在正零和负零，不利于统一运算。\n- B 原码符号位和数值位分开处理，加减运算规则较复杂。\n- D ASCII 码用于字符编码，不用于数值加减运算。","pitfall":"补码的核心优势是把减法统一成加法，同时 0 的表示唯一。","assets":[]},{"id":"ch01-q12","chapter":1,"chapterTitle":"计算机基础与数制","sourceNumber":12,"type":"choice","title":"控制总线的作用","prompt":"计算机系统总线中，可用于传送读、写信号的是（ ）。","options":[{"key":"A","text":"数据总线"},{"key":"B","text":"控制总线"},{"key":"C","text":"以上都不对"},{"key":"D","text":"地址总线"}],"answer":"B","acceptedAnswers":[],"explanation":"读信号、写信号属于控制信号，用于控制 CPU 与内存或 I/O 设备之间的数据传送方向和操作类型，因此通过控制总线传送。","distractorAnalysis":"- A 数据总线传送数据内容，不传送读、写控制命令。\n- C 错，因为控制总线正是用来传送这类信号的。\n- D 地址总线传送地址信息，用于指出访问位置。","pitfall":"读、写、中断、时钟、复位等属于控制信号；地址总线找位置，数据总线传内容，控制总线发命令。","assets":[]},{"id":"ch01-q13","chapter":1,"chapterTitle":"计算机基础与数制","sourceNumber":13,"type":"choice","title":"ASCII 码最大值","prompt":"下列字符中，ASCII 码值最大的是（ ）。","options":[{"key":"A","text":"`y`"},{"key":"B","text":"`a`"},{"key":"C","text":"`D`"},{"key":"D","text":"`9`"}],"answer":"A","acceptedAnswers":[],"explanation":"ASCII 码中，数字字符、大写字母、小写字母的常见顺序为：\n\n```text\n0-9 < A-Z < a-z\n```\n\n对应常见 ASCII 值：\n\n```text\n9 = 57\nD = 68\na = 97\ny = 121\n```\n\n所以 ASCII 码值最大的是 `y`。","distractorAnalysis":"- B `a` 是小写字母，但排在 `y` 前面。\n- C `D` 是大写字母，ASCII 值小于小写字母。\n- D `9` 是数字字符，ASCII 值小于字母。","pitfall":"字符 `9` 不是数值 9，它的 ASCII 码是 57；做 ASCII 题时比较的是编码值，不是字符含义。","assets":[]},{"id":"ch01-q14","chapter":1,"chapterTitle":"计算机基础与数制","sourceNumber":14,"type":"choice","title":"完整计算机系统的组成","prompt":"完整的计算机系统是由（ ）组成的。","options":[{"key":"A","text":"主机与外设"},{"key":"B","text":"ALU 与控制器"},{"key":"C","text":"CPU 与存储器"},{"key":"D","text":"硬件系统与软件系统"}],"answer":"D","acceptedAnswers":[],"explanation":"一个完整的计算机系统由硬件系统和软件系统组成。硬件系统提供物理基础，软件系统负责管理硬件并完成具体任务，两者缺一不可。","distractorAnalysis":"- A 只描述硬件系统的一种划分，没有包括软件系统。\n- B 是 CPU 内部核心部件的组成，不是完整计算机系统。\n- C 只包含部分硬件，也没有包括输入输出设备和软件。","pitfall":"如果题目问“完整的计算机系统”，答案必须包含硬件和软件；如果只问“计算机硬件系统”，才考虑主机、外设等硬件划分。","assets":[]},{"id":"ch01-q15","chapter":1,"chapterTitle":"计算机基础与数制","sourceNumber":15,"type":"choice","title":"计算机硬件系统的组成","prompt":"计算机硬件系统应包括（ ）。","options":[{"key":"A","text":"运算器、存储器、控制器"},{"key":"B","text":"主机和实用程序"},{"key":"C","text":"主机与外围设备"},{"key":"D","text":"配套的硬件设备和软件系统"}],"answer":"C","acceptedAnswers":[],"explanation":"计算机硬件系统通常由主机和外围设备组成。主机一般包括 CPU、主存储器等核心部件；外围设备包括输入设备、输出设备、外存储器等。","distractorAnalysis":"- A 只列出了部分硬件，缺少输入设备、输出设备等外围设备。\n- B 实用程序属于软件，不属于硬件系统。\n- D 同时包含硬件和软件，描述的是完整计算机系统，而不是硬件系统。","pitfall":"“完整计算机系统”=硬件系统+软件系统；“计算机硬件系统”=主机+外设。","assets":[]},{"id":"ch01-q16","chapter":1,"chapterTitle":"计算机基础与数制","sourceNumber":16,"type":"choice","title":"地址总线的发出者","prompt":"地址总线由（ ）发出，用来确定 CPU 要访问的内存单元或 I/O 端口的地址。","options":[{"key":"A","text":"内存储器"},{"key":"B","text":"I/O 设备"},{"key":"C","text":"硬盘"},{"key":"D","text":"CPU"}],"answer":"D","acceptedAnswers":[],"explanation":"CPU 主动发出地址信息，通过地址总线指出要访问的内存单元或 I/O 端口。地址总线通常是单向的，方向是从 CPU 指向存储器或 I/O 接口。","distractorAnalysis":"- A 内存储器根据地址被访问，一般不主动发出地址。\n- B I/O 设备是被 CPU 选中的访问对象，不是地址总线的发出者。\n- C 硬盘属于外存设备，不负责发出 CPU 地址总线信号。","pitfall":"地址总线通常单向，由 CPU 发出；数据总线通常双向，用于读写数据。","assets":[]},{"id":"ch01-q17","chapter":1,"chapterTitle":"计算机基础与数制","sourceNumber":17,"type":"choice","title":"MIPS 的含义","prompt":"计算机运算速度的单位是 MIPS，其含义是（ ）。","options":[{"key":"A","text":"每分钟处理百万个字符"},{"key":"B","text":"每分钟执行百万条指令"},{"key":"C","text":"每秒钟处理百万个字符"},{"key":"D","text":"每秒钟执行百万条指令"}],"answer":"D","acceptedAnswers":[],"explanation":"MIPS 是 Million Instructions Per Second 的缩写，表示“每秒执行百万条指令”，常用来衡量计算机的指令执行速度。","distractorAnalysis":"- A、C 把衡量对象误写成字符处理数量。\n- B 把时间单位误写成“每分钟”，MIPS 中的 S 指 Second，即“秒”。","pitfall":"MIPS 中的 I 是 Instructions，即指令；S 是 Second，即秒。","assets":[]},{"id":"ch01-q18","chapter":1,"chapterTitle":"计算机基础与数制","sourceNumber":18,"type":"choice","title":"当前制造计算机采用的电子器件","prompt":"目前制造计算机所采用的电子器件是（ ）。","options":[{"key":"A","text":"超导材料"},{"key":"B","text":"中规模集成电路"},{"key":"C","text":"晶体管"},{"key":"D","text":"超大规模集成电路"}],"answer":"D","acceptedAnswers":[],"explanation":"现代计算机主要采用超大规模集成电路（VLSI）制造。计算机的发展经历了电子管、晶体管、中小规模集成电路、大规模/超大规模集成电路等阶段。","distractorAnalysis":"- A 超导材料不是目前通用计算机制造的主要电子器件。\n- B 中规模集成电路属于较早阶段。\n- C 晶体管是第二代计算机的主要器件，不是现代计算机的主要集成形态。","pitfall":"按计算机代际记忆：第一代电子管，第二代晶体管，第三代集成电路，第四代大规模和超大规模集成电路。","assets":[]},{"id":"ch01-q19","chapter":1,"chapterTitle":"计算机基础与数制","sourceNumber":19,"type":"choice","title":"三组总线中的双向总线","prompt":"在微机的三组总线中，（ ）是双向的。","options":[{"key":"A","text":"地址总线"},{"key":"B","text":"控制总线"},{"key":"C","text":"数据总线"},{"key":"D","text":"以上都不是"}],"answer":"C","acceptedAnswers":[],"explanation":"数据总线用于 CPU 与内存、I/O 设备之间交换数据。CPU 读数据时，数据从内存或 I/O 设备传向 CPU；CPU 写数据时，数据从 CPU 传向内存或 I/O 设备，因此数据总线是双向的。","distractorAnalysis":"- A 地址总线通常由 CPU 发出，是单向的。\n- B 控制总线中不同控制信号方向可能不同，但在三组总线的常见考法中，双向总线指数据总线。\n- D 错，因为数据总线就是双向的。","pitfall":"地址总线负责“CPU 指向哪里”，常按单向理解；数据总线负责“内容来回传”，所以是双向。","assets":[]},{"id":"ch01-q20","chapter":1,"chapterTitle":"计算机基础与数制","sourceNumber":20,"type":"choice","title":"计算机硬件能直接识别和执行的语言","prompt":"计算机硬件能直接识别和执行的只有（ ）。","options":[{"key":"A","text":"符号语言"},{"key":"B","text":"高级语言"},{"key":"C","text":"机器语言"},{"key":"D","text":"汇编语言"}],"answer":"C","acceptedAnswers":[],"explanation":"计算机硬件只能直接识别和执行机器语言，也就是由二进制机器指令组成的语言。汇编语言和高级语言都必须经过汇编、编译或解释等过程，转换成机器语言后才能被 CPU 执行。","distractorAnalysis":"- A 符号语言不是硬件可直接执行的二进制机器指令。\n- B 高级语言需要编译或解释后才能执行。\n- D 汇编语言虽然接近机器语言，但仍需汇编成机器码。","pitfall":"汇编语言“接近机器”，但不是“机器能直接执行”；硬件直接执行的只有机器语言。","assets":[]},{"id":"ch02-q01","chapter":2,"chapterTitle":"16 位和 32 位微处理器","sourceNumber":1,"type":"choice","title":"8086 最大工作模式特点","prompt":"下列说法中属于 8086 最大工作模式特点的是（ ）。","options":[{"key":"A","text":"由编程进行模式设定"},{"key":"B","text":"需要总线控制器 8288"},{"key":"C","text":"不需要 8286 收发器"},{"key":"D","text":"CPU 提供全部的控制信号"}],"answer":"B","acceptedAnswers":[],"explanation":"8086 有最小模式和最大模式。最大模式主要用于多处理器或协处理器系统，此时 CPU 不直接给出全部总线控制信号，而是输出状态信号，再由总线控制器 8288 产生相应控制信号。","distractorAnalysis":"- A 错，8086 的工作模式由 `MN/MX` 引脚决定，不是由程序设定。\n- C 错，是否使用总线收发器取决于系统设计，不能作为最大模式特点。\n- D 是最小模式的特点；最大模式下控制信号主要由 8288 产生。","pitfall":"最小模式适合单处理器系统，CPU 自己给控制信号；最大模式适合多处理器系统，需要 8288 总线控制器。","assets":[]},{"id":"ch02-q02","chapter":2,"chapterTitle":"16 位和 32 位微处理器","sourceNumber":2,"type":"choice","title":"8086 总线接口部件 BIU","prompt":"在 8086 CPU 中，不属于总线接口部件的是（ ）。","options":[{"key":"A","text":"段地址寄存器"},{"key":"B","text":"标志寄存器"},{"key":"C","text":"20 位的地址加法器"},{"key":"D","text":"指令队列"}],"answer":"B","acceptedAnswers":[],"explanation":"8086 CPU 分为总线接口部件 BIU 和执行部件 EU。BIU 负责取指令、形成物理地址、访问存储器和 I/O，包括段寄存器、指令指针 IP、20 位地址加法器和 6 字节指令队列。标志寄存器属于 EU 相关部分，不属于 BIU。","distractorAnalysis":"- A 段地址寄存器属于 BIU。\n- C 20 位地址加法器用于形成物理地址，属于 BIU。\n- D 指令队列用于预取指令，属于 BIU。","pitfall":"BIU 负责“对外访问和取指”，EU 负责“执行指令和运算”。标志寄存器跟运算结果密切相关，所以不属于 BIU。","assets":[]},{"id":"ch02-q03","chapter":2,"chapterTitle":"16 位和 32 位微处理器","sourceNumber":3,"type":"choice","title":"8086 复位后的执行地址","prompt":"8086 系统复位后，下列叙述中正确的是（ ）。","options":[{"key":"A","text":"系统此时能响应 INTR 引入的中断"},{"key":"B","text":"DS 中的值为 FFFFH"},{"key":"C","text":"系统此时不能响应 NMI 引入的中断"},{"key":"D","text":"系统从 FFFF0H 处开始执行程序"}],"answer":"D","acceptedAnswers":[],"explanation":"8086 复位后，`CS=FFFFH`，`IP=0000H`，因此物理地址为：\n\n$$\nFFFFH \\times 10H + 0000H = FFFF0H\n$$\n\n所以 CPU 从物理地址 `FFFF0H` 开始取指执行。","distractorAnalysis":"- A 错，复位后中断允许标志 IF 清 0，通常不能响应可屏蔽中断 INTR。\n- B 错，复位后是 `CS=FFFFH`，不是 `DS=FFFFH`。\n- C 容易混淆，NMI 是非屏蔽中断，不能用 IF 屏蔽；本题标准确定项是复位入口地址。","pitfall":"复位入口记死：`CS:IP = FFFFH:0000H`，物理地址就是 `FFFF0H`。","assets":[]},{"id":"ch02-q04","chapter":2,"chapterTitle":"16 位和 32 位微处理器","sourceNumber":4,"type":"choice","title":"READY 采样与等待周期","prompt":"若在一个总线周期中，CPU 对 READY 信号进行了 3 次采样，那么该总线周期包含时钟周期的数目为（ ）。","options":[{"key":"A","text":"6"},{"key":"B","text":"7"},{"key":"C","text":"8"},{"key":"D","text":"5"}],"answer":"A","acceptedAnswers":[],"explanation":"8086 一个基本总线周期通常包含 `T1`、`T2`、`T3`、`T4` 四个时钟周期。当外设或存储器速度较慢时，CPU 根据 READY 信号插入等待周期 `Tw`。READY 被多次采样说明插入了等待周期；本题给出的 3 次采样对应总线周期共 6 个时钟周期。\n\n```text\nT1, T2, T3, Tw, Tw, T4  -> 共 6 个 T 状态\n```","distractorAnalysis":"- B、C 多算了等待周期。\n- D 少算了一个等待周期或基本 T 状态。","pitfall":"正常总线周期是 4 个 T 状态；READY 不满足时会在 `T3` 和 `T4` 之间插入等待周期。","assets":[]},{"id":"ch02-q05","chapter":2,"chapterTitle":"16 位和 32 位微处理器","sourceNumber":5,"type":"choice","title":"不属于 BIU 的寄存器","prompt":"8086 CPU 中，不属于 BIU 部分的寄存器是（ ）。","options":[{"key":"A","text":"`DS`"},{"key":"B","text":"`IP`"},{"key":"C","text":"`BP`"},{"key":"D","text":"`CS`"}],"answer":"C","acceptedAnswers":[],"explanation":"BIU 中包括段寄存器 `CS`、`DS`、`SS`、`ES` 和指令指针 `IP` 等。`BP` 是基址指针寄存器，属于执行部件 EU 中的通用寄存器组，不属于 BIU。","distractorAnalysis":"- A `DS` 是段寄存器，属于 BIU。\n- B `IP` 用于指示下一条指令偏移地址，属于 BIU。\n- D `CS` 是代码段寄存器，属于 BIU。","pitfall":"段寄存器和 IP 属于 BIU；通用寄存器、标志寄存器、ALU 等属于 EU。","assets":[]},{"id":"ch02-q06","chapter":2,"chapterTitle":"16 位和 32 位微处理器","sourceNumber":6,"type":"choice","title":"8086 存储器写总线周期控制信号","prompt":"在 8086 的存储器写总线周期中，微处理器给出的控制信号（最小模式下）`M/IO`、`\\overline{RD}`、`\\overline{WR}` 分别是（ ）。","options":[{"key":"A","text":"1,0,1"},{"key":"B","text":"0,1,0"},{"key":"C","text":"1,1,0"},{"key":"D","text":"0,0,1"}],"answer":"C","acceptedAnswers":[],"explanation":"存储器写周期表示 CPU 向内存写数据。最小模式下：\n\n```text\nM/IO = 1       表示访问存储器\n\\overline{RD} = 1  读信号无效\n\\overline{WR} = 0  写信号有效，因为 WR 为低电平有效\n```\n\n所以三者分别为 `1,1,0`。","distractorAnalysis":"- A 把读信号置为有效，变成读操作。\n- B `M/IO=0` 表示 I/O 操作，不是存储器操作。\n- D 同时把存储器/I/O 类型和读写方向都弄错。","pitfall":"带横线的 `RD`、`WR` 是低电平有效；写周期时 `WR=0`，`RD=1`。","assets":[]},{"id":"ch02-q07","chapter":2,"chapterTitle":"16 位和 32 位微处理器","sourceNumber":7,"type":"choice","title":"8086 存储器读总线周期控制信号","prompt":"在 8086 的存储器读总线周期中，微处理器给出的控制信号（最小模式下）`\\overline{WR}`、`M/IO`、`\\overline{RD}` 分别是（ ）。","options":[{"key":"A","text":"1,1,0"},{"key":"B","text":"1,0,1"},{"key":"C","text":"0,0,1"},{"key":"D","text":"0,1,0"}],"answer":"A","acceptedAnswers":[],"explanation":"存储器读周期表示 CPU 从内存读取数据。最小模式下：\n\n```text\n\\overline{WR} = 1  写信号无效\nM/IO = 1       表示访问存储器\n\\overline{RD} = 0  读信号有效，因为 RD 为低电平有效\n```\n\n所以三者分别为 `1,1,0`。","distractorAnalysis":"- B 是 I/O 类型错误且读信号无效。\n- C 表示 I/O 操作且写信号有效。\n- D 同时出现读写信号都有效的混乱情况，不符合正常读周期。","pitfall":"题目给信号的顺序是 `WR, M/IO, RD`，不是常见的 `M/IO, RD, WR`，答题时先看顺序。","assets":[]},{"id":"ch02-q08","chapter":2,"chapterTitle":"16 位和 32 位微处理器","sourceNumber":8,"type":"choice","title":"8086 存储器读操作中的方向控制","prompt":"8086 CPU（最小模式下）在进行存储器读操作时，`M/IO`、`\\overline{RD}`、`DT/\\overline{R}` 必须是（ ）。","options":[{"key":"A","text":"0,1,0"},{"key":"B","text":"1,0,0"},{"key":"C","text":"0,0,1"},{"key":"D","text":"1,1,0"}],"answer":"B","acceptedAnswers":[],"explanation":"存储器读操作中：\n\n```text\nM/IO = 1       表示访问存储器\n\\overline{RD} = 0  读信号有效\nDT/\\overline{R} = 0 表示 CPU 接收数据\n```\n\n因此答案为 `1,0,0`。","distractorAnalysis":"- A `M/IO=0` 表示 I/O 操作。\n- C `DT/R=1` 表示 CPU 发送数据，不符合读操作。\n- D `RD=1` 表示读信号无效。","pitfall":"`DT/\\overline{R}` 中，1 表示发送 Transmit，0 表示接收 Receive；CPU 读内存时当然是接收。","assets":[]},{"id":"ch02-q09","chapter":2,"chapterTitle":"16 位和 32 位微处理器","sourceNumber":9,"type":"choice","title":"8086 指令队列长度","prompt":"8086 CPU 的指令队列缓冲器由（ ）组成。","options":[{"key":"A","text":"1 字节移位寄存器"},{"key":"B","text":"6 字节移位寄存器"},{"key":"C","text":"8 字节移位寄存器"},{"key":"D","text":"4 字节移位寄存器"}],"answer":"B","acceptedAnswers":[],"explanation":"8086 的 BIU 中有 6 字节指令队列，用于预取指令，使取指和执行可以一定程度并行。8088 的指令队列是 4 字节，这一点常和 8086 混考。","distractorAnalysis":"- A 太小，不是 8086 指令队列长度。\n- C 容易和其他处理器结构混淆。\n- D 是 8088 的指令队列长度，不是 8086。","pitfall":"8086 指令队列 6 字节；8088 指令队列 4 字节。","assets":[]},{"id":"ch02-q10","chapter":2,"chapterTitle":"16 位和 32 位微处理器","sourceNumber":10,"type":"choice","title":"写信号开始有效的状态","prompt":"CPU 访问内存时，`\\overline{WR}` 开始有效对应的状态是（ ）。","options":[{"key":"A","text":"`T1`"},{"key":"B","text":"`T4`"},{"key":"C","text":"`T2`"},{"key":"D","text":"`T3`"}],"answer":"C","acceptedAnswers":[],"explanation":"8086 总线周期中，`T1` 主要用于输出地址；从 `T2` 开始，读写等控制信号有效，用来指示当前总线操作类型。因此内存写周期中，`\\overline{WR}` 从 `T2` 开始有效。","distractorAnalysis":"- A `T1` 主要输出地址和地址锁存信号。\n- B `T4` 是总线周期结束阶段，控制信号撤销。\n- D `T3` 是数据传送阶段，但写信号不是到 `T3` 才开始有效。","pitfall":"总线周期大致记：`T1` 出地址，`T2` 出控制，`T3` 传数据，`T4` 结束恢复。","assets":[]},{"id":"ch02-q11","chapter":2,"chapterTitle":"16 位和 32 位微处理器","sourceNumber":11,"type":"fill","title":"8086/8088 的两个独立功能部件","prompt":"8086/8088 微处理器被设计为两个独立的功能部件：① 和 ②。","options":[],"answer":["总线接口部件（BIU）","执行部件（EU）"],"acceptedAnswers":[["总线接口部件（BIU）"],["执行部件（EU）"]],"explanation":"8086/8088 内部采用 BIU 和 EU 分工结构。BIU 负责取指令、形成物理地址、访问存储器和 I/O；EU 负责指令译码、执行运算和更新标志位。\n\n```text\nBIU：对外访问、取指、地址形成\nEU ：指令执行、算术逻辑运算、标志处理\n```","distractorAnalysis":"","pitfall":"中文名和英文缩写要能互换：BIU = Bus Interface Unit = 总线接口部件；EU = Execution Unit = 执行部件。","assets":[]},{"id":"ch02-q12","chapter":2,"chapterTitle":"16 位和 32 位微处理器","sourceNumber":12,"type":"fill","title":"8086 复位信号","prompt":"8086 的复位信号引脚是 ①，有效电平是 ②。","options":[],"answer":["`RESET`","高电平"],"acceptedAnswers":[["RESET"],["高电平"]],"explanation":"8086 的复位输入信号为 `RESET`，高电平有效。当 `RESET` 有效时，CPU 被初始化，随后从复位入口地址开始执行程序。","distractorAnalysis":"","pitfall":"8086 的 `RESET` 是高电平有效；很多带横线的控制信号才是低电平有效。","assets":[]},{"id":"ch02-q13","chapter":2,"chapterTitle":"16 位和 32 位微处理器","sourceNumber":13,"type":"fill","title":"控制标志位","prompt":"8086/8088 CPU 中与单步操作有关的控制标志位是 ①，与中断操作有关的控制标志位是 ②，与串操作有关的控制标志位是 ③。","options":[],"answer":["`TF`","`IF`","`DF`"],"acceptedAnswers":[["TF"],["IF"],["DF"]],"explanation":"- `TF`：Trap Flag，陷阱标志。用于单步执行。\n- `IF`：Interrupt Flag，中断允许标志。控制 CPU 是否响应可屏蔽中断。\n- `DF`：Direction Flag，方向标志。控制串操作中地址自动增减方向。","distractorAnalysis":"","pitfall":"`IF` 只控制可屏蔽中断 INTR，不能屏蔽非屏蔽中断 NMI。","assets":[]},{"id":"ch02-q14","chapter":2,"chapterTitle":"16 位和 32 位微处理器","sourceNumber":14,"type":"fill","title":"最大方式和最小方式选择引脚","prompt":"8086 CPU 工作在最大方式和最小方式是由引脚 ① 信号的状态决定。","options":[],"answer":["`MN/\\overline{MX}`"],"acceptedAnswers":[["MN","\\overline{MX}"]],"explanation":"8086 通过 `MN/\\overline{MX}` 引脚选择工作模式。该引脚为高电平时工作在最小模式，为低电平时工作在最大模式。\n\n```text\nMN/MX = 1：最小模式\nMN/MX = 0：最大模式\n```","distractorAnalysis":"","pitfall":"最大/最小模式不是靠程序设置，而是由硬件引脚状态决定。","assets":[]},{"id":"ch02-q15","chapter":2,"chapterTitle":"16 位和 32 位微处理器","sourceNumber":15,"type":"fill","title":"IF 标志位的作用","prompt":"CPU 内部的中断允许标志位 IF 的作用是禁止 CPU 响应 ①。","options":[],"answer":["可屏蔽中断"],"acceptedAnswers":[["可屏蔽中断"]],"explanation":"`IF` 是中断允许标志。`IF=1` 时，CPU 可以响应可屏蔽中断 `INTR`；`IF=0` 时，CPU 禁止响应可屏蔽中断。","distractorAnalysis":"","pitfall":"`IF` 不能禁止非屏蔽中断 `NMI`，只能控制可屏蔽中断。","assets":[]},{"id":"ch02-q16","chapter":2,"chapterTitle":"16 位和 32 位微处理器","sourceNumber":16,"type":"fill","title":"DMA 操作相关控制线","prompt":"在 8086/8088 CPU 中，与 DMA 操作有关的控制线是 ① 和 ②。","options":[],"answer":["`HOLD`","`HLDA`"],"acceptedAnswers":[["HOLD"],["HLDA"]],"explanation":"DMA 控制器需要占用总线时，通过 `HOLD` 向 CPU 发出总线请求。CPU 允许让出总线后，通过 `HLDA` 发出总线响应。\n\n```text\nHOLD：总线保持请求\nHLDA：总线保持响应\n```","distractorAnalysis":"","pitfall":"`HOLD` 是请求，`HLDA` 是响应；这两个信号常成对出现。","assets":[]},{"id":"ch02-q17","chapter":2,"chapterTitle":"16 位和 32 位微处理器","sourceNumber":17,"type":"fill","title":"ALE 信号的作用","prompt":"在 8086/8088 的总线周期中，ALE 信号在 ① 期间有效。它是一个 ② 脉冲，用于锁存 ③。","options":[],"answer":["`T1`","正","地址信息"],"acceptedAnswers":[["T1"],["正"],["地址信息"]],"explanation":"8086 的地址线和数据线存在复用，例如低 16 位地址和数据共用 `AD0-AD15`。因此在 `T1` 期间地址有效时，需要用 ALE 正脉冲把地址锁存下来，供后续总线周期使用。\n\n```text\nT1：地址出现，ALE 有效，锁存地址\nT2-T4：地址/数据复用线可用于传送数据\n```","distractorAnalysis":"","pitfall":"ALE 锁存的是地址信息，不是数据信息。","assets":[]},{"id":"ch02-q18","chapter":2,"chapterTitle":"16 位和 32 位微处理器","sourceNumber":18,"type":"short","title":"段地址、偏移地址和物理地址","prompt":"写出下列存储器地址的段地址、偏移地址和物理地址。\n\n1. `2302H:013AH`\n2. `2FE0H:001BH`","options":[],"answer":"| 序号 | 段地址 | 偏移地址 | 物理地址 |\n|---|---|---|---|\n| 1 | `2302H` | `013AH` | `2315AH` |\n| 2 | `2FE0H` | `001BH` | `2FE1BH` |","acceptedAnswers":[],"explanation":"8086 物理地址计算公式为：\n\n$$\n物理地址 = 段地址 \\times 10H + 偏移地址\n$$\n\n第 1 个地址：\n\n$$\n2302H \\times 10H + 013AH = 23020H + 013AH = 2315AH\n$$\n\n第 2 个地址：\n\n$$\n2FE0H \\times 10H + 001BH = 2FE00H + 001BH = 2FE1BH\n$$","distractorAnalysis":"","pitfall":"段地址左移 4 位，相当于乘以 `10H`，不是乘以十进制的 10。","assets":[]},{"id":"ch02-q19","chapter":2,"chapterTitle":"16 位和 32 位微处理器","sourceNumber":19,"type":"short","title":"4KB 存储器物理地址范围","prompt":"若某存储器容量为 4KB，在计算机存储系统中，其起始地址为 `101AH:3000H`，请计算出该存储器物理地址的范围。","options":[],"answer":"`131A0H ~ 1419FH`","acceptedAnswers":[],"explanation":"先求起始物理地址：\n\n$$\n101AH \\times 10H + 3000H = 101A0H + 3000H = 131A0H\n$$\n\n4KB 的容量为：\n\n$$\n4KB = 4 \\times 1024 = 4096 = 1000H\n$$\n\n地址范围从起始地址开始，最后一个地址要加容量减 1：\n\n$$\n终止地址 = 131A0H + 1000H - 1 = 1419FH\n$$\n\n所以物理地址范围为 `131A0H ~ 1419FH`。","distractorAnalysis":"","pitfall":"终止地址是“起始地址 + 容量 - 1”，不是直接加容量。","assets":[]},{"id":"ch02-q20","chapter":2,"chapterTitle":"16 位和 32 位微处理器","sourceNumber":20,"type":"short","title":"1KB 存储器物理地址范围","prompt":"若某存储器容量为 1KB，在计算机存储系统中，其起始地址为 `100AH:2000H`，请计算出该存储器物理地址的范围。","options":[],"answer":"`120A0H ~ 1249FH`","acceptedAnswers":[],"explanation":"先求起始物理地址：\n\n$$\n100AH \\times 10H + 2000H = 100A0H + 2000H = 120A0H\n$$\n\n1KB 的容量为：\n\n$$\n1KB = 1024 = 400H\n$$\n\n因此终止地址为：\n\n$$\n120A0H + 400H - 1 = 1249FH\n$$\n\n所以物理地址范围为 `120A0H ~ 1249FH`。","distractorAnalysis":"","pitfall":"`1KB = 400H` 字节，最后地址要减 1。","assets":[]},{"id":"ch02-q21","chapter":2,"chapterTitle":"16 位和 32 位微处理器","sourceNumber":21,"type":"short","title":"总线周期时间与 READY 检测次数","prompt":"设 8086 的时钟频率为 5MHz，总线周期中包含 6 个 `Tw` 等待周期。问：\n\n1. 该总线周期是多少？\n2. 该总线周期内对 READY 信号检测了多少次？","options":[],"answer":"① `2us` ② `7 次`","acceptedAnswers":[],"explanation":"时钟频率为 5MHz，则一个时钟周期为：\n\n$$\nT = \\frac{1}{5MHz}=0.2us\n$$\n\n8086 基本总线周期为 4 个 T 状态，若插入 6 个等待周期，则总 T 状态数为：\n\n$$\n4 + 6 = 10\n$$\n\n所以该总线周期时间为：\n\n$$\n10 \\times 0.2us = 2us\n$$\n\nREADY 的检测次数按“等待周期数 + 1”计算：\n\n$$\n6 + 1 = 7\n$$","distractorAnalysis":"","pitfall":"有等待周期时，总线周期时间要把基本的 4 个 T 状态也算进去；READY 检测次数通常比等待周期数多 1。","assets":[]},{"id":"ch03-q01","chapter":3,"chapterTitle":"8086/8088 指令系统","sourceNumber":1,"type":"choice","title":"条件转移与标志位","prompt":"已知程序为：\n\n```asm\nADD AL, BL\nJNO L1\nJNC L2\n```\n\n若 `AL` 和 `BL` 的内容有以下 4 组给定值，使程序转向 `L2` 执行的是（ ）。","options":[{"key":"A","text":"`(AL)=67H, (BL)=78H`"},{"key":"B","text":"`(AL)=0B6H, (BL)=87H`"},{"key":"C","text":"`(AL)=18H, (BL)=0F9H`"},{"key":"D","text":"`(AL)=81H, (BL)=0A5H`"}],"answer":"A","acceptedAnswers":[],"explanation":"程序要转向 `L2`，必须满足：\n\n```text\nJNO L1 不跳转 -> OF=1\nJNC L2 跳转   -> CF=0\n```\n\n选项 A：\n\n```text\n67H + 78H = DFH\n```\n\n无符号角度：结果小于 `100H`，没有进位，所以 `CF=0`。有符号角度：`67H` 和 `78H` 都是正数，相加后得到 `DFH`，最高位为 1，变成负数，发生溢出，所以 `OF=1`。因此先不执行 `JNO L1`，再执行 `JNC L2`，转向 `L2`。","distractorAnalysis":"","pitfall":"`CF` 看无符号进位，`OF` 看有符号溢出。两个正数相加得到负数时，`OF=1`。","assets":[]},{"id":"ch03-q02","chapter":3,"chapterTitle":"8086/8088 指令系统","sourceNumber":2,"type":"choice","title":"JMP BX 指令","prompt":"若 `(BX)=1224H`，`(IP)=3478H`，执行 `JMP BX` 指令后，寄存器变化正确的是（ ）。","options":[{"key":"A","text":"`(BX)=3478H, (IP)=3478H`"},{"key":"B","text":"`(BX)=1224H, (IP)=1224H`"},{"key":"C","text":"`(BX)=1224H, (IP)=3478H`"},{"key":"D","text":"`(BX)=3478H, (IP)=1224H`"}],"answer":"B","acceptedAnswers":[],"explanation":"`JMP BX` 是寄存器间接转移，表示把 `BX` 中的内容送入 `IP`，作为新的指令偏移地址。`BX` 本身不变。\n\n```text\n执行前：BX=1224H, IP=3478H\n执行后：BX=1224H, IP=1224H\n```","distractorAnalysis":"","pitfall":"`JMP BX` 改变的是 `IP`，不是把 `IP` 送入 `BX`。","assets":[]},{"id":"ch03-q03","chapter":3,"chapterTitle":"8086/8088 指令系统","sourceNumber":3,"type":"choice","title":"逻辑运算指令序列","prompt":"执行下列指令后：\n\n```asm\nMOV AL, BL\nNOT AL\nXOR AL, BL\nOR  BL, AL\n```\n\n寄存器 `(AL)=（ ）`，`(BL)=（ ）`。","options":[{"key":"A","text":"`0FFH, 0FFH`"},{"key":"B","text":"`11H, 0FFH`"},{"key":"C","text":"`0FFH, 11H`"},{"key":"D","text":"`00H, 00H`"}],"answer":"A","acceptedAnswers":[],"explanation":"设原来 `BL=x`。\n\n```text\nMOV AL, BL  -> AL=x\nNOT AL      -> AL=~x\nXOR AL, BL  -> AL=(~x) XOR x = FFH\nOR BL, AL   -> BL=x OR FFH = FFH\n```\n\n所以最后 `AL=0FFH`，`BL=0FFH`。","distractorAnalysis":"","pitfall":"任意二进制数和它按位取反后的数异或，结果全为 1。","assets":[]},{"id":"ch03-q04","chapter":3,"chapterTitle":"8086/8088 指令系统","sourceNumber":4,"type":"choice","title":"PUSH 与栈顶物理地址","prompt":"设 `(SS)=238BH`，`(SP)=0100H`，执行 `PUSH BX` 和 `PUSHF` 两条指令后，堆栈顶部的物理地址是（ ）。","options":[{"key":"A","text":"`239ACH`"},{"key":"B","text":"`239B4H`"},{"key":"C","text":"`239AEH`"},{"key":"D","text":"`239B2H`"}],"answer":"A","acceptedAnswers":[],"explanation":"8086 中栈按字操作，执行一次 `PUSH`，`SP` 先减 2，再写入一个字。连续执行两次 `PUSH`：\n\n```text\n初始 SP = 0100H\nPUSH BX 后 SP = 00FEH\nPUSHF 后 SP = 00FCH\n```\n\n栈顶物理地址为：\n\n$$\nSS \\times 10H + SP = 238BH \\times 10H + 00FCH = 238B0H + 00FCH = 239ACH\n$$","distractorAnalysis":"","pitfall":"`PUSH` 是先让 `SP-2`，再存数据；堆栈顶部地址由 `SS:SP` 决定。","assets":[]},{"id":"ch03-q05","chapter":3,"chapterTitle":"8086/8088 指令系统","sourceNumber":5,"type":"choice","title":"INC 指令不影响的标志","prompt":"`INC` 指令不影响（ ）标志。","options":[{"key":"A","text":"`SF`"},{"key":"B","text":"`ZF`"},{"key":"C","text":"`OF`"},{"key":"D","text":"`CF`"}],"answer":"D","acceptedAnswers":[],"explanation":"`INC` 是加 1 指令，会影响 `SF`、`ZF`、`OF`、`AF`、`PF` 等标志，但不影响进位标志 `CF`。","distractorAnalysis":"","pitfall":"`INC` 和 `ADD 1` 很像，但 `INC` 不影响 `CF`。","assets":[]},{"id":"ch03-q06","chapter":3,"chapterTitle":"8086/8088 指令系统","sourceNumber":6,"type":"choice","title":"将 CF 置 1 的指令","prompt":"能够将 `CF` 置 1 的指令是（ ）。","options":[{"key":"A","text":"`CLC`"},{"key":"B","text":"`STD`"},{"key":"C","text":"`STC`"},{"key":"D","text":"`CMC`"}],"answer":"C","acceptedAnswers":[],"explanation":"`STC` 表示 Set Carry Flag，用于将进位标志 `CF` 置 1。","distractorAnalysis":"- `CLC`：清 `CF`，使 `CF=0`。\n- `STD`：置方向标志 `DF=1`。\n- `CMC`：对 `CF` 取反。","pitfall":"`STC` 置进位，`CLC` 清进位，`CMC` 进位取反。","assets":[]},{"id":"ch03-q07","chapter":3,"chapterTitle":"8086/8088 指令系统","sourceNumber":7,"type":"choice","title":"取变量偏移地址","prompt":"将变量 `BUF` 的偏移地址送入 `DI` 的正确指令是（ ）。","options":[{"key":"A","text":"`LEA DI, BUF`"},{"key":"B","text":"`MOV [DI], BUF`"},{"key":"C","text":"`MOV OFFSET BUF, DI`"},{"key":"D","text":"`MOV DI, BUF`"}],"answer":"A","acceptedAnswers":[],"explanation":"`LEA` 指令用于取有效地址。`LEA DI, BUF` 的含义是把变量 `BUF` 的偏移地址送入 `DI`。\n\n```asm\nLEA DI, BUF\n```\n\n等价理解为：\n\n```text\nDI <- OFFSET BUF\n```","distractorAnalysis":"","pitfall":"`MOV DI, BUF` 通常表示把 `BUF` 所在内存单元的内容送入 `DI`，不是送偏移地址。","assets":[]},{"id":"ch03-q08","chapter":3,"chapterTitle":"8086/8088 指令系统","sourceNumber":8,"type":"choice","title":"会影响标志位的指令","prompt":"下列指令执行后，能够影响标志位的指令是（ ）。","options":[{"key":"A","text":"`MOV AX, 2400H`"},{"key":"B","text":"`ADD AL, AH`"},{"key":"C","text":"`JNZ NEXT`"},{"key":"D","text":"`LOOPNZ NEXT`"}],"answer":"B","acceptedAnswers":[],"explanation":"算术运算指令通常会影响标志位。`ADD AL, AH` 会根据运算结果影响 `CF`、`OF`、`ZF`、`SF`、`AF`、`PF` 等标志。","distractorAnalysis":"- `MOV` 传送数据，不影响标志位。\n- `JNZ` 根据 `ZF` 判断是否转移，但本身不改变标志位。\n- `LOOPNZ` 根据 `CX` 和 `ZF` 判断循环，但不改变标志位。","pitfall":"条件转移指令“使用”标志位，不等于“修改”标志位。","assets":[]},{"id":"ch03-q09","chapter":3,"chapterTitle":"8086/8088 指令系统","sourceNumber":9,"type":"choice","title":"物理地址对应的段地址和偏移地址","prompt":"已知某操作数的物理地址是 `4117AH`，则它的段地址和偏移地址可能是（ ）。","options":[{"key":"A","text":"`3E00H; 317AH`"},{"key":"B","text":"`4025H; 0F0AH`"},{"key":"C","text":"`4000H; 007AH`"},{"key":"D","text":"`4108H; 002AH`"}],"answer":"A","acceptedAnswers":[],"explanation":"8086 物理地址计算公式：\n\n$$\n物理地址 = 段地址 \\times 10H + 偏移地址\n$$\n\n验证 A：\n\n$$\n3E00H \\times 10H + 317AH = 3E000H + 317AH = 4117AH\n$$\n\n因此 A 正确。","distractorAnalysis":"","pitfall":"同一个物理地址可以由多组“段地址:偏移地址”表示，但必须满足 `段地址 × 10H + 偏移地址 = 物理地址`。","assets":[]},{"id":"ch03-q10","chapter":3,"chapterTitle":"8086/8088 指令系统","sourceNumber":10,"type":"choice","title":"CALL 指令入栈与小端存储","prompt":"已知 `(SS)=2000H`，`(SP)=2000H`，`(BX)=283FH`，指令 `CALL WORD PTR [BX]` 的机器代码是 `1234H`，该指令的起始地址为 `1000H`，试问执行该指令后，内存单元 `21FFFH` 的内容是（ ）。","options":[{"key":"A","text":"`3FH`"},{"key":"B","text":"`28H`"},{"key":"C","text":"`02H`"},{"key":"D","text":"`10H`"}],"answer":"D","acceptedAnswers":[],"explanation":"`CALL WORD PTR [BX]` 是近调用，会把返回地址压入栈。该指令机器代码为 2 字节，起始地址是 `1000H`，所以返回地址为：\n\n```text\n1000H + 2 = 1002H\n```\n\n执行 `CALL` 入栈时：\n\n```text\nSP = 2000H - 2 = 1FFEH\n```\n\n8086 按小端方式存储字数据，低字节放低地址，高字节放高地址：\n\n```text\n2000H:1FFEH -> 02H\n2000H:1FFFH -> 10H\n```\n\n物理地址 `21FFFH` 对应：\n\n$$\n2000H \\times 10H + 1FFFH = 21FFFH\n$$\n\n所以该单元内容为 `10H`。","distractorAnalysis":"","pitfall":"近调用压入的是返回偏移地址；8086 字数据按小端存储，低地址放低字节。","assets":[]},{"id":"ch03-q11","chapter":3,"chapterTitle":"8086/8088 指令系统","sourceNumber":11,"type":"choice","title":"ADD AH, AL 后的标志位","prompt":"设 `(AX)=0B53FH`，在执行指令 `ADD AH, AL` 后，相应的状态为（ ）。","options":[{"key":"A","text":"`CF=0, OF=0, ZF=0`"},{"key":"B","text":"`CF=1, OF=1, ZF=1`"},{"key":"C","text":"`CF=0, OF=1, ZF=1`"},{"key":"D","text":"`CF=1, OF=0, ZF=0`"}],"answer":"A","acceptedAnswers":[],"explanation":"`(AX)=0B53FH`，所以：\n\n```text\nAH = B5H\nAL = 3FH\n```\n\n执行：\n\n```asm\nADD AH, AL\n```\n\n计算：\n\n```text\nB5H + 3FH = F4H\n```\n\n结果没有超过 `FFH`，所以 `CF=0`；结果不是 0，所以 `ZF=0`。从有符号角度看，`B5H` 是负数，`3FH` 是正数，异号相加不会溢出，所以 `OF=0`。","distractorAnalysis":"","pitfall":"`OF` 看有符号溢出，异号相加一定不会产生有符号溢出。","assets":[]},{"id":"ch03-q12","chapter":3,"chapterTitle":"8086/8088 指令系统","sourceNumber":12,"type":"choice","title":"PUSH AX 后字节存放地址","prompt":"假定 `(SP)=0200H`，`(AX)=2A57H`，执行指令 `PUSH AX` 后，存放数据 `2AH` 和 `57H` 的偏移地址是（ ）。","options":[{"key":"A","text":"`01FCH, 01FEH`"},{"key":"B","text":"`01FFH, 01FEH`"},{"key":"C","text":"`01FEH, 01FCH`"},{"key":"D","text":"`01FEH, 01FFH`"}],"answer":"B","acceptedAnswers":[],"explanation":"`PUSH AX` 时，`SP` 先减 2：\n\n```text\nSP = 0200H - 2 = 01FEH\n```\n\n`AX=2A57H`，其中高字节是 `2AH`，低字节是 `57H`。8086 小端存储：\n\n```text\n01FEH -> 57H\n01FFH -> 2AH\n```\n\n所以 `2AH` 的偏移地址是 `01FFH`，`57H` 的偏移地址是 `01FEH`。","distractorAnalysis":"","pitfall":"PUSH 字数据后，低字节在低地址，高字节在高地址。","assets":[]},{"id":"ch03-q13","chapter":3,"chapterTitle":"8086/8088 指令系统","sourceNumber":13,"type":"choice","title":"PUSH AX 后高字节地址","prompt":"假定 `(SP)=0100H`，`(AX)=2107H`，执行指令 `PUSH AX` 后，存放数据 `21H` 的偏移地址是（ ）。","options":[{"key":"A","text":"`00FEH`"},{"key":"B","text":"`0110H`"},{"key":"C","text":"`00FFH`"},{"key":"D","text":"`0101H`"}],"answer":"C","acceptedAnswers":[],"explanation":"执行 `PUSH AX` 后：\n\n```text\nSP = 0100H - 2 = 00FEH\n```\n\n`AX=2107H`，低字节 `07H` 放在低地址，高字节 `21H` 放在高地址：\n\n```text\n00FEH -> 07H\n00FFH -> 21H\n```\n\n所以 `21H` 的偏移地址为 `00FFH`。","distractorAnalysis":"","pitfall":"栈向低地址增长，但字内部仍是小端存储。","assets":[]},{"id":"ch03-q14","chapter":3,"chapterTitle":"8086/8088 指令系统","sourceNumber":14,"type":"choice","title":"求相反数指令","prompt":"若 `(AX)=-15H`，要得到 `(AX)=15H` 应执行的指令是（ ）。","options":[{"key":"A","text":"`NEG AX`"},{"key":"B","text":"`NOT AX`"},{"key":"C","text":"`DEC AX`"},{"key":"D","text":"`INC AX`"}],"answer":"A","acceptedAnswers":[],"explanation":"`NEG` 指令用于求操作数的补码相反数，即执行：\n\n```text\n目标操作数 <- 0 - 目标操作数\n```\n\n因此 `NEG AX` 可以把 `-15H` 变为 `15H`。","distractorAnalysis":"","pitfall":"`NOT` 是按位取反，不等于求相反数；补码求相反数应使用 `NEG`。","assets":[]},{"id":"ch03-q15","chapter":3,"chapterTitle":"8086/8088 指令系统","sourceNumber":15,"type":"choice","title":"RCR 循环右移通过进位","prompt":"设 `AL` 中的值为 `82H`，`CF=1`，执行 `RCR AL,1` 指令后，`AL` 中的值和 `CF` 分别为（ ）。","options":[{"key":"A","text":"`0C2H, 0`"},{"key":"B","text":"`0C1H, 0`"},{"key":"C","text":"`41H, 1`"},{"key":"D","text":"`41H, 0`"}],"answer":"B","acceptedAnswers":[],"explanation":"`RCR AL,1` 是带进位循环右移 1 位，参与循环的是 `CF` 和 `AL` 的 8 位。\n\n```text\n执行前：CF=1, AL=82H=1000 0010B\n右移后：原 CF 进入最高位，原 AL bit0 进入 CF\n```\n\n`AL` 的最低位原来是 0，所以新 `CF=0`；原 `CF=1` 进入最高位，其余位右移：\n\n```text\nAL = 1100 0001B = C1H\n```\n\n所以结果为 `AL=0C1H, CF=0`。","distractorAnalysis":"","pitfall":"`RCR` 不是普通右移，`CF` 也参与循环；原最低位进入新的 `CF`。","assets":[]},{"id":"ch03-q16","chapter":3,"chapterTitle":"8086/8088 指令系统","sourceNumber":16,"type":"choice","title":"不能清零 AX 的指令","prompt":"将累加器 `AX` 中的内容清零的错误指令是（ ）。","options":[{"key":"A","text":"`SUB AX, AX`"},{"key":"B","text":"`XOR AX, AX`"},{"key":"C","text":"`CMP AX, AX`"},{"key":"D","text":"`AND AX, 0`"}],"answer":"C","acceptedAnswers":[],"explanation":"`CMP AX, AX` 只做比较，本质上执行减法以影响标志位，但不保存结果，因此不会把 `AX` 改成 0。\n\n其他选项：\n\n```asm\nSUB AX, AX  ; AX=0\nXOR AX, AX  ; AX=0\nAND AX, 0   ; AX=0\n```","distractorAnalysis":"","pitfall":"`CMP` 只影响标志位，不改变操作数内容。","assets":[]},{"id":"ch03-q17","chapter":3,"chapterTitle":"8086/8088 指令系统","sourceNumber":17,"type":"short","title":"寻址方式与物理地址","prompt":"已知 8086 寄存器的值如下：\n\n```text\nDS=2000H, SS=1500H, ES=3000H\nSI=00F0H, BX=1000H, BP=0020H\n```\n\n回答以下问题：\n\n1. `MOV AX, [BP+20H]` 的源操作数寻址方式和物理地址。\n2. `MOV AX, [SI+50H]` 的源操作数寻址方式和物理地址。\n3. `MOV AX, 8[BX][SI]` 的源操作数寻址方式和物理地址。","options":[],"answer":"| 指令 | 寻址方式 | 默认段 | 有效地址 | 物理地址 |\n|---|---|---|---|---|\n| `MOV AX, [BP+20H]` | 基址寻址 | `SS` | `0020H+20H=0040H` | `15040H` |\n| `MOV AX, [SI+50H]` | 变址寻址 | `DS` | `00F0H+50H=0140H` | `20140H` |\n| `MOV AX, 8[BX][SI]` | 基址变址寻址 / 相对基址变址寻址 | `DS` | `1000H+00F0H+8H=10F8H` | `210F8H` |","acceptedAnswers":[],"explanation":"8086 中，只要有效地址中使用 `BP` 作基址，默认段寄存器就是 `SS`；使用 `BX`、`SI`、`DI` 时默认段寄存器通常是 `DS`。\n\n物理地址计算公式：\n\n$$\n物理地址 = 段地址 \\times 10H + 有效地址\n$$","distractorAnalysis":"","pitfall":"`[BP+位移]` 默认用 `SS`，不是 `DS`。这是本题最容易错的地方。","assets":[]},{"id":"ch03-q18","chapter":3,"chapterTitle":"8086/8088 指令系统","sourceNumber":18,"type":"fill","title":"BCD 调整指令 DAA","prompt":"设 `(AX)=0219H`，试分析执行下列程序段后，`AX`、`CF` 和 `AF` 的内容分别是 ①、②、③。\n\n```asm\nMOV CH, AH\nADD AL, AH\nDAA\nXCHG AL, AH\nADC AL, 25H\nDAA\nXCHG AH, AL\nHLT\n```","options":[],"answer":["`2721H`","`0`","`0`"],"acceptedAnswers":[["2721H"],["0"],["0"]],"explanation":"这段程序使用 `DAA` 对压缩 BCD 加法结果进行十进制调整。初值 `AX=0219H`，即 `AH=02H`、`AL=19H`。\n\n关键过程：\n\n```text\nADD AL, AH  -> 19H + 02H = 1BH\nDAA         -> 调整为 21H\nXCHG AL,AH  -> AH=21H, AL=02H\nADC AL,25H  -> 02H + 25H + CF = 27H\nDAA         -> 27H 已是合法 BCD，不再调整\nXCHG AH,AL  -> AX=2721H\n```\n\n最终 `AX=2721H`，且 `CF=0`、`AF=0`。","distractorAnalysis":"","pitfall":"`DAA` 用于调整 `AL` 中的 BCD 加法结果，不是普通二进制加法都要用。","assets":[]},{"id":"ch03-q19","chapter":3,"chapterTitle":"8086/8088 指令系统","sourceNumber":19,"type":"fill","title":"移位、减 1 与无符号乘法程序","prompt":"执行下列程序段后，寄存器 `AH`、`AL`、`DX` 和 `CF` 的值分别是 ①、②、③、④。\n\n```asm\nMOV AX,2255H\nMOV CL,2\nROL AX,CL\nDEC AX\nMOV CX,16\nMUL CX\nHLT\n```","options":[],"answer":["`95H`","`30H`","`0008H`","`1` **按 8086 标准语义推导：** ```text MOV AX,2255H       -> AX=2255H MOV CL,2           -> CL=2 ROL AX,CL          -> AX=8954H DEC AX             -> AX=8953H MOV CX,16          -> CX=0010H MUL CX             -> DX:AX = 8953H * 0010H = 0008H:9530H ``` 所以 `AH=95H`，`AL=30H`，`DX=0008H`。 关于 `CF`：按 8086 的 `MUL` 指令规则，若乘积高半部分 `DX` 非 0，则 `CF=OF=1`；本题 `DX=0008H` 非 0，因此标准指令语义下 `CF` 应为 `1`。"],"acceptedAnswers":[["95H"],["30H"],["0008H"],["1 **按 8086 标准语义推导：** text MOV AX,2255H       -> AX=2255H MOV CL,2           -> CL=2 ROL AX,CL          -> AX=8954H DEC AX             -> AX=8953H MOV CX,16          -> CX=0010H MUL CX             -> DX:AX = 8953H * 0010H = 0008H:9530H  所以 AH=95H，AL=30H，DX=0008H。 关于 CF：按 8086 的 MUL 指令规则，若乘积高半部分 DX 非 0，则 CF=OF=1；本题 DX=0008H 非 0，因此标准指令语义下 CF 应为 1。"]],"explanation":"","distractorAnalysis":"","pitfall":"`ROL AX,CL` 是 16 位循环左移；`MUL CX` 的结果放在 `DX:AX` 中。此题平台的 `CF` 答案和标准 8086 规则存在冲突。","assets":[]},{"id":"ch03-q20","chapter":3,"chapterTitle":"8086/8088 指令系统","sourceNumber":20,"type":"short","title":"指定段超越与寻址方式","prompt":"已知 8086 寄存器的值如下：\n\n```text\nDS=2000H, SS=1500H, ES=3000H\nSI=00F0H, BX=1000H, BP=0020H\n```\n\n回答以下问题：\n\n1. `MOV AX, DS:[0100H]` 的源操作数寻址方式和物理地址。\n2. `MOV AX, ES:[SI]` 的源操作数寻址方式和物理地址。\n3. `MOV AX, [BP][SI]` 的源操作数寻址方式和物理地址。","options":[],"answer":"| 指令 | 寻址方式 | 段寄存器 | 有效地址 | 物理地址 |\n|---|---|---|---|---|\n| `MOV AX, DS:[0100H]` | 直接寻址 | `DS` | `0100H` | `20100H` |\n| `MOV AX, ES:[SI]` | 寄存器间接寻址 | `ES` | `00F0H` | `300F0H` |\n| `MOV AX, [BP][SI]` | 基址变址寻址 / 相对基址变址寻址 | `SS` | `0020H+00F0H=0110H` | `15110H` |","acceptedAnswers":[],"explanation":"`DS:[0100H]` 直接给出偏移地址；`ES:[SI]` 使用段超越前缀，强制用 `ES` 作为段地址；`[BP][SI]` 中含有 `BP`，默认段为 `SS`。","distractorAnalysis":"","pitfall":"带 `ES:`、`DS:` 这类段超越前缀时，按显式写出的段寄存器计算物理地址。","assets":[]},{"id":"ch03-q21","chapter":3,"chapterTitle":"8086/8088 指令系统","sourceNumber":21,"type":"fill","title":"PUSHF、POPF 与 CF","prompt":"分析执行下列程序段后的结果：\n\n```asm\nMOV SP, 5000H\nPUSHF\nPOP AX\nOR AL, 01H\nPUSH AX\nPOPF\n```\n\n寄存器 `(SP)=①`；标志位 `CF=②`。","options":[],"answer":["`5000H`","`1`"],"acceptedAnswers":[["5000H"],["1"]],"explanation":"`PUSHF` 把标志寄存器压栈，`POP AX` 又把它弹到 `AX`，所以 `SP` 先减 2 再加 2，恢复为 `5000H`。随后：\n\n```asm\nOR AL, 01H\n```\n\n把 `AL` 的最低位置 1，而标志寄存器最低位就是 `CF`。之后 `PUSH AX` 和 `POPF` 把修改后的标志值写回标志寄存器，因此 `CF=1`。最终 `PUSH AX` 使 `SP-2`，`POPF` 又使 `SP+2`，所以 `SP=5000H`。","distractorAnalysis":"","pitfall":"`PUSHF/POPF` 可以通过栈间接读写标志寄存器；`CF` 是标志寄存器的最低位。","assets":[]},{"id":"ch03-q22","chapter":3,"chapterTitle":"8086/8088 指令系统","sourceNumber":22,"type":"fill","title":"SHR 与 ADD 程序跟踪","prompt":"分析下面的程序段，程序运行后 `AL`、`BL` 中的内容分别是 ①、②，`CF` 的值是 ③。\n\n```asm\nMOV AL,200\nSHR AL,1\nMOV BL,AL\nMOV CL,2\nSHR AL,CL\nADD AL,BL\n```","options":[],"answer":["`7DH`","`64H`","`0`"],"acceptedAnswers":[["7DH"],["64H"],["0"]],"explanation":"```text\nMOV AL,200     -> AL=200=0C8H=11001000B\nSHR AL,1       -> AL=01100100B=64H, CF=0\nMOV BL,AL      -> BL=64H\nMOV CL,2       -> CL=2\nSHR AL,CL      -> AL=00011001B=19H, CF=0\nADD AL,BL      -> AL=19H+64H=7DH, CF=0\n```\n\n因此最终 `AL=7DH`，`BL=64H`，`CF=0`。","distractorAnalysis":"","pitfall":"`SHR` 右移时，移出的最低位进入 `CF`；最高位补 0。","assets":[]},{"id":"ch03-q23","chapter":3,"chapterTitle":"8086/8088 指令系统","sourceNumber":23,"type":"short","title":"源操作数寻址方式","prompt":"指出下列各命令中源操作数的寻址方式。\n\n```asm\n(1) MOV AL, BL\n(2) MOV AX, BUFA\n(3) MOV AL, 22H\n(4) MOV AX, ES:[SI]\n(5) MOV BX, [BX+SI+6]\n```","options":[],"answer":"| 指令 | 源操作数 | 寻址方式 |\n|---|---|---|\n| `MOV AL, BL` | `BL` | 寄存器寻址 |\n| `MOV AX, BUFA` | `BUFA` | 直接寻址 |\n| `MOV AL, 22H` | `22H` | 立即寻址 |\n| `MOV AX, ES:[SI]` | `ES:[SI]` | 寄存器间接寻址 |\n| `MOV BX, [BX+SI+6]` | `[BX+SI+6]` | 基址变址寻址 / 相对基址变址寻址 |","acceptedAnswers":[],"explanation":"判断源操作数寻址方式时，只看逗号右边的操作数。寄存器名是寄存器寻址，常数是立即寻址，变量名直接作为地址是直接寻址，方括号中只有寄存器是寄存器间接寻址，`基址+变址+位移` 属于基址变址类寻址。","distractorAnalysis":"","pitfall":"题目问的是“源操作数”，也就是逗号右边；不要把目的操作数的寻址方式也算进去。","assets":[]},{"id":"ch04-q01","chapter":4,"chapterTitle":"汇编语言程序设计","sourceNumber":1,"type":"choice","title":"关系运算伪指令表达式","prompt":"执行下面程序段后：\n\n```asm\nNUM=60\nMOV BX, NUM LE 50\n```\n\n`BX` 的内容是（ ）。","options":[{"key":"A","text":"`1`"},{"key":"B","text":"`0FFFFH`"},{"key":"C","text":"`0`"},{"key":"D","text":"`50`"}],"answer":"C","acceptedAnswers":[],"explanation":"`LE` 表示“小于等于”。因为 `NUM=60`，判断 `60 <= 50` 为假，所以表达式结果为 `0`，执行后 `BX=0`。","distractorAnalysis":"","pitfall":"汇编表达式中的关系运算结果为真时常用全 1 表示，假时为 0。本题条件为假，所以是 0。","assets":[]},{"id":"ch04-q02","chapter":4,"chapterTitle":"汇编语言程序设计","sourceNumber":2,"type":"choice","title":"计算机能直接执行的语言","prompt":"计算机内部，计算机能够直接执行的程序语言是（ ）。","options":[{"key":"A","text":"C 语言"},{"key":"B","text":"汇编语言"},{"key":"C","text":"机器语言"},{"key":"D","text":"高级语言"}],"answer":"C","acceptedAnswers":[],"explanation":"CPU 硬件只能直接识别和执行机器语言，也就是二进制机器指令。汇编语言和高级语言都必须先翻译成机器语言。","distractorAnalysis":"","pitfall":"汇编语言接近机器语言，但仍然需要汇编器翻译，不能被硬件直接执行。","assets":[]},{"id":"ch04-q03","chapter":4,"chapterTitle":"汇编语言程序设计","sourceNumber":3,"type":"choice","title":"`DW` 数据定义与偏移地址","prompt":"已知伪指令：\n\n```asm\nVAR DW 8, 156, $+2, 9, 7\n```\n\n若汇编 `VAR` 分配的偏移地址是 `0011H`，汇编 `0015H` 单元的内容是（ ）。","options":[{"key":"A","text":"`09H`"},{"key":"B","text":"`17H`"},{"key":"C","text":"`07H`"},{"key":"D","text":"`15H`"}],"answer":"B","acceptedAnswers":[],"explanation":"`DW` 定义字数据，每个数据占 2 字节。8086 采用小端存储，低字节放低地址。\n\n`VAR` 从 `0011H` 开始：\n\n```text\n0011H-0012H：0008H\n0013H-0014H：009CH  ; 156 十进制 = 009CH\n0015H-0016H：$+2\n```\n\n汇编到第三个字数据时，当前位置 `$=0015H`，所以 `$+2=0017H`。按小端存储：\n\n```text\n0015H：17H\n0016H：00H\n```\n\n因此 `0015H` 单元内容为 `17H`。","distractorAnalysis":"","pitfall":"`$` 表示当前位置计数器；`DW` 占 2 字节，且字数据小端存储。","assets":[]},{"id":"ch04-q04","chapter":4,"chapterTitle":"汇编语言程序设计","sourceNumber":4,"type":"choice","title":"`DUP` 嵌套数据定义","prompt":"使用 8086 汇编语言的伪指令定义：\n\n```asm\nVAR DB 2 DUP (1,2,3 DUP (3),2 DUP (1,0))\n```\n\n则在 `VAR` 存储区的前 11 个字节单元的内容是（ ）。","options":[{"key":"A","text":"`2,1,2,3,3,2,1,0,2,1,0`"},{"key":"B","text":"`1,2,3,3,3,2,1,0,1,2`"},{"key":"C","text":"`1,2,3,3,3,1,0,1,0,1,2`"},{"key":"D","text":"`1,2,3,3,2,1,0,1,2,3,1`"}],"answer":"C","acceptedAnswers":[],"explanation":"先展开括号内的一组：\n\n```text\n1, 2, 3 DUP(3), 2 DUP(1,0)\n= 1, 2, 3, 3, 3, 1, 0, 1, 0\n```\n\n外层 `2 DUP(...)` 表示整组重复 2 次。前 11 个字节为：\n\n```text\n1,2,3,3,3,1,0,1,0,1,2\n```","distractorAnalysis":"","pitfall":"`n DUP(...)` 是把括号里的整体重复 n 次；嵌套时先展开内层，再展开外层。","assets":[]},{"id":"ch04-q05","chapter":4,"chapterTitle":"汇编语言程序设计","sourceNumber":5,"type":"choice","title":"`LENGTH` 运算符","prompt":"数据定义 `BUF DB 'AB3C5'`，执行指令 `MOV CL, LENGTH BUF` 后，`CL` 的内容是（ ）。","options":[{"key":"A","text":"`1`"},{"key":"B","text":"`3`"},{"key":"C","text":"`2`"},{"key":"D","text":"`5`"}],"answer":"A","acceptedAnswers":[],"explanation":"按本课程平台口径，`LENGTH` 对普通变量定义返回变量项的重复次数；没有使用 `DUP` 重复定义时，长度取 `1`。因此 `LENGTH BUF=1`，执行后 `CL=1`。","distractorAnalysis":"","pitfall":"直觉上字符串 `'AB3C5'` 有 5 个字符，但本题平台考的是汇编运算符 `LENGTH` 的课程定义，不是字符串字符数。","assets":[]},{"id":"ch04-q06","chapter":4,"chapterTitle":"汇编语言程序设计","sourceNumber":6,"type":"choice","title":"`SIZE` 运算符","prompt":"数据定义：\n\n```asm\nBUF DW 5, 2, 3\n```\n\n执行指令 `MOV CL, SIZE BUF` 后，`CL` 的内容是（ ）。","options":[{"key":"A","text":"`4`"},{"key":"B","text":"`6`"},{"key":"C","text":"`3`"},{"key":"D","text":"`2`"}],"answer":"D","acceptedAnswers":[],"explanation":"按本课程平台口径：\n\n```text\nSIZE = LENGTH * TYPE\n```\n\n```\nTYPE 变量名 = 这个变量每个元素的字节数\n```\n\n`BUF DW 5,2,3` 中，`TYPE BUF=2`，而普通定义未使用 `DUP` 时 `LENGTH BUF=1`，所以：\n\n```text\nSIZE BUF = 1 * 2 = 2\n```\n\n因此 `CL=2`。","distractorAnalysis":"","pitfall":"这里不要把 3 个字数据的总字节数 6 当作平台答案；本题按课程平台的 `SIZE` 定义取 2。","assets":[]},{"id":"ch04-q07","chapter":4,"chapterTitle":"汇编语言程序设计","sourceNumber":7,"type":"fill","title":"字数据的小端存储","prompt":"若定义 `DATA DW 200BH`，执行 `MOV BL, BYTE PTR DATA` 指令后，`BL` 的内容是 ①。","options":[],"answer":["`0BH`"],"acceptedAnswers":[["0BH"]],"explanation":"`DATA DW 200BH` 是一个字数据。8086 采用小端存储：\n\n```text\n低地址：0BH\n高地址：20H\n```\n\n`BYTE PTR DATA` 取的是 `DATA` 起始地址处的一个字节，也就是低字节 `0BH`。","distractorAnalysis":"","pitfall":"字数据 `200BH` 在内存中不是先放 `20H`，而是先放低字节 `0BH`。","assets":[]},{"id":"ch04-q08","chapter":4,"chapterTitle":"汇编语言程序设计","sourceNumber":8,"type":"fill","title":"串操作 `REP MOVSB`","prompt":"已知 `(DS)=(ES)`，执行下列指令后：\n\n```asm\nBUF DB 1,3,4,5,6,7,9,8,9,10,11\nMOV CX,10\nMOV SI,OFFSET BUF+9\nLEA DI,BUF+10\nSTD\nREP MOVSB\nMOV BX,OFFSET BUF\nMOV AX,[BX]\n```\n\n`AX` 的内容是 ①，`CX` 的内容是 ②。","options":[],"answer":["`0101H`","`0000H`"],"acceptedAnswers":[["0101H"],["0000H"]],"explanation":"`STD` 使 `DF=1`，串操作后 `SI`、`DI` 递减。`REP MOVSB` 重复 10 次，从 `BUF+9` 开始向 `BUF+10` 搬移，每次复制 1 字节并向低地址推进。\n\nMOVSB：把 SI 的东西复制到 DI，然后若 DF=1，则 SI-- DI-- ，否则 SI++ DI++\n\n结果会把 `BUF+0` 到 `BUF+9` 的内容整体向后复制一位，最终前两个字节都变为 `01H`。随后：\n\n```asm\nMOV AX,[BX]\n```\n\n从 `BUF` 起始处取一个字。8086 小端存储，低地址字节为 `01H`，高地址字节也为 `01H`，所以 `AX=0101H`。`REP` 执行完后 `CX=0000H`。","distractorAnalysis":"","pitfall":"`STD` 后串操作地址递减；`REP MOVSB` 会把 `CX` 减到 0。","assets":[]},{"id":"ch04-q09","chapter":4,"chapterTitle":"汇编语言程序设计","sourceNumber":9,"type":"fill","title":"指令序列跟踪","prompt":"执行下列指令段后，`3004H` 单元的内容是 ①，`BX` 的内容是 ②，`CF` 是 ③。\n\n```asm\nORG 3000H\nDB 11H,12H,13H,15H,17H\n\nMOV BX,3000H\nSTC\nADC BX,1\nSAL BL,1\nINC BYTE PTR [BX]\n```","options":[],"answer":["`18H`","`3004H`","`0`"],"acceptedAnswers":[["18H"],["3004H"],["0"]],"explanation":"初始内存：\n\n```text\n3000H=11H, 3001H=12H, 3002H=13H, 3003H=15H, 3004H=17H\n```\n\n执行过程：\n\n```text\nMOV BX,3000H  -> BX=3000H\nSTC           -> CF=1\nADC BX,1      -> BX=3000H+1+CF=3002H\nSAL BL,1      -> BL=02H 左移 1 位，BL=04H，所以 BX=3004H，CF=0\nINC [BX]      -> [3004H]=17H+1=18H，INC 不影响 CF\n```\n\n所以 `3004H` 单元内容为 `18H`，`BX=3004H`，`CF=0`。","distractorAnalysis":"","pitfall":"`ADC` 要加上原来的 `CF`；`INC` 不影响 `CF`。","assets":[]},{"id":"ch04-q10","chapter":4,"chapterTitle":"汇编语言程序设计","sourceNumber":10,"type":"short","title":"`OFFSET`、`EQU` 与存储内容","prompt":"设数据段定义如下：\n\n```asm\nDSEG SEGMENT\nORG 0100H\nX1 DB 25,'35'\nX2 DW ?\nY1 EQU X1\nY2 EQU $-Y1\nDSEG ENDS\n```\n\n回答：\n\n1. 执行 `MOV BX, OFFSET X1` 后，`BX` 的内容。\n2. 汇编后 `Y2` 的值。\n3. 执行 `MOV AL, Y1+1` 后，`AL` 的内容。","options":[],"answer":"① `0100H` ② `5` ③ `33H`","acceptedAnswers":[],"explanation":"`ORG 0100H` 后，`X1` 从偏移地址 `0100H` 开始。`X1 DB 25,'35'` 占 3 个字节：\n\n```text\n0100H：25 十进制 = 19H\n0101H：字符 '3' = 33H\n0102H：字符 '5' = 35H\n```\n\n`X2 DW ?` 占 2 字节，所以当前位置 `$` 到 `0105H`。`Y1 EQU X1`，因此：\n\n```text\nY2 = $ - Y1 = 0105H - 0100H = 5\n```\n\n`MOV AL, Y1+1` 取的是 `X1+1` 处的字节，也就是字符 `'3'` 的 ASCII 码 `33H`。","distractorAnalysis":"","pitfall":"`'35'` 是两个字符，占两个字节，分别是 `33H` 和 `35H`，不是十进制 35。","assets":[]},{"id":"ch04-q11","chapter":4,"chapterTitle":"汇编语言程序设计","sourceNumber":11,"type":"fill","title":"CBW、LEA 与字访问","prompt":"执行下列指令段后：\n\n```asm\nVR1 DB 86H\nVR2 DW 2005H,0021H,849EH\n\nMOV AL,VR1\nCBW\nLEA BX,VR2\nMOV DX,4[BX]\nSUB AX,DX\n```\n\n`AX` 的内容是 ①，`DX` 的内容是 ②。","options":[],"answer":["`7AE8H`","`849EH`"],"acceptedAnswers":[["7AE8H"],["849EH"]],"explanation":"`MOV AL,VR1` 后 `AL=86H`。`CBW` 将 `AL` 符号扩展到 `AX`，因为 `86H` 最高位为 1，所以：\n\n```text\nAX = FF86H\n```\n\n`VR2` 是字数组：\n\n```text\nVR2+0：2005H\nVR2+2：0021H\nVR2+4：849EH\n```\n\n因此 `MOV DX,4[BX]` 后 `DX=849EH`。最后：\n\n```text\nAX = FF86H - 849EH = 7AE8H\n```","distractorAnalysis":"","pitfall":"`CBW` 是按符号扩展，不是把 AH 清零，操作后 AX 从 `0086H` 变成 `FF86H`；` 4[BX]` 访问的是 ` VR2 ` 的第 3 个字。`LEA` 是取 `VR2` 的偏移地址。`4[BX]` 是 `[BX+4]`","assets":[]},{"id":"ch04-q12","chapter":4,"chapterTitle":"汇编语言程序设计","sourceNumber":12,"type":"short","title":"循环程序跟踪","prompt":"执行下列程序后，分析有关寄存器的内容：\n\n```asm\nCSEG SEGMENT\nASSUME CS:CSEG,DS:CSEG,SS:CSEG\nORG 100H\nBEGIN:\n    MOV AX, 02H\n    MOV BX, 03H\n    MOV DX, 05H\n    MOV CX, 06H\n    CLC\nL20:\n    INC AX\n    ADC BX, AX\n    SHR DX, 1\n    LOOPNE L20\nCSEG ENDS\nEND BEGIN\n```","options":[],"answer":"```text\nAX = 0005H\nBX = 0010H\nCX = 0003H\nDX = 0000H\nCY = 1\n```","acceptedAnswers":[],"explanation":"`LOOPNE` 每次使 `CX-1`，并在 `CX != 0` 且 `ZF=0` 时继续循环。程序执行 3 次循环后停止，关键结果为：\n\n```text\n第 1 次：AX=0003H, BX=0006H, DX=0002H, CX=0005H\n第 2 次：AX=0004H, BX=000AH, DX=0001H, CX=0004H\n第 3 次：AX=0005H, BX=0010H, DX=0000H, CX=0003H, CF=1\n```\n\n第 3 次 `SHR DX,1` 时，`DX=0001H` 右移，最低位 1 移入 `CF`，结果 `DX=0000H`，同时 `ZF=1`，所以 `LOOPNE` 不再跳转。","distractorAnalysis":"","pitfall":"`LOOPNE` 同时看 `CX` 和 `ZF`；`SHR` 会让移出的最低位进入 `CF`。","assets":[]},{"id":"ch04-q13","chapter":4,"chapterTitle":"汇编语言程序设计","sourceNumber":13,"type":"short","title":"`TYPE`、`LENGTH`、`SIZE`","prompt":"对于下面的数据定义，各条 `MOV` 指令执行后，请填写相关寄存器内容。\n\n```asm\nTABLE1 DD 02H, 04H, 06H\nTABLE2 DW 12 DUP(0)\nTABLE3 DB 'CLASS'\n\nMOV AX, TYPE TABLE1\nMOV BX, LENGTH TABLE1\nMOV CX, LENGTH TABLE2\nMOV DX, SIZE TABLE2\nMOV SI, LENGTH TABLE3\n```","options":[],"answer":"```text\nAX = 0004H\nBX = 0001H\nCX = 000CH\nDX = 0018H\nSI = 0001H\n```","acceptedAnswers":[],"explanation":"- `TYPE TABLE1=4`，因为 `DD` 每个元素占 4 字节。\n- 按平台口径，普通非 `DUP` 定义的 `TABLE1`，`LENGTH=1`。\n- `TABLE2 DW 12 DUP(0)`，`LENGTH=12=000CH`，`TYPE=2`。\n- `SIZE TABLE2 = LENGTH * TYPE = 12 * 2 = 24 = 0018H`。\n- `TABLE3 DB 'CLASS'` 未使用 `DUP`，平台口径 `LENGTH=1`。","distractorAnalysis":"","pitfall":"本课程平台对普通字符串定义的 `LENGTH` 取 1；带 `DUP` 时才按重复次数取值。","assets":[]},{"id":"ch05-q01","chapter":5,"chapterTitle":"存储器","sourceNumber":1,"type":"choice","title":"DRAM 组成存储系统","prompt":"若 CPU 访问由 `256K x 1b` 的 DRAM 芯片组成的 `512K x 8b` 的存储系统，则 CPU 最少需要使用的地址引脚数、DRAM 的地址引脚数和所需的片选信号数依次为（ ）。","options":[{"key":"A","text":"19，18，8"},{"key":"B","text":"19，9，2"},{"key":"C","text":"18，9，8"},{"key":"D","text":"19，18，2"}],"answer":"B","acceptedAnswers":[],"explanation":"`512K = 2^19`，所以 CPU 要寻址整个 `512K` 空间，最少需要 19 根地址线。\n\n单片 DRAM 容量为 `256K x 1b`：\n\n$$\n256K = 2^{18}\n$$\n\nDRAM 常采用行、列地址复用，所以芯片地址引脚数为：\n\n$$\n18 / 2 = 9\n$$\n\n系统容量深度是 `512K`，单片深度是 `256K`，需要两组片选：\n\n$$\n512K / 256K = 2\n$$\n\n因此答案为 `19，9，2`。","distractorAnalysis":"","pitfall":"DRAM 地址脚常按行列复用计算，地址引脚数是地址位数的一半。","assets":[]},{"id":"ch05-q02","chapter":5,"chapterTitle":"存储器","sourceNumber":2,"type":"choice","title":"内存相对于外存的特点","prompt":"内存又称主存，相对于外存来说，它的特点是（ ）。","options":[{"key":"A","text":"存储容量大，价格低，存取速度快"},{"key":"B","text":"存储容量小，价格高，存取速度快"},{"key":"C","text":"存储容量大，价格高，存取速度快"},{"key":"D","text":"存储容量小，价格低，存取速度慢"}],"answer":"B","acceptedAnswers":[],"explanation":"内存直接与 CPU 交换信息，速度快，但容量通常小于外存，单位容量价格也更高。外存容量大、价格低，但速度慢。","distractorAnalysis":"","pitfall":"主存追求速度，外存追求容量和成本。","assets":[]},{"id":"ch05-q03","chapter":5,"chapterTitle":"存储器","sourceNumber":3,"type":"choice","title":"EPROM 与 ROM 的区别","prompt":"EPROM 不同于 ROM 是因为（ ）。","options":[{"key":"A","text":"EPROM 只能改写一次"},{"key":"B","text":"EPROM 只能读不能写"},{"key":"C","text":"EPROM 断电后信息丢失"},{"key":"D","text":"EPROM 可以多次改写"}],"answer":"D","acceptedAnswers":[],"explanation":"EPROM 是可擦除可编程只读存储器，可以通过紫外线擦除后重新写入，因此能多次改写。普通 ROM 一般出厂后内容固定。","distractorAnalysis":"","pitfall":"EPROM 属于非易失性存储器，断电后信息不会丢失。","assets":[]},{"id":"ch05-q04","chapter":5,"chapterTitle":"存储器","sourceNumber":4,"type":"choice","title":"SRAM 与 DRAM 特点","prompt":"下列几种存储芯片中，存取速度最快和相同容量的价格最便宜的分别是（ ）。","options":[{"key":"A","text":"DRAM，SRAM"},{"key":"B","text":"DRAM，ROM"},{"key":"C","text":"SRAM，EPROM"},{"key":"D","text":"SRAM，DRAM"}],"answer":"D","acceptedAnswers":[],"explanation":"SRAM 速度最快，但电路复杂、价格高；DRAM 结构简单、集成度高，单位容量价格更低，但需要刷新，速度相对慢。","distractorAnalysis":"","pitfall":"SRAM 快但贵，DRAM 慢些但便宜、容量容易做大。","assets":[]},{"id":"ch05-q05","chapter":5,"chapterTitle":"存储器","sourceNumber":5,"type":"choice","title":"2K x 1b 芯片组成 4K 字 16 位存储器","prompt":"若由 `2K x 1b` 的 RAM 芯片组成一个容量为 `4K` 字、字长 16 位的存储器时，需要该芯片的个数为（ ）。","options":[{"key":"A","text":"128 片"},{"key":"B","text":"64 片"},{"key":"C","text":"32 片"},{"key":"D","text":"256 片"}],"answer":"C","acceptedAnswers":[],"explanation":"目标容量为：\n\n$$\n4K \\times 16b\n$$\n\n单片容量为：\n\n$$\n2K \\times 1b\n$$\n\n所需芯片数：\n\n$$\n\\frac{4K \\times 16b}{2K \\times 1b}=32\n$$","distractorAnalysis":"","pitfall":"既要扩展字数深度，又要扩展字长宽度，不能只看其中一个方向。","assets":[]},{"id":"ch05-q06","chapter":5,"chapterTitle":"存储器","sourceNumber":6,"type":"choice","title":"1K x 1b 芯片组成 8K 字 16 位存储器","prompt":"若由 `1K x 1b` 的 RAM 芯片组成一个容量为 `8K` 字、字长 16 位的存储器时，需要该芯片的个数为（ ）。","options":[{"key":"A","text":"128 片"},{"key":"B","text":"32 片"},{"key":"C","text":"64 片"},{"key":"D","text":"256 片"}],"answer":"A","acceptedAnswers":[],"explanation":"$$\n\\frac{8K \\times 16b}{1K \\times 1b}=128\n$$\n\n因此需要 128 片。","distractorAnalysis":"","pitfall":"芯片容量单位是 bit，目标字长也是 bit，统一单位后再相除。","assets":[]},{"id":"ch05-q07","chapter":5,"chapterTitle":"存储器","sourceNumber":7,"type":"choice","title":"断电后信息仍保留的存储器","prompt":"在下列多组存储器中，断电或关机后信息仍保留的是（ ）。","options":[{"key":"A","text":"RAM，ROM"},{"key":"B","text":"PROM，RAM"},{"key":"C","text":"ROM，EPROM"},{"key":"D","text":"SRAM，DRAM"}],"answer":"C","acceptedAnswers":[],"explanation":"ROM 和 EPROM 都属于非易失性存储器，断电后信息仍能保存。RAM 包括 SRAM、DRAM，通常是易失性存储器，断电后信息丢失。","distractorAnalysis":"","pitfall":"SRAM 虽然不用刷新，但仍然属于易失性存储器，断电会丢失信息。","assets":[]},{"id":"ch05-q08","chapter":5,"chapterTitle":"存储器","sourceNumber":8,"type":"fill","title":"存储器存放内容","prompt":"存储器是计算机中的记忆设备，主要用来存放 ① 和 ②。","options":[],"answer":["程序","数据"],"acceptedAnswers":[["程序"],["数据"]],"explanation":"冯·诺依曼结构的核心思想之一是“存储程序”，即程序和数据都以二进制形式存放在存储器中，CPU 按地址访问。","distractorAnalysis":"","pitfall":"存储器不只是放数据，也放程序。","assets":[]},{"id":"ch05-q09","chapter":5,"chapterTitle":"存储器","sourceNumber":9,"type":"fill","title":"32 片 4K x 4b 芯片组成 8 位字长存储系统","prompt":"用 32 片 `4K x 4b` 的存储芯片构成字长为 8 位的存储系统的容量为 ① KB，最少共需寻址线 ② 根。","options":[],"answer":["`64`","`16`"],"acceptedAnswers":[["64"],["16"]],"explanation":"每片容量：\n\n$$\n4K \\times 4b\n$$\n\n32 片总容量：\n\n$$\n32 \\times 4K \\times 4b = 512Kbit\n$$\n\n换成字节：\n\n$$\n512Kbit / 8 = 64KB\n$$\n\n寻址 `64KB` 字节空间需要：\n\n$$\n64K = 2^{16}\n$$\n\n所以最少需要 16 根地址线。","distractorAnalysis":"","pitfall":"最后问的是 KB，要把 bit 除以 8 换算成 Byte。","assets":[]},{"id":"ch05-q10","chapter":5,"chapterTitle":"存储器","sourceNumber":10,"type":"fill","title":"内存的组成","prompt":"计算机的内存一般是由 ① 存储器和 ② 存储器构成的。","options":[],"answer":["RAM / 随机","ROM / 只读"],"acceptedAnswers":[["RAM","随机"],["ROM","只读"]],"explanation":"计算机内存通常由 RAM 和 ROM 构成。RAM 用于运行时临时存放程序和数据，ROM 用于存放固定程序或系统启动相关内容。","distractorAnalysis":"","pitfall":"内存不是只有 RAM，通常还包括 ROM。","assets":[]},{"id":"ch05-q11","chapter":5,"chapterTitle":"存储器","sourceNumber":11,"type":"fill","title":"16 片 2K x 2b 芯片组成 16 位字长存储系统","prompt":"用 16 片 `2K x 2b` 的存储芯片构成 16 位字长的存储系统的容量为 ① KB，最少共需寻址线 ② 根。","options":[],"answer":["`8`","`12`"],"acceptedAnswers":[["8"],["12"]],"explanation":"每片容量为：\n\n$$\n2K \\times 2b\n$$\n\n16 片总容量：\n\n$$\n16 \\times 2K \\times 2b = 64Kbit = 8KB\n$$\n\n若构成 16 位字长，需要 8 片 `2K x 2b` 芯片并联构成一组：\n\n$$\n8 \\times 2b = 16b\n$$\n\n16 片可组成 2 组，每组深度 2K，所以总深度为 4K 字。按字节寻址时总容量为 8KB：\n\n$$\n8KB = 2^{13}B\n$$\n\n但题目平台答案按 16 位字寻址计算：\n\n$$\n4K = 2^{12}\n$$\n\n所以填 12 根寻址线。","distractorAnalysis":"","pitfall":"这题平台按“字地址”口径给地址线数；如果按字节地址会多 1 根。","assets":[]},{"id":"ch05-q12","chapter":5,"chapterTitle":"存储器","sourceNumber":12,"type":"short","title":"8 根数据线、16 根地址线系统使用 2114","prompt":"某微机有 8 条数据线、16 条地址线，现用 SRAM 2114（容量为 `1K x 4b`）存储芯片组成存储系统。问采用线译码方式时，系统的最大存储容量是多少？此时需要多少个 2114 存储芯片？","options":[],"answer":"最大存储容量为 `6KB`，需要 `12` 片 2114。","acceptedAnswers":[],"explanation":"2114 容量为 `1K x 4b`，有 10 根片内地址线。系统有 16 根地址线，剩余 6 根可用于片选译码，因此线译码方式下可提供 6 个片选信号。\n\n系统数据线为 8 位，而单片 2114 为 4 位，因此每组需要 2 片并联组成 8 位：\n\n```text\n1 组 = 2 片 2114 = 1K x 8b\n```\n\n6 个片选信号可选 6 组：\n\n```text\n最大容量 = 6 x 1KB = 6KB\n芯片数 = 6 组 x 2 片/组 = 12 片\n```","distractorAnalysis":"","pitfall":"线译码不是全译码；剩余 6 根地址线只产生 6 个片选信号，不是产生 $2^6$ 个片选信号。","assets":[]},{"id":"ch05-q14","chapter":5,"chapterTitle":"存储器","sourceNumber":14,"type":"short","title":"15 位地址、16 位字长存储器扩展","prompt":"设有一个具有 15 位地址和 16 位字长的存储器，试计算：\n\n1. 该存储器能存储多少字节信息？\n2. 如果存储器由 `2K x 4b` 的 RAM 芯片组成，需多少 RAM 芯片？需多少位地址进行芯片选择？","options":[],"answer":"① `64KB` ② `64` 片，需要 `4` 位地址进行芯片选择。","acceptedAnswers":[],"explanation":"15 位地址可寻址：\n\n$$\n2^{15}=32K\n$$\n\n每个存储单元字长 16 位，即 2 字节，所以总容量为：\n\n$$\n32K \\times 2B = 64KB\n$$\n\n目标结构为：\n\n$$\n32K \\times 16b\n$$\n\n单片为：\n\n$$\n2K \\times 4b\n$$\n\n芯片数：\n\n$$\n\\frac{32K \\times 16b}{2K \\times 4b}=64\n$$\n\n每组要把字长扩展到 16 位：\n\n$$\n16b / 4b = 4 \\text{片/组}\n$$\n\n总共 64 片，所以有：\n\n$$\n64 / 4 = 16 \\text{组}\n$$\n\n需要区分 16 组芯片：\n\n$$\n2^4 = 16\n$$\n\n所以需要 4 位地址进行芯片选择。","distractorAnalysis":"","pitfall":"芯片选择位数看“有多少组”，不是看总芯片数。","assets":[]},{"id":"ch05-q16","chapter":5,"chapterTitle":"存储器","sourceNumber":16,"type":"short","title":"14 位地址、8 位字长存储器扩展","prompt":"设有一个具有 14 位地址和 8 位字长的存储器，试计算：\n\n1. 该存储器能存储多少字节信息？\n2. 如果存储器由 `2K x 4b` 的 RAM 芯片组成，需多少 RAM 芯片？需多少位地址进行芯片选择？","options":[],"answer":"① `16KB` ② `16` 片，需要 `3` 位地址进行芯片选择。","acceptedAnswers":[],"explanation":"14 位地址可寻址：\n\n$$\n2^{14}=16K\n$$\n\n字长为 8 位，即 1 字节，所以容量为：\n\n$$\n16K \\times 1B = 16KB\n$$\n\n目标结构为：\n\n$$\n16K \\times 8b\n$$\n\n单片为：\n\n$$\n2K \\times 4b\n$$\n\n芯片数：\n\n$$\n\\frac{16K \\times 8b}{2K \\times 4b}=16\n$$\n\n每组要扩展到 8 位：\n\n$$\n8b / 4b = 2 \\text{片/组}\n$$\n\n总共 16 片，所以有：\n\n$$\n16 / 2 = 8 \\text{组}\n$$\n\n需要区分 8 组芯片：\n\n$$\n2^3 = 8\n$$\n\n所以需要 3 位地址进行芯片选择。","distractorAnalysis":"","pitfall":"字长扩展决定每组几片，容量深度扩展决定几组。","assets":[]},{"id":"ch06-q01","chapter":6,"chapterTitle":"输入输出与中断","sourceNumber":1,"type":"choice","title":"中断向量表求类型号和入口地址","prompt":"有一 8086 系统的中断向量表，在 `0000H:0038H` 单元开始依次存放 `56H`、`0CEH`、`12H` 和 `0F8H` 四个字节，该向量对应的中断类型码和中断服务程序的入口地址分别为（ ）。","options":[{"key":"A","text":"`0FH, 0CE56H:0F812H`"},{"key":"B","text":"`0FH, 0F812H:0CE56H`"},{"key":"C","text":"`0EH, 0CE56H:0F812H`"},{"key":"D","text":"`0EH, 0F812H:0CE56H`"}],"answer":"D","acceptedAnswers":[],"explanation":"每个中断向量占 4 字节，向量表入口地址为：\n\n$$\n类型码 \\times 4\n$$\n\n所以：\n\n$$\n0038H / 4 = 0EH\n$$\n\n中断向量中前 2 字节是偏移地址，后 2 字节是段地址，且 8086 采用小端存储：\n\n```text\n偏移地址：56H, CEH -> CE56H\n段地址：12H, F8H -> F812H\n```\n\n因此入口地址为 `F812H:CE56H`。","distractorAnalysis":"","pitfall":"内存中低字节在前；真正的入口地址通常写作“段地址:偏移地址”。","assets":[]},{"id":"ch06-q02","chapter":6,"chapterTitle":"输入输出与中断","sourceNumber":2,"type":"choice","title":"非屏蔽中断类型号来源","prompt":"8086 CPU 响应非屏蔽中断，其中断类型号是由（ ）的。","options":[{"key":"A","text":"外设提供"},{"key":"B","text":"CPU 自动产生"},{"key":"C","text":"中断控制器 8259 提供"},{"key":"D","text":"指令码中给定"}],"answer":"B","acceptedAnswers":[],"explanation":"8086 的非屏蔽中断 `NMI` 的中断类型号固定为 `2`，由 CPU 内部自动产生，不需要外设或 8259A 提供类型号。","distractorAnalysis":"","pitfall":"`INTR` 可屏蔽中断的类型号可由外部中断控制器提供；`NMI` 的类型号固定为 2。","assets":[]},{"id":"ch06-q03","chapter":6,"chapterTitle":"输入输出与中断","sourceNumber":3,"type":"choice","title":"由中断向量表位置求中断类型号","prompt":"某中断程序入口地址值填写在中断向量表的 `0084H~0087H` 存储单元中，则该中断对应的中断类型号一定是（ ）。","options":[{"key":"A","text":"`21H`"},{"key":"B","text":"`23H`"},{"key":"C","text":"`20H`"},{"key":"D","text":"`84H`"}],"answer":"A","acceptedAnswers":[],"explanation":"$$\n类型号 = 0084H / 4 = 21H\n$$","distractorAnalysis":"","pitfall":"中断向量表中每个入口占 4 字节，所以入口起始地址除以 4 才是类型号。","assets":[]},{"id":"ch06-q04","chapter":6,"chapterTitle":"输入输出与中断","sourceNumber":4,"type":"choice","title":"中断类型号对应的向量表地址","prompt":"8086/8088 中断类型号为 `50H` 的中断服务程序入口地址存放在中断向量表中的起始地址是（ ）。","options":[{"key":"A","text":"`0000:0140H`"},{"key":"B","text":"`DS:0050H`"},{"key":"C","text":"`0000:0050H`"},{"key":"D","text":"`DS:0140H`"}],"answer":"A","acceptedAnswers":[],"explanation":"$$\n50H \\times 4 = 140H\n$$\n\n中断向量表固定在物理地址 `00000H~003FFH`，因此该向量入口起始地址为 `0000:0140H`。","distractorAnalysis":"","pitfall":"类型号不是向量表偏移地址，必须先乘以 4。","assets":[]},{"id":"ch06-q05","chapter":6,"chapterTitle":"输入输出与中断","sourceNumber":5,"type":"choice","title":"中断向量表地址范围","prompt":"在 8086 系统中，规定中断向量表存放于内存中（ ）所在地址的内存单元。","options":[{"key":"A","text":"`80000H~803FFH`"},{"key":"B","text":"`0FF00H~0FFFFH`"},{"key":"C","text":"`00000H~003FFH`"},{"key":"D","text":"`7F000H~7F3FFH`"}],"answer":"C","acceptedAnswers":[],"explanation":"8086 中断向量表从物理地址 `00000H` 开始，共 256 个中断向量，每个向量 4 字节：\n\n$$\n256 \\times 4 = 1024B = 400H\n$$\n\n所以地址范围是 `00000H~003FFH`。","distractorAnalysis":"","pitfall":"中断向量表在最低 1KB 内存空间。","assets":[]},{"id":"ch06-q06","chapter":6,"chapterTitle":"输入输出与中断","sourceNumber":6,"type":"choice","title":"两片 8259A 级联可管理的中断数","prompt":"两片 8259A 连接成级联缓冲方式可管理（ ）个可屏蔽中断。","options":[{"key":"A","text":"9"},{"key":"B","text":"16"},{"key":"C","text":"15"},{"key":"D","text":"8"}],"answer":"C","acceptedAnswers":[],"explanation":"一片 8259A 有 8 个中断请求输入。两片级联时，主片要占用一个输入端连接从片，所以总数为：\n\n$$\n7 + 8 = 15\n$$","distractorAnalysis":"","pitfall":"两片不是简单相加成 16，因为主片要拿出 1 路接从片。","assets":[]},{"id":"ch06-q07","chapter":6,"chapterTitle":"输入输出与中断","sourceNumber":7,"type":"choice","title":"单片 8259A 管理的中断级数","prompt":"一片中断控制器 8259A 能管理（ ）级硬件中断。","options":[{"key":"A","text":"8"},{"key":"B","text":"2"},{"key":"C","text":"10"},{"key":"D","text":"64"}],"answer":"A","acceptedAnswers":[],"explanation":"8259A 有 `IR0~IR7` 共 8 个中断请求输入端，因此单片能管理 8 级硬件中断。","distractorAnalysis":"","pitfall":"64 是最多级联扩展时可形成的请求源数量，不是单片 8259A 的输入数。","assets":[]},{"id":"ch06-q08","chapter":6,"chapterTitle":"输入输出与中断","sourceNumber":8,"type":"choice","title":"`INT n` 指令中断","prompt":"`INT n` 指令中断是（ ）。","options":[{"key":"A","text":"可用 IF 标志位屏蔽的"},{"key":"B","text":"由外部设备请求产生"},{"key":"C","text":"通过软件调用的内部中断"},{"key":"D","text":"由系统断电引起的"}],"answer":"C","acceptedAnswers":[],"explanation":"`INT n` 是软件中断指令，由程序主动调用，对应的类型码 `n` 在指令中给出。","distractorAnalysis":"","pitfall":"`INT n` 不是外设发出的中断请求，也不受 `IF` 屏蔽。","assets":[]},{"id":"ch06-q10","chapter":6,"chapterTitle":"输入输出与中断","sourceNumber":10,"type":"choice","title":"查询传送方式的前置操作","prompt":"在查询传送方式中，CPU 要对外设进行读出或写入操作前，必须先对外设（ ）。","options":[{"key":"A","text":"发读/写命令"},{"key":"B","text":"进行状态检测"},{"key":"C","text":"发控制命令"},{"key":"D","text":"发 I/O 端口地址"}],"answer":"B","acceptedAnswers":[],"explanation":"查询传送方式下，CPU 需要不断读取外设状态，判断外设是否准备好，只有状态满足条件后才进行数据读写。","distractorAnalysis":"","pitfall":"查询方式的关键词是“先查状态，再传数据”。","assets":[]},{"id":"ch06-q11","chapter":6,"chapterTitle":"输入输出与中断","sourceNumber":11,"type":"fill","title":"8086 可处理的中断数量","prompt":"8086 的中断系统可处理 ① 个不同的中断。","options":[],"answer":["`256`"],"acceptedAnswers":[["256"]],"explanation":"8086 用 8 位中断类型码表示中断类型，因此可表示：\n\n$$\n2^8 = 256\n$$\n\n个不同中断。","distractorAnalysis":"","pitfall":"每个中断类型对应一个 4 字节中断向量。","assets":[]},{"id":"ch06-q12","chapter":6,"chapterTitle":"输入输出与中断","sourceNumber":12,"type":"fill","title":"CPU 与外设交换的信息类型","prompt":"CPU 通过接口与外设之间交换的信息包括数据信息、状态信息和 ①，这三种信息通常都是通过 CPU 的 ② 总线来传输的。","options":[],"answer":["控制信息","数据"],"acceptedAnswers":[["控制信息"],["数据"]],"explanation":"CPU 与外设交换的信息有三类：\n\n```text\n数据信息：真正要输入/输出的数据\n状态信息：外设是否忙、是否准备好等状态\n控制信息：启动、停止、读写方式等控制命令\n```\n\n这些信息进入 CPU 或由 CPU 输出时，通常都经过数据总线传送。","distractorAnalysis":"","pitfall":"状态信息和控制信息虽然名字不是“数据”，但在总线上仍常通过数据总线传输。","assets":[]},{"id":"ch06-q13","chapter":6,"chapterTitle":"输入输出与中断","sourceNumber":13,"type":"fill","title":"`OUT DX,AL` 的总线控制信号","prompt":"CPU 在执行 `OUT DX, AL` 指令时，`M/IO` 引脚为 ① 电平，`\\overline{RD}` 引脚为 ② 电平，`\\overline{WR}` 引脚为 ③ 电平。","options":[],"answer":["低","高","低"],"acceptedAnswers":[["低"],["高"],["低"]],"explanation":"`OUT DX,AL` 是 I/O 写操作。最小模式下：\n\n```text\nM/IO = 0       表示 I/O 操作\n\\overline{RD} = 1  读信号无效\n\\overline{WR} = 0  写信号有效\n```","distractorAnalysis":"","pitfall":"带横线的 `RD`、`WR` 是低电平有效；写操作时 `WR` 为低。","assets":[]},{"id":"ch06-q14","chapter":6,"chapterTitle":"输入输出与中断","sourceNumber":14,"type":"fill","title":"类型 2 中断入口地址","prompt":"若在 `0000:0008H` 开始的 4 个字节中分别存放的是 `12H`、`22H`、`36H`、`45H`，则对应的中断类型号为 2 的中断服务程序入口地址为 ①。","options":[],"answer":["`4536H:2212H`"],"acceptedAnswers":[["4536H:2212H"]],"explanation":"类型 2 的向量表入口地址为：\n\n$$\n2 \\times 4 = 8\n$$\n\n即从 `0000:0008H` 开始。前两个字节构成偏移地址，后两个字节构成段地址：\n\n```text\n偏移：12H,22H -> 2212H\n段址：36H,45H -> 4536H\n```\n\n入口地址写作段地址:偏移地址，所以是 `4536H:2212H`。","distractorAnalysis":"","pitfall":"向量表中存储顺序是 IP 低字节、IP 高字节、CS 低字节、CS 高字节。","assets":[]},{"id":"ch06-q15","chapter":6,"chapterTitle":"输入输出与中断","sourceNumber":15,"type":"fill","title":"中断类型码与内部中断","prompt":"中断系统可处理多个不同的中断，每个中断对应一个 ① 码。CPU 根据某条指令或某个状态标志的设置而产生的中断称为 ② 中断。","options":[],"answer":["类型","内部"],"acceptedAnswers":[["类型"],["内部"]],"explanation":"8086 中每个中断都有一个中断类型码，用来索引中断向量表。由 CPU 内部执行指令或内部条件触发的中断称为内部中断，例如 `INT n`、溢出中断等。","distractorAnalysis":"","pitfall":"外部中断来自 CPU 外部引脚；内部中断来自 CPU 执行指令或内部状态。","assets":[]},{"id":"ch06-q16","chapter":6,"chapterTitle":"输入输出与中断","sourceNumber":16,"type":"fill","title":"程序控制方式的分类","prompt":"微机系统中数据传送的控制方式有三种，其中程序控制方式的数据传送又分为无条件传送、① 和中断传送。","options":[],"answer":["查询传送"],"acceptedAnswers":[["查询传送"]],"explanation":"程序控制方式下，数据传送由程序控制，常见方式包括无条件传送、查询传送和中断传送。查询传送通过反复检测外设状态决定是否进行传输。","distractorAnalysis":"","pitfall":"查询传送会浪费 CPU 时间；中断传送能减少 CPU 主动等待。","assets":[]},{"id":"ch06-q17","chapter":6,"chapterTitle":"输入输出与中断","sourceNumber":17,"type":"fill","title":"中断向量占用字节数","prompt":"中断向量是中断服务程序的入口地址，每个中断向量占 ① 个字节。","options":[],"answer":["`4`"],"acceptedAnswers":[["4"]],"explanation":"8086 中断服务程序入口地址由 `CS:IP` 组成，其中 `IP` 2 字节，`CS` 2 字节，共 4 字节。","distractorAnalysis":"","pitfall":"向量表一个入口不是 2 字节，而是 4 字节。","assets":[]},{"id":"ch06-q18","chapter":6,"chapterTitle":"输入输出与中断","sourceNumber":18,"type":"fill","title":"可屏蔽中断与不可屏蔽中断优先级","prompt":"可屏蔽中断的优先级比不可屏蔽中断的优先级 ①。","options":[],"answer":["低"],"acceptedAnswers":[["低"]],"explanation":"不可屏蔽中断 `NMI` 用于紧急事件，不能被 `IF` 标志屏蔽，优先级高于可屏蔽中断 `INTR`。","distractorAnalysis":"","pitfall":"`IF` 只能屏蔽 `INTR`，不能屏蔽 `NMI`。","assets":[]},{"id":"ch06-q19","chapter":6,"chapterTitle":"输入输出与中断","sourceNumber":19,"type":"short","title":"程序查询方式和中断方式中 CPU 的地位","prompt":"简述 CPU 在程序查询方式和中断方式中所处的地位。","options":[],"answer":"程序查询方式中，CPU 处于主动地位。CPU 必须不断读取并检测外设状态，确认外设准备好后才进行数据传送。\n\n中断方式中，CPU 处于被动/主导结合的地位。CPU 平时执行自己的程序，外设准备好后主动提出中断请求，CPU 响应后转去执行中断服务程序。","acceptedAnswers":[],"explanation":"","distractorAnalysis":"","pitfall":"查询方式浪费 CPU 时间；中断方式让外设“准备好了再叫 CPU”。","assets":[]},{"id":"ch06-q20","chapter":6,"chapterTitle":"输入输出与中断","sourceNumber":20,"type":"short","title":"CPU 与外设之间的数据传送方式","prompt":"CPU 与外设之间有哪几种传送方式？各有什么特点？","options":[],"answer":"- 无条件传送：最简单，默认外设始终就绪，CPU 直接读写，不检测状态。\n- 查询传送：CPU 通过程序不断查询外设状态，外设准备好后再传送；硬件简单，但浪费 CPU 时间。\n- 中断传送：外设准备好后向 CPU 发中断请求，CPU 响应后传送；减少 CPU 等待，提高利用率，但需要中断控制和现场保护。\n- DMA 传送：数据在内存和外设之间直接传送，不经过 CPU 的寄存器；速度快，适合大批量数据传送，但需要 DMA 控制器接管总线。","acceptedAnswers":[],"explanation":"","distractorAnalysis":"","pitfall":"DMA 不是 CPU 一条条搬数据，而是 DMA 控制器控制总线直接搬运。","assets":[]},{"id":"ch06-q21","chapter":6,"chapterTitle":"输入输出与中断","sourceNumber":21,"type":"short","title":"中断及其中断处理过程","prompt":"什么是中断？简述中断的处理过程。","options":[],"answer":"中断是 CPU 在执行当前程序时，由于内部或外部事件的请求，暂时停止当前程序，转去执行相应服务程序，处理完后再返回原程序继续执行的过程。\n\n中断处理过程通常包括：\n\n```text\n中断请求 -> 中断判优 -> 中断响应 -> 保护现场 -> 执行中断服务程序 -> 恢复现场 -> 中断返回\n```","acceptedAnswers":[],"explanation":"","distractorAnalysis":"","pitfall":"保护现场和恢复现场是为了让 CPU 能回到原程序继续正确执行。","assets":[]},{"id":"ch06-q22","chapter":6,"chapterTitle":"输入输出与中断","sourceNumber":22,"type":"short","title":"8259A 类型码、IR 输入端和向量内容","prompt":"若 8086 系统采用单片 8259A，其中断类型码为 `42H`，试问其中断向量表的中断向量地址是多少？这个中断源应连向 IRR 的哪一个输入端？若中断服务程序的入口地址为 `CB08H:4C11H`，则其向量区对应的 4 个单元的值依次为多少？","options":[],"answer":"```text\n中断向量地址：0000:0108H\nIR 输入端：IR2\n4 个单元依次为：11H, 4CH, 08H, CBH\n```","acceptedAnswers":[],"explanation":"中断类型码为 `42H`，向量表入口地址为：\n\n$$\n42H \\times 4 = 108H\n$$\n\n所以中断向量地址是 `0000:0108H`。\n\n8259A 的中断类型码低 3 位对应 `IR0~IR7`：\n\n```text\n42H = 0100 0010B\n低 3 位 = 010B = 2\n```\n\n所以连接 `IR2`。\n\n入口地址 `CB08H:4C11H` 中：\n\n```text\nIP = 4C11H\nCS = CB08H\n```\n\n按小端顺序存入向量表：\n\n```text\n11H, 4CH, 08H, CBH\n```","distractorAnalysis":"","pitfall":"向量表中先存偏移 IP，再存段地址 CS，并且每个字都是低字节在前。","assets":[]},{"id":"ch06-q23","chapter":6,"chapterTitle":"输入输出与中断","sourceNumber":23,"type":"short","title":"DMA 工作方式的主要特点","prompt":"简述 DMA 工作方式的主要特点。","options":[],"answer":"DMA 方式的主要特点是数据在内存与外设之间直接高速传送，不经过 CPU 内部寄存器。传送过程中由 DMA 控制器接管总线控制权，从而提高大批量数据传输效率，并释放 CPU 的计算资源。","acceptedAnswers":[],"explanation":"","distractorAnalysis":"","pitfall":"DMA 仍然需要 CPU 初始化传送参数，但正式传送时主要由 DMA 控制器完成。","assets":[]},{"id":"ch06-q24","chapter":6,"chapterTitle":"输入输出与中断","sourceNumber":24,"type":"short","title":"8259A 的 ICW2 作用","prompt":"8259A 的 `ICW2` 设置了中断类型码的哪几位？说明对 8259A 分别设置 `ICW2` 为 `30H`、`38H` 有什么差别？","options":[],"answer":"`ICW2` 用于设置中断类型码的高 5 位，即 `D7~D3`；低 3 位由 8259A 根据中断请求输入端 `IR0~IR7` 自动填入。\n\n若 `ICW2=30H`：\n\n```text\nIR0~IR7 对应类型码：30H~37H\n```\n\n若 `ICW2=38H`：\n\n```text\nIR0~IR7 对应类型码：38H~3FH\n```","acceptedAnswers":[],"explanation":"","distractorAnalysis":"","pitfall":"`ICW2` 不是给某一个 IR 端指定完整类型码，而是给一组 8 个中断类型码指定基址。","assets":[]},{"id":"ch07-q01","chapter":7,"chapterTitle":"并行接口","sourceNumber":1,"type":"choice","title":"8255A 方式控制字判断输入端口","prompt":"若 8255A 的方式控制字为 `10001100B`，则工作在输入方式的是（ ）。","options":[{"key":"A","text":"C 口低 4 位"},{"key":"B","text":"B 口"},{"key":"C","text":"C 口高 4 位"},{"key":"D","text":"A 口"}],"answer":"C","acceptedAnswers":[],"explanation":"8255A 方式选择控制字各位含义：\n\n```text\nD7=1：方式选择控制字\nD6D5=00：A 组方式 0\nD4=0：A 口输出\nD3=1：C 口高 4 位输入\nD2=1：B 组方式 1\nD1=0：B 口输出\nD0=0：C 口低 4 位输出\n```\n\n因此工作在输入方式的是 C 口高 4 位。","distractorAnalysis":"","pitfall":"`D3` 控制 C 口高 4 位方向，`D0` 控制 C 口低 4 位方向。","assets":[]},{"id":"ch07-q02","chapter":7,"chapterTitle":"并行接口","sourceNumber":2,"type":"choice","title":"8255A 端口 A 双向通信方式","prompt":"通过 8255A 的端口 A 实现双机数据通信时，其工作方式可以设置为（ ）。","options":[{"key":"A","text":"都不能"},{"key":"B","text":"方式 1"},{"key":"C","text":"方式 0"},{"key":"D","text":"方式 2"}],"answer":"D","acceptedAnswers":[],"explanation":"8255A 的方式 2 是双向总线 I/O 方式，只能用于 A 口，适合端口 A 实现双向数据传送。","distractorAnalysis":"","pitfall":"方式 1 是选通输入/输出，不是双向总线方式；方式 2 才是 A 口专用的双向方式。","assets":[]},{"id":"ch07-q03","chapter":7,"chapterTitle":"并行接口","sourceNumber":3,"type":"choice","title":"8255A 控制字 8FH","prompt":"8255A 的方式选择控制字为 `8FH`，其含义是（ ）。","options":[{"key":"A","text":"A、B、C 口均为方式 0，输出"},{"key":"B","text":"A、B 口为方式 0"},{"key":"C","text":"A 口为输出，其他口为输入"},{"key":"D","text":"A、B、C 口全为输入"}],"answer":"C","acceptedAnswers":[],"explanation":"`8FH = 10001111B`：\n\n```text\nD7=1：方式选择控制字\nD6D5=00：A 组方式 0\nD4=0：A 口输出\nD3=1：C 口高 4 位输入\nD2=1：B 组方式 1\nD1=1：B 口输入\nD0=1：C 口低 4 位输入\n```\n\n从端口方向看，A 口为输出，B 口和 C 口均为输入，所以选 C。","distractorAnalysis":"","pitfall":"`8FH` 并不是所有端口全输入，因为 `D4=0`，A 口是输出。","assets":[]},{"id":"ch07-q04","chapter":7,"chapterTitle":"并行接口","sourceNumber":4,"type":"choice","title":"8255A 端口地址判断","prompt":"某设备采用 8255A 芯片作为数据传送口，若芯片的 A 口地址为 `0F4H`，则当 CPU 执行输出指令访问 `0F5H` 端口时，其操作为（ ）。","options":[{"key":"A","text":"数据从数据总线送端口 C"},{"key":"B","text":"控制字送控制字寄存器"},{"key":"C","text":"数据从数据总线送端口 B"},{"key":"D","text":"数据从端口 C 送数据总线"}],"answer":"C","acceptedAnswers":[],"explanation":"8255A 四个端口地址连续，通常按 `A1A0` 选择：\n\n```text\nA1A0=00：A 口\nA1A0=01：B 口\nA1A0=10：C 口\nA1A0=11：控制口\n```\n\n若 A 口地址为 `0F4H`，则：\n\n```text\n0F4H：A 口\n0F5H：B 口\n0F6H：C 口\n0F7H：控制口\n```\n\nCPU 执行输出指令访问 `0F5H`，就是把数据从数据总线送入 B 口。","distractorAnalysis":"","pitfall":"A 口地址确定后，B/C/控制口地址依次加 1。","assets":[]},{"id":"ch07-q05","chapter":7,"chapterTitle":"并行接口","sourceNumber":5,"type":"choice","title":"8255A 方式 2 的 I/O 口性质","prompt":"并行接口芯片 8255A 被设定为方式 2 时，其工作的 I/O 口（ ）。","options":[{"key":"A","text":"仅能作不带控制信号的输入口或输出口使用"},{"key":"B","text":"仅能作输出口使用"},{"key":"C","text":"既能作输入口，也能作输出口使用"},{"key":"D","text":"仅能作输入口使用"}],"answer":"C","acceptedAnswers":[],"explanation":"方式 2 是双向总线方式，端口 A 可以既输入又输出，并配合 C 口部分引脚作为握手控制信号。","distractorAnalysis":"","pitfall":"方式 2 只适用于 A 口，不适用于 B 口。","assets":[]},{"id":"ch07-q06","chapter":7,"chapterTitle":"并行接口","sourceNumber":6,"type":"choice","title":"共阳极 LED 显示 F 的段码","prompt":"一个 LED 数码显示器以共阳极方式连接，段码 `abcdefg` 依次与数据总线 `D0~D6` 相连，`DP` 与 `D7` 相连，显示字符 `F` 的段码值应为（ ）。","options":[{"key":"A","text":"`8EH`"},{"key":"B","text":"`71H`"},{"key":"C","text":"`9EH`"},{"key":"D","text":"`79H`"}],"answer":"A","acceptedAnswers":[],"explanation":"显示 `F` 需要点亮 `a、e、f、g`，熄灭 `b、c、d、DP`。共阳极数码管低电平点亮，因此：\n\n```text\nD0(a)=0\nD1(b)=1\nD2(c)=1\nD3(d)=1\nD4(e)=0\nD5(f)=0\nD6(g)=0\nD7(DP)=1\n```\n\n按 `D7~D0` 写成二进制：\n\n```text\n10001110B = 8EH\n```","distractorAnalysis":"","pitfall":"共阳极是低电平点亮；`71H` 是常见共阴极显示 `F` 的段码。","assets":[]},{"id":"ch07-q07","chapter":7,"chapterTitle":"并行接口","sourceNumber":7,"type":"choice","title":"8255A 双向传送方式","prompt":"8255A 能实现双向传送功能的工作方式为（ ）。","options":[{"key":"A","text":"方式 2"},{"key":"B","text":"方式 1"},{"key":"C","text":"方式 3"},{"key":"D","text":"方式 0"}],"answer":"A","acceptedAnswers":[],"explanation":"8255A 只有方式 2 是双向总线 I/O 方式，且只适用于 A 口。","distractorAnalysis":"","pitfall":"8255A 只有方式 0、方式 1、方式 2，没有方式 3。","assets":[]},{"id":"ch07-q08","chapter":7,"chapterTitle":"并行接口","sourceNumber":8,"type":"choice","title":"8255A 控制口地址","prompt":"若 8255A 的地址范围为 `600H~603H`，则方式控制字从（ ）地址送入。","options":[{"key":"A","text":"`600H`"},{"key":"B","text":"`603H`"},{"key":"C","text":"`602H`"},{"key":"D","text":"`601H`"}],"answer":"B","acceptedAnswers":[],"explanation":"8255A 的控制字写入控制口，控制口对应 `A1A0=11`，在连续 4 个地址中为最后一个地址。地址范围 `600H~603H` 时，控制口为 `603H`。","distractorAnalysis":"","pitfall":"`600H` 是 A 口，`603H` 才是控制口。","assets":[]},{"id":"ch07-q09","chapter":7,"chapterTitle":"并行接口","sourceNumber":9,"type":"fill","title":"8255A 允许中断请求的工作方式","prompt":"8255A 可以允许中断请求的工作方式有 ① 和 ②。","options":[],"answer":["选通输入/输出方式","双向总线 I/O 方式"],"acceptedAnswers":[["选通输入","输出方式"],["双向总线 I","O 方式"]],"explanation":"8255A 的方式 1 采用选通输入/输出，可以使用握手信号并产生中断请求；方式 2 是 A 口双向总线方式，也可使用中断请求。","distractorAnalysis":"","pitfall":"方式 0 是基本输入/输出方式，不带握手和中断请求。","assets":[]},{"id":"ch07-q10","chapter":7,"chapterTitle":"并行接口","sourceNumber":10,"type":"fill","title":"8255A 端口 B 选择信号","prompt":"8255A 端口选择信号 `A1A0=①` 时，为选中端口 B。","options":[],"answer":["`01`"],"acceptedAnswers":[["01"]],"explanation":"```text\nA1A0=00：A 口\nA1A0=01：B 口\nA1A0=10：C 口\nA1A0=11：控制口\n```","distractorAnalysis":"","pitfall":"端口选择看的是 8255A 的 `A1A0`，不是 CPU 地址总线的全部地址。","assets":[]},{"id":"ch07-q11","chapter":7,"chapterTitle":"并行接口","sourceNumber":11,"type":"fill","title":"控制字最高位 D7","prompt":"当 8255A 的控制字最高位 `D7=1` 时，表示该控制字为 ① 控制字。","options":[],"answer":["方式选择"],"acceptedAnswers":[["方式选择"]],"explanation":"8255A 控制字分两类：`D7=1` 表示方式选择控制字；`D7=0` 表示 C 口按位置位/复位控制字。","distractorAnalysis":"","pitfall":"`D7=0` 时不是方式选择，而是专门控制 C 口某一位的置 1 或清 0。","assets":[]},{"id":"ch07-q12","chapter":7,"chapterTitle":"并行接口","sourceNumber":12,"type":"fill","title":"8255A 三种工作方式","prompt":"8255A 并行接口电路可编程工作在基本输入/输出、① 输入/输出方式和 ② 方式。","options":[],"answer":["选通","双向传输"],"acceptedAnswers":[["选通"],["双向传输"]],"explanation":"8255A 三种工作方式为：\n\n```text\n方式 0：基本输入/输出\n方式 1：选通输入/输出\n方式 2：双向传输\n```","distractorAnalysis":"","pitfall":"方式 2 只用于 A 口，B 口只能工作在方式 0 或方式 1。","assets":[]},{"id":"ch07-q13","chapter":7,"chapterTitle":"并行接口","sourceNumber":13,"type":"fill","title":"C 口按位置位/复位功能","prompt":"8255A 端口 C 的按位置位/复位功能是由控制字中的 `D7=①` 来决定的。","options":[],"answer":["`0`"],"acceptedAnswers":[["0"]],"explanation":"当控制字 `D7=0` 时，8255A 进入 C 口按位置位/复位控制格式，可单独设置 PC0~PC7 中某一位。","distractorAnalysis":"","pitfall":"C 口按位置位/复位不会改变 A、B 口的工作方式。","assets":[]},{"id":"ch07-q14","chapter":7,"chapterTitle":"并行接口","sourceNumber":14,"type":"fill","title":"能工作于三种方式的端口","prompt":"8255A 的三个端口中，能够工作于三种工作方式的是端口 ①。","options":[],"answer":["A"],"acceptedAnswers":[["A"]],"explanation":"8255A 中，A 口可工作于方式 0、方式 1、方式 2；B 口只能工作于方式 0 和方式 1；C 口通常作为数据口或控制/握手线使用。","distractorAnalysis":"","pitfall":"双向方式 2 只给 A 口使用。","assets":[]},{"id":"ch07-q15","chapter":7,"chapterTitle":"并行接口","sourceNumber":15,"type":"fill","title":"8255A 的分组","prompt":"8255A 的三个数据端口分为两组来控制，端口 A 和端口 C 的 ① 4 位作为 A 组。","options":[],"answer":["高"],"acceptedAnswers":[["高"]],"explanation":"8255A 分为 A 组和 B 组：\n\n```text\nA 组：端口 A + 端口 C 高 4 位\nB 组：端口 B + 端口 C 低 4 位\n```","distractorAnalysis":"","pitfall":"C 口被拆成两半，高 4 位跟 A 组，低 4 位跟 B 组。","assets":[]},{"id":"ch07-q16","chapter":7,"chapterTitle":"并行接口","sourceNumber":16,"type":"fill","title":"多位 LED 数码管显示方式","prompt":"多位 LED 数码管显示的工作方式分为静态显示和 ① 显示。","options":[],"answer":["动态"],"acceptedAnswers":[["动态"]],"explanation":"静态显示每位数码管各自保持显示状态，硬件资源多；动态显示通过快速轮流选通各位数码管，利用视觉暂留实现多位同时显示的效果。","distractorAnalysis":"","pitfall":"动态显示需要不断刷新，否则会闪烁或显示不稳定。","assets":[]},{"id":"ch07-q20","chapter":7,"chapterTitle":"并行接口","sourceNumber":20,"type":"short","title":"读取端口 C 时的控制信号","prompt":"当数据从 8255A 的端口 C 读入 CPU 时，8255A 的控制信号 `#CS`、`#RD`、`#WR`、`A0` 和 `A1` 分别为什么电平？","options":[],"answer":"```text\n#CS = 低电平 0\n#RD = 低电平 0\n#WR = 高电平 1\nA1  = 高电平 1\nA0  = 低电平 0\n```","acceptedAnswers":[],"explanation":"读端口 C 时，芯片必须被选中，所以 `#CS=0`；读操作使 `#RD=0`，写信号无效所以 `#WR=1`。端口 C 对应 `A1A0=10`，因此 `A1=1`，`A0=0`。","distractorAnalysis":"","pitfall":"端口 C 是 `A1A0=10`，控制口才是 `11`。","assets":[]},{"id":"ch08-q01","chapter":8,"chapterTitle":"串行接口","sourceNumber":1,"type":"choice","title":"异步串行通信说法判断","prompt":"下列有关异步串行通信的叙述中，正确的是（ ）。","options":[{"key":"A","text":"在全双工方式下，收发双方只需要一根线相连"},{"key":"B","text":"奇偶校验位的作用是检错与纠错"},{"key":"C","text":"远程终端一定要通过 MODEM 才能与主机相连接"},{"key":"D","text":"发送方与接收方无须同步"}],"answer":"D","acceptedAnswers":[],"explanation":"异步串行通信中，发送方和接收方不需要共用同一个同步时钟。每个字符通过起始位和停止位来标志开始与结束，从而实现字符级同步。","distractorAnalysis":"- A 错，全双工一般需要发送线和接收线两条数据线。\n- B 错，奇偶校验只能发现部分错误，不能纠错。\n- C 错，远程通信不一定必须通过 MODEM，具体取决于通信介质和接口。","pitfall":"异步不是完全“不管同步”，而是不共享统一同步时钟，靠起始位和停止位完成每个字符的同步。","assets":[]},{"id":"ch08-q02","chapter":8,"chapterTitle":"串行接口","sourceNumber":2,"type":"choice","title":"异步通信传输信息的特点","prompt":"异步通信传输信息时，其特点是（ ）。","options":[{"key":"A","text":"字符发送速率由波特率确定"},{"key":"B","text":"每个字符的发送是独立的"},{"key":"C","text":"通信双方不必同步"},{"key":"D","text":"字符之间的传输时间长度相同"}],"answer":"B","acceptedAnswers":[],"explanation":"异步通信按字符为单位独立发送，每个字符都有自己的起始位和停止位，字符之间可以有不固定的空闲间隔。","distractorAnalysis":"- A 表述不严谨，波特率表示每秒传送的位数，而不是直接等于字符发送速率。\n- C 容易误解。异步通信不需要共用同步时钟，但每个字符内部仍要通过起始位、停止位实现同步。\n- D 错，异步通信字符之间的间隔可以不固定。","pitfall":"异步通信的核心特点是“字符独立发送，字符间隔可变”。","assets":[]},{"id":"ch08-q03","chapter":8,"chapterTitle":"串行接口","sourceNumber":3,"type":"choice","title":"串并转换部件","prompt":"串行接口中，并行数据和串行数据的转换是利用（ ）实现的。","options":[{"key":"A","text":"A/D 转换器"},{"key":"B","text":"锁存器"},{"key":"C","text":"移位寄存器"},{"key":"D","text":"数据寄存器"}],"answer":"C","acceptedAnswers":[],"explanation":"串行接口发送时，需要把 CPU 给出的并行数据逐位移出；接收时，需要把逐位收到的串行数据移入并组成并行数据。这个过程由移位寄存器完成。","distractorAnalysis":"","pitfall":"锁存器只能保持数据，不能完成逐位移入/移出的串并转换。","assets":[]},{"id":"ch08-q04","chapter":8,"chapterTitle":"串行接口","sourceNumber":4,"type":"choice","title":"波特率含义","prompt":"在串行通信中，使用波特率来表示数据的传输速率，它是指（ ）。","options":[{"key":"A","text":"每秒传送的字符数"},{"key":"B","text":"每秒传送的位数"},{"key":"C","text":"每秒传送的字节数"},{"key":"D","text":"每分钟传送的字符数"}],"answer":"B","acceptedAnswers":[],"explanation":"波特率在本课程中按串行通信常用口径理解为每秒传送的二进制位数，单位为 Baud。","distractorAnalysis":"","pitfall":"字符率要乘以每个字符帧包含的总位数，才得到波特率。","assets":[]},{"id":"ch08-q05","chapter":8,"chapterTitle":"串行接口","sourceNumber":5,"type":"choice","title":"串行接口的主要功能","prompt":"对于串行接口，其主要功能为（ ）。","options":[{"key":"A","text":"输入时将并行数据转换为串行数据，输出时将串行数据转换为并行数据"},{"key":"B","text":"仅串行数据到并行数据的转换"},{"key":"C","text":"仅并行数据到串行数据的转换"},{"key":"D","text":"输入时将串行数据转换为并行数据，输出时将并行数据转换为串行数据"}],"answer":"D","acceptedAnswers":[],"explanation":"串行接口面向 CPU 一侧通常是并行数据，面向通信线路一侧是串行数据。因此：\n\n```text\n输入时：线路串行数据 -> 接口并行数据 -> CPU\n输出时：CPU 并行数据 -> 接口串行数据 -> 线路\n```","distractorAnalysis":"","pitfall":"从 CPU 视角看，“输入”是外部进入 CPU，所以应串转并；“输出”是 CPU 发到外部，所以应并转串。","assets":[]},{"id":"ch08-q06","chapter":8,"chapterTitle":"串行接口","sourceNumber":6,"type":"choice","title":"异步通信区别于同步通信的特点","prompt":"异步通信区别于同步通信的主要特点是（ ）。","options":[{"key":"A","text":"每个字符的发送是独立的"},{"key":"B","text":"字符之间的间隔时间长度应相同"},{"key":"C","text":"通信双方需要同步字符"},{"key":"D","text":"字符发送速率由波特率确定"}],"answer":"A","acceptedAnswers":[],"explanation":"异步通信每个字符单独加起始位和停止位，字符之间可以有任意长度的空闲间隔，因此每个字符的发送相对独立。","distractorAnalysis":"","pitfall":"同步通信通常按数据块连续传送，需要同步字符或同步时钟；异步通信按字符独立传送。","assets":[]},{"id":"ch08-q07","chapter":8,"chapterTitle":"串行接口","sourceNumber":7,"type":"choice","title":"同步通信特点","prompt":"同步通信传输信息时，其特点是（ ）。","options":[{"key":"A","text":"字符之间的传输时间长度可不同"},{"key":"B","text":"通信双方必须同步"},{"key":"C","text":"每个字符的发送不是独立的"},{"key":"D","text":"字符发送速率由数据波特率确定"}],"answer":"B","acceptedAnswers":[],"explanation":"同步通信要求通信双方保持同步，通常以同步字符、同步时钟或同步协议保证发送端和接收端按统一节奏传输。","distractorAnalysis":"","pitfall":"同步通信不是靠每个字符自己的起始位和停止位来同步，而是传输双方整体同步。","assets":[]},{"id":"ch08-q08","chapter":8,"chapterTitle":"串行接口","sourceNumber":8,"type":"choice","title":"异步串行通信校验方式","prompt":"在异步串行通信中，常采用的校验方法是（ ）。","options":[{"key":"A","text":"循环冗余码校验"},{"key":"B","text":"海明码校验"},{"key":"C","text":"奇偶校验"},{"key":"D","text":"双重奇偶校验"}],"answer":"C","acceptedAnswers":[],"explanation":"异步串行通信字符帧中常设置 1 位奇偶校验位，用于检测单个字符传输中是否出现奇偶性错误。","distractorAnalysis":"","pitfall":"奇偶校验只能检错，不能定位并纠正错误。","assets":[]},{"id":"ch08-q09","chapter":8,"chapterTitle":"串行接口","sourceNumber":9,"type":"fill","title":"串行传送方式","prompt":"数据在传送线上一位一位地依次传送，称为 ① 传送方式。","options":[],"answer":["串行"],"acceptedAnswers":[["串行"]],"explanation":"串行传送一次只传送一位，适合长距离通信，线路少但速度相对并行传送低。","distractorAnalysis":"","pitfall":"并行传送是多位同时传，串行传送是一位一位传。","assets":[]},{"id":"ch08-q10","chapter":8,"chapterTitle":"串行接口","sourceNumber":10,"type":"fill","title":"串行通信的传送方向","prompt":"在串行通信数据传送中，通常传送方式有单工、半双工和 ① 等三种。","options":[],"answer":["全双工"],"acceptedAnswers":[["全双工"]],"explanation":"```text\n单工：只能单方向传送\n半双工：双方都能传送，但不能同时传送\n全双工：双方能同时发送和接收\n```","distractorAnalysis":"","pitfall":"半双工不是只能单向，而是同一时刻只能一个方向。","assets":[]},{"id":"ch08-q11","chapter":8,"chapterTitle":"串行接口","sourceNumber":11,"type":"fill","title":"波特率定义","prompt":"在串行通信中，使用波特率来表示数据的传输速率，它是指 ①。","options":[],"answer":["每秒传送的位数"],"acceptedAnswers":[["每秒传送的位数"]],"explanation":"波特率表示单位时间内传输的二进制位数，本课程按 `bit/s` 口径理解。","distractorAnalysis":"","pitfall":"波特率不是每秒字符数；一个字符帧通常包含起始位、数据位、校验位和停止位。","assets":[]},{"id":"ch08-q12","chapter":8,"chapterTitle":"串行接口","sourceNumber":12,"type":"fill","title":"串行通信的两种基本方式","prompt":"在串行通信中有两种基本的通信方式，即 ① 和同步通信。","options":[],"answer":["异步通信"],"acceptedAnswers":[["异步通信"]],"explanation":"串行通信按同步方式可分为异步通信和同步通信。异步通信按字符同步，同步通信按数据块或统一时钟同步。","distractorAnalysis":"","pitfall":"异步/同步是同步方式分类；单工/半双工/全双工是传送方向分类。","assets":[]},{"id":"ch08-q13","chapter":8,"chapterTitle":"串行接口","sourceNumber":13,"type":"fill","title":"串并转换实现部件","prompt":"串行接口中，并行数据和串行数据的转换是利用 ① 实现的。","options":[],"answer":["移位寄存器"],"acceptedAnswers":[["移位寄存器"]],"explanation":"移位寄存器可以逐位移入串行数据并组成并行数据，也可以把并行数据逐位移出形成串行数据。","distractorAnalysis":"","pitfall":"串并转换关键词就是“移位”。","assets":[]},{"id":"ch08-q14","chapter":8,"chapterTitle":"串行接口","sourceNumber":14,"type":"short","title":"异步通信中“异步”的含义","prompt":"异步通信中，异步的含义是什么？","options":[],"answer":"异步通信中，发送方和接收方不需要共用同一个同步时钟。每个字符独立发送，通常依靠起始位和停止位来标志一个字符的开始和结束，从而实现字符级同步。","acceptedAnswers":[],"explanation":"","distractorAnalysis":"","pitfall":"异步通信不是完全不同步，而是不使用统一同步时钟。","assets":[]},{"id":"ch08-q15","chapter":8,"chapterTitle":"串行接口","sourceNumber":15,"type":"short","title":"波特率计算","prompt":"设数据传送的速率是 `120` 字符/s，而每一个字符格式中，数据位 7 位，停止位、校验位各 1 位，则传送的波特率为多少？","options":[],"answer":"`1200 Baud`","acceptedAnswers":[],"explanation":"异步串行通信中，一个字符帧除数据位外，还通常包含起始位、校验位和停止位。本题虽然文字只写了数据位、停止位、校验位，但异步字符格式还要包含 1 位起始位。\n\n每个字符总位数为：\n\n$$\n1 + 7 + 1 + 1 = 10\n$$\n\n字符速率为 `120` 字符/s，所以波特率为：\n\n$$\n120 \\times 10 = 1200\n$$\n\n因此波特率为 `1200 Baud`。","distractorAnalysis":"","pitfall":"异步通信算波特率时别漏起始位。","assets":[]},{"id":"ch09-q01","chapter":9,"chapterTitle":"计数定时器","sourceNumber":1,"type":"choice","title":"8253 计数过程中装入新初值","prompt":"若 8253 处于计数过程中，CPU 要对它装入新的初值，下列说法正确的是（ ）。","options":[{"key":"A","text":"8253 允许编程，并改变当前的计数过程"},{"key":"B","text":"8253 禁止编程"},{"key":"C","text":"8253 允许编程，是否影响当前的计数过程随工作方式而变"},{"key":"D","text":"8253 允许编程，但不改变当前的计数过程"}],"answer":"D","acceptedAnswers":[],"explanation":"8253 在计数过程中允许 CPU 重新写入计数初值。新写入的初值通常先进入计数初值寄存器，不会立刻打断当前正在进行的计数过程，而是在规定时机装入计数单元后生效。","distractorAnalysis":"- A 错，重新写入初值不等于立即改变当前计数过程。\n- B 错，8253 在计数过程中并非禁止编程。\n- C 容易误选，虽然不同方式的装入时机有差别，但本题强调“当前计数过程”，按题意应选 D。","pitfall":"允许编程和立即改变当前计数过程不是一回事。","assets":[]},{"id":"ch09-q02","chapter":9,"chapterTitle":"计数定时器","sourceNumber":2,"type":"choice","title":"8253 对 GATE 信号的采样时刻","prompt":"8253 通常在（ ）门控信号 GATE 被采样。","options":[{"key":"A","text":"`WR` 信号的上升沿"},{"key":"B","text":"时钟脉冲的上升沿"},{"key":"C","text":"`WR` 信号的下降沿"},{"key":"D","text":"时钟脉冲的下降沿"}],"answer":"B","acceptedAnswers":[],"explanation":"8253 的门控信号 `GATE` 通常在 `CLK` 的上升沿被采样，用来决定当前计数器是否允许计数或触发相应工作过程。","distractorAnalysis":"- A、C 错，`WR` 与 CPU 写操作有关，不是采样 `GATE` 的时钟。\n- D 错，时钟下降沿常与计数减 1 联系在一起，不是本题问的 `GATE` 采样沿。","pitfall":"`GATE` 采样在 `CLK` 上升沿；计数减 1 常考 `CLK` 下降沿。","assets":[]},{"id":"ch09-q03","chapter":9,"chapterTitle":"计数定时器","sourceNumber":3,"type":"choice","title":"8253 二进制计数最大初始值","prompt":"8253 计数器二进制计数时所能容纳的最大初始值为（ ）。","options":[{"key":"A","text":"10000"},{"key":"B","text":"9999"},{"key":"C","text":"65536"},{"key":"D","text":"65535"}],"answer":"C","acceptedAnswers":[],"explanation":"8253 每个计数器是 16 位。二进制计数时，写入 `0000H` 并不表示 0，而是表示最大计数值 `65536`。","distractorAnalysis":"- A、B 是十进制或 BCD 计数中容易混淆的数值。\n- D 是 16 位无符号数最大编码 `FFFFH` 的值，但 8253 二进制计数最大初值按 `0000H` 表示 `65536`。","pitfall":"8253 中 `0000H` 表示 65536，不是 0，也不是 65535。","assets":[]},{"id":"ch09-q04","chapter":9,"chapterTitle":"计数定时器","sourceNumber":4,"type":"choice","title":"初始化后能连续计数的工作方式","prompt":"下列工作方式中，8253 初始化编程后能连续计数的是（ ）。","options":[{"key":"A","text":"方式 0"},{"key":"B","text":"方式 5"},{"key":"C","text":"方式 2"},{"key":"D","text":"方式 1"}],"answer":"C","acceptedAnswers":[],"explanation":"方式 2 是频率发生器方式，计数到终值后会自动重新装入初值并继续计数，因此能连续工作。","distractorAnalysis":"- A 方式 0 为计数结束中断方式，通常是一次性计数过程。\n- B 方式 5 为硬件触发选通信号方式，偏一次性触发输出。\n- D 方式 1 为硬件可重触发单稳方式，不是连续自动重复计数。","pitfall":"方式 2 和方式 3常用于周期性输出；本题选项中只有方式 2。","assets":[]},{"id":"ch09-q05","chapter":9,"chapterTitle":"计数定时器","sourceNumber":5,"type":"choice","title":"8253 的定时与计数","prompt":"8253 的定时与计数（ ）。","options":[{"key":"A","text":"从各自的控制端口设置"},{"key":"B","text":"是两种不同的工作方式"},{"key":"C","text":"定时只加脉冲信号，不设计算值"},{"key":"D","text":"实质相同，只是所加的计数脉冲要求不同"}],"answer":"D","acceptedAnswers":[],"explanation":"定时和计数本质上都是对输入脉冲做减 1 计数。定时通常输入固定频率时钟脉冲，用计数值换算时间；计数通常输入外部事件脉冲，用来统计事件次数。","distractorAnalysis":"- A 错，8253 的计数器由控制字设置，不是定时和计数各有独立控制端口。\n- B 错，定时和计数不是 8253 的两种工作方式分类，8253 的工作方式是方式 0 到方式 5。\n- C 错，定时也必须设置计数初值。","pitfall":"","assets":[]},{"id":"ch09-q06","chapter":9,"chapterTitle":"计数定时器","sourceNumber":6,"type":"choice","title":"8253 计数器减 1 的时刻","prompt":"8253 计时器在（ ）做减 1 计数。","options":[{"key":"A","text":"`WR` 信号的上升沿"},{"key":"B","text":"时钟脉冲的上升沿"},{"key":"C","text":"`WR` 信号的下降沿"},{"key":"D","text":"时钟脉冲的下降沿"}],"answer":"D","acceptedAnswers":[],"explanation":"8253 的计数器通常在 `CLK` 的下降沿进行减 1 计数。","distractorAnalysis":"- A、C 错，`WR` 是写控制信号，不是计数脉冲。\n- B 容易与 `GATE` 采样时刻混淆。","pitfall":"`GATE` 在时钟上升沿采样，计数器在时钟下降沿减 1。","assets":[]},{"id":"ch09-q07","chapter":9,"chapterTitle":"计数定时器","sourceNumber":7,"type":"fill","title":"8253 的写命令","prompt":"8253 有三条写命令，分别是 ①、②、③。","options":[],"answer":["控制字命令","计数初值命令","锁存命令"],"acceptedAnswers":[["控制字命令"],["计数初值命令"],["锁存命令"]],"explanation":"```text\n控制字命令：设置计数器编号、读写格式、工作方式和计数制\n计数初值命令：向指定计数器写入计数初值\n锁存命令：在计数过程中锁存当前计数值，便于 CPU 读取\n```","distractorAnalysis":"","pitfall":"锁存命令不是把新初值写入计数器，而是把当前计数值暂存下来供读取。","assets":[]},{"id":"ch09-q08","chapter":9,"chapterTitle":"计数定时器","sourceNumber":8,"type":"fill","title":"定时或延时的实现方法","prompt":"在微机应用系统中，实现定时或延时可采用三种方法实现：①、②、③。","options":[],"answer":["软件延时","硬件定时","中断定时"],"acceptedAnswers":[["软件延时"],["硬件定时"],["中断定时"]],"explanation":"```text\n软件延时：靠程序循环等待，占用 CPU，精度较低\n硬件定时：由定时器/计数器完成，精度较高\n中断定时：定时器到时发出中断，CPU 响应服务程序，效率较高\n```","distractorAnalysis":"","pitfall":"","assets":[]},{"id":"ch09-q09","chapter":9,"chapterTitle":"计数定时器","sourceNumber":9,"type":"fill","title":"8253 方式 3 输出波形","prompt":"8253 工作于方式 3 时，当计数初值为 ① 数时，输出 OUT 为对称方波；当计数初值为 ② 数时，输出 OUT 为近似对称方波。","options":[],"answer":["偶数","奇数"],"acceptedAnswers":[["偶数"],["奇数"]],"explanation":"方式 3 是方波发生器。计数初值为偶数时，高、低电平持续时间相等，输出对称方波；计数初值为奇数时，高、低电平持续时间相差一个时钟周期，因此输出近似对称方波。","distractorAnalysis":"","pitfall":"方式 3 的“对称/近似对称”取决于计数初值是偶数还是奇数。","assets":[]},{"id":"ch10-q01","chapter":10,"chapterTitle":"数模和模数转换","sourceNumber":1,"type":"choice","title":"10 位 D/A 转换器的分辨率","prompt":"10 位 D/A 转换器的分辨率能给出满量程电压的（ ）。","options":[{"key":"A","text":"`1/256`"},{"key":"B","text":"`1/1024`"},{"key":"C","text":"`1/512`"},{"key":"D","text":"`1/10`"}],"answer":"B","acceptedAnswers":[],"explanation":"D/A 转换器的分辨率通常为：\n\n$$\n\\frac{1}{2^n}\n$$\n\n其中 $n$ 为转换器位数。10 位 D/A 转换器的分辨率为：\n\n$$\n\\frac{1}{2^{10}}=\\frac{1}{1024}\n$$","distractorAnalysis":"- A 是 8 位转换器的分辨率。\n- C 是 9 位转换器的分辨率。\n- D 把“10 位”误理解成了十分之一。","pitfall":"位数是指数，不是分母本身。10 位对应 $2^{10}$ 个量化等级。","assets":[]},{"id":"ch10-q02","chapter":10,"chapterTitle":"数模和模数转换","sourceNumber":2,"type":"choice","title":"A/D 转换器向 CPU 发出的中断请求信号","prompt":"当 CPU 使用中断方式从 A/D 转换器读取数据时，A/D 转换器向 CPU 发出中断请求的信号是（ ）。","options":[{"key":"A","text":"START"},{"key":"B","text":"EOC"},{"key":"C","text":"OE"},{"key":"D","text":"INTR"}],"answer":"D","acceptedAnswers":[],"explanation":"`INTR` 是中断请求信号，用于通知 CPU 转换结果已经可以读取。CPU 在中断服务程序中读取 A/D 转换后的数字量。","distractorAnalysis":"- A `START` 是启动转换信号。\n- B `EOC` 是转换结束信号，常可经逻辑处理后作为中断请求来源，但它本身不是中断请求端名。\n- C `OE` 是输出允许信号，用来控制转换结果输出到数据总线。","pitfall":"`EOC` 表示转换结束，`INTR` 表示向 CPU 请求中断。","assets":[]},{"id":"ch10-q03","chapter":10,"chapterTitle":"数模和模数转换","sourceNumber":3,"type":"choice","title":"启动 ADC0809 进行 A/D 转换的方法","prompt":"启动 ADC0809 芯片开始进行 A/D 转换的方法是（ ）。","options":[{"key":"A","text":"ALE 引脚输入一个正脉冲"},{"key":"B","text":"START 引脚输入一个正脉冲"},{"key":"C","text":"ALE 引脚在 A/D 转换期间一直为高电平"},{"key":"D","text":"START 引脚在 A/D 转换期间一直为高电平"}],"answer":"B","acceptedAnswers":[],"explanation":"ADC0809 中，`ALE` 用于锁存通道地址，`START` 用于启动 A/D 转换。启动转换时，应在 `START` 引脚输入一个启动脉冲。","distractorAnalysis":"- A 错，`ALE` 的作用是地址锁存，不是启动转换。\n- C 错，`ALE` 不需要在转换期间一直保持高电平。\n- D 错，`START` 需要的是启动脉冲，不是在整个转换期间一直保持高电平。","pitfall":"`ALE` 锁存通道地址，`START` 启动转换，`EOC` 表示转换结束，`OE` 控制数据输出。","assets":[]},{"id":"ch10-q04","chapter":10,"chapterTitle":"数模和模数转换","sourceNumber":4,"type":"choice","title":"A/D 转换器分辨率与转换精度的关系","prompt":"A/D 转换器的分辨率与转换精度的关系是（ ）。","options":[{"key":"A","text":"分辨率高，转换精度一定高"},{"key":"B","text":"分辨率与转换精度没有关系"},{"key":"C","text":"分辨率高，其转换精度不一定高"},{"key":"D","text":"分辨率越高，转换精度越低"}],"answer":"C","acceptedAnswers":[],"explanation":"分辨率表示转换器能分辨的最小输入变化量；转换精度表示转换结果与真实值的接近程度。分辨率高只能说明量化等级多，但若器件线性误差、零点误差、增益误差等较大，转换精度仍可能不高。","distractorAnalysis":"- A 错，分辨率高不代表误差一定小。\n- B 错，分辨率会影响量化误差，与精度有关，但不是唯一因素。\n- D 错，分辨率提高通常有利于减小量化误差，不会必然降低精度。","pitfall":"分辨率是“能分多细”，精度是“测得准不准”。","assets":[]},{"id":"ch10-q05","chapter":10,"chapterTitle":"数模和模数转换","sourceNumber":5,"type":"choice","title":"D/A 转换器稳定性的技术指标","prompt":"反映一个 D/A 转换器稳定性的技术指标是（ ）。","options":[{"key":"A","text":"转换速度"},{"key":"B","text":"分辨率"},{"key":"C","text":"输出阻抗"},{"key":"D","text":"精度"}],"answer":"D","acceptedAnswers":[],"explanation":"D/A 转换器的稳定性通常反映在输出值是否准确、是否随时间或环境变化产生偏差等方面，和精度指标关系最密切。","distractorAnalysis":"- A 表示转换快慢。\n- B 表示最小可分辨输出变化量。\n- C 表示输出端等效阻抗，影响带负载能力。","pitfall":"","assets":[]},{"id":"ch10-q06","chapter":10,"chapterTitle":"数模和模数转换","sourceNumber":6,"type":"fill","title":"ADC0809 的类型与量化误差","prompt":"A/D 转换器 ADC0809 为 ① 型的 A/D 转化器，当其参考电压为 5V 时，其量化误差为 ② mV。","options":[],"answer":["逐次逼近型","严格按最大量化误差为 `±9.77 mV`。若题库把 1 个 LSB 量化间隔称为量化误差，则填 `19.53 mV`。"],"acceptedAnswers":[["逐次逼近型"],["严格按最大量化误差为 ±9.77 mV。若题库把 1 个 LSB 量化间隔称为量化误差，则填 19.53 mV。"]],"explanation":"ADC0809 是 8 位逐次逼近型 A/D 转换器。8 位转换器共有：\n\n$$\n2^8=256\n$$\n\n个量化等级。当参考电压为 `5V` 时，1 个 LSB 对应的电压为：\n\n$$\n\\frac{5V}{256}=0.01953V=19.53mV\n$$\n\n严格意义上的最大量化误差一般取半个 LSB：\n\n$$\n\\pm \\frac{1}{2}LSB=\\pm 9.77mV\n$$","distractorAnalysis":"","pitfall":"很多题库把“量化间隔 1LSB”和“量化误差”混用。严格概念是最大量化误差为半个 LSB。","assets":[]},{"id":"ch10-q07","chapter":10,"chapterTitle":"数模和模数转换","sourceNumber":7,"type":"fill","title":"D/A 转换器的主要性能指标","prompt":"模/数转换器的性能指标主要有：①、②、③ 和量程。","options":[],"answer":["分辨率","转换精度","转换时间"],"acceptedAnswers":[["分辨率"],["转换精度"],["转换时间"]],"explanation":"题干写“模/数转换器”时，通常指 A/D 转换器。A/D 转换器的常见性能指标包括分辨率、转换精度、转换时间和量程。","distractorAnalysis":"","pitfall":"如果题目实际想问 D/A 转换器，则常见指标中也会出现“建立时间”。但本题已给出“量程”，按 A/D 性能指标填“转换时间”更稳。","assets":[]},{"id":"ch10-q08","chapter":10,"chapterTitle":"数模和模数转换","sourceNumber":8,"type":"fill","title":"A/D 转换器的主要性能指标","prompt":"数/模转化器的性能指标主要有：①、②、③。","options":[],"answer":["分辨率","转换精度","建立时间"],"acceptedAnswers":[["分辨率"],["转换精度"],["建立时间"]],"explanation":"题干写“数/模转换器”，即 D/A 转换器。D/A 转换器的主要性能指标包括分辨率、转换精度和建立时间。建立时间表示输入数字量变化后，模拟输出达到规定精度范围所需的时间。","distractorAnalysis":"","pitfall":"A/D 常说“转换时间”，D/A 常说“建立时间”。两者容易互换写错。","assets":[]},{"id":"ch11-q01","chapter":11,"chapterTitle":"总线技术","sourceNumber":1,"type":"choice","title":"USB 总线的特点","prompt":"USB 总线的特点是（ ）。","options":[{"key":"A","text":"不支持热插拔"},{"key":"B","text":"需要插在主板上 196 脚插槽中"},{"key":"C","text":"串行总线"},{"key":"D","text":"双绞线通信"}],"answer":"C","acceptedAnswers":[],"explanation":"USB 是 Universal Serial Bus，即通用串行总线。它采用串行传输方式，并支持热插拔、即插即用等特点。","distractorAnalysis":"- A 错，USB 支持热插拔。\n- B 错，196 脚插槽不是 USB 的特点。\n- D 表述不准确，USB 的核心分类特征是串行总线。","pitfall":"USB 名字里的 `Serial Bus` 就是“串行总线”。","assets":[]},{"id":"ch11-q02","chapter":11,"chapterTitle":"总线技术","sourceNumber":2,"type":"choice","title":"主流微机中不包含的总线标准","prompt":"当前的主流微机中通常采用不含（ ）的三种总线标准。","options":[{"key":"A","text":"PCI"},{"key":"B","text":"PC"},{"key":"C","text":"EISA"},{"key":"D","text":"ISA"}],"answer":"B","acceptedAnswers":[],"explanation":"ISA、EISA、PCI 都是微机系统中常见的总线标准，而 PC 不是一种总线标准。","distractorAnalysis":"- A PCI 是高性能局部总线标准。\n- C EISA 是扩展工业标准结构总线。\n- D ISA 是工业标准结构总线。","pitfall":"","assets":[]},{"id":"ch11-q03","chapter":11,"chapterTitle":"总线技术","sourceNumber":3,"type":"choice","title":"微机与其他系统之间的总线标准","prompt":"微机系统之间或者微机系统与其他系统（仪器、仪表等）之间采用的总线标准有（ ）。","options":[{"key":"A","text":"片总线"},{"key":"B","text":"RSC-232C"},{"key":"C","text":"ISA 总线"},{"key":"D","text":"PCI"}],"answer":"B","acceptedAnswers":[],"explanation":"题目中的 `RSC-232C` 通常应写作 `RS-232C`，它是常用的串行通信接口标准，可用于微机与外部设备、仪器仪表之间的通信。","distractorAnalysis":"- A 片总线主要用于芯片内部或芯片之间的信息通路。\n- C ISA 总线主要用于微机内部扩展。\n- D PCI 主要是微机内部高速局部总线。","pitfall":"RS-232C 是外部串行通信接口标准，不是微机内部扩展总线。","assets":[]},{"id":"ch11-q04","chapter":11,"chapterTitle":"总线技术","sourceNumber":4,"type":"choice","title":"早期 ISA 总线引脚组成","prompt":"早期的 ISA 总线有（ ）个基本引脚，可传送数据线（ ）条、地址线（ ）条、控制线（ ）条。在 16 位 CPU 出现后，ISA 总线扩展的 36 条信号线中，数据/地址线 8 条，最高地址线 7 条，控制信号线 19 条，电源和地线 2 条。","options":[{"key":"A","text":"62，20，8，22"},{"key":"B","text":"22，8，20，62"},{"key":"C","text":"8，62，22，20"},{"key":"D","text":"62，8，20，22"}],"answer":"D","acceptedAnswers":[],"explanation":"早期 ISA 总线有 62 个基本引脚，其中数据线 8 条，地址线 20 条，控制线 22 条。","distractorAnalysis":"- A 把数据线和地址线数量对调了。\n- B、C 把“总引脚数”和各类信号线数量混在了一起。","pitfall":"","assets":[]},{"id":"ch11-q05","chapter":11,"chapterTitle":"总线技术","sourceNumber":5,"type":"choice","title":"同步总线协议的特点","prompt":"下列各项中，（ ）不是同步总线协议的特点。","options":[{"key":"A","text":"不需要应答信号"},{"key":"B","text":"总线长度较短"},{"key":"C","text":"各部件间的存取时间比较接近"},{"key":"D","text":"总线周期长度可变"}],"answer":"D","acceptedAnswers":[],"explanation":"同步总线采用统一的时钟信号控制，总线周期通常固定，因此“不需要应答信号”“总线长度较短”“各部件存取时间较接近”都是同步总线常见特点。总线周期长度可变更符合异步总线的特点。","distractorAnalysis":"- A 是同步总线常见特点，因为各操作按固定时序进行。\n- B 是同步总线常见限制，长度过长会影响同步时序。\n- C 是同步总线适用条件，各设备速度差异不能太大。","pitfall":"同步总线靠统一时钟，周期通常固定；异步总线靠握手，应答使周期可变。","assets":[]},{"id":"ch11-q06","chapter":11,"chapterTitle":"总线技术","sourceNumber":6,"type":"choice","title":"CAN 通信总线的应用","prompt":"CAN 通信总线多用于连接（ ）。","options":[{"key":"A","text":"CPU 与内存"},{"key":"B","text":"软盘驱动器与主板"},{"key":"C","text":"靠近的两台 PC"},{"key":"D","text":"工业现场设备"}],"answer":"D","acceptedAnswers":[],"explanation":"CAN 总线抗干扰能力强，可靠性高，常用于汽车电子、工业控制和现场设备之间的通信。","distractorAnalysis":"- A CPU 与内存通常通过系统总线或存储器总线连接。\n- B 软盘驱动器不是 CAN 的典型应用。\n- C 两台 PC 之间通信一般不用 CAN。","pitfall":"","assets":[]},{"id":"ch11-q07","chapter":11,"chapterTitle":"总线技术","sourceNumber":7,"type":"choice","title":"EISA 总线位数","prompt":"EISA 总线是一种支持多处理器的高性能的（ ）位标准总线。","options":[{"key":"A","text":"128"},{"key":"B","text":"32"},{"key":"C","text":"64"},{"key":"D","text":"16"}],"answer":"B","acceptedAnswers":[],"explanation":"EISA 是 Extended Industry Standard Architecture，即扩展工业标准结构总线，是一种 32 位标准总线，并兼容 ISA。","distractorAnalysis":"- C 容易误选，但 EISA 不是 64 位总线。\n- D 是早期 ISA 扩展后的位宽特征，不是 EISA 的标准位数。","pitfall":"ISA 常见 8/16 位，EISA 是 32 位，PCI 常见 32/64 位扩展。","assets":[]},{"id":"ch11-q08","chapter":11,"chapterTitle":"总线技术","sourceNumber":8,"type":"choice","title":"直接通过芯片级总线与 CPU 相连的部件","prompt":"下列部件中，直接通过芯片级总线与 CPU 相连的是（ ）。","options":[{"key":"A","text":"U 盘"},{"key":"B","text":"键盘"},{"key":"C","text":"显示器"},{"key":"D","text":"内存"}],"answer":"D","acceptedAnswers":[],"explanation":"内存与 CPU 之间通过系统总线或存储器总线进行高速数据交换，是 CPU 直接访问的重要部件。","distractorAnalysis":"- A U 盘通常通过 USB 接口连接。\n- B 键盘属于外部输入设备。\n- C 显示器通过显示接口或显卡连接，不直接通过芯片级总线与 CPU 相连。","pitfall":"","assets":[]},{"id":"ch11-q09","chapter":11,"chapterTitle":"总线技术","sourceNumber":9,"type":"fill","title":"片内总线、内总线、外总线","prompt":"① 总线在集成电路芯片内部，用来连接各功能单元的信息通路。② 总线主要用于各芯片之间的相互连接，是微型计算机系统的核心部件。③ 总线用于微机系统之间，是微机系统与其他微机设备之间的通信通道。","options":[],"answer":["片内总线","内总线","外总线"],"acceptedAnswers":[["片内总线"],["内总线"],["外总线"]],"explanation":"```text\n片内总线：芯片内部各功能单元之间的信息通路\n内总线：微机内部各芯片或部件之间的信息通路\n外总线：微机系统与外部设备或其他微机系统之间的通信通道\n```","distractorAnalysis":"","pitfall":"","assets":[]},{"id":"ch11-q10","chapter":11,"chapterTitle":"总线技术","sourceNumber":10,"type":"fill","title":"PCI 总线","prompt":"PCI 属于高性能 ① 总线，其独立于微处理器的设计，可以保证其适应微处理器的不断升级换代，并可以和 ISA 等局部总线 ②。","options":[],"answer":["局部","兼容"],"acceptedAnswers":[["局部"],["兼容"]],"explanation":"PCI 是一种高性能局部总线。它不依赖某一种具体微处理器，具有较好的兼容性和扩展性，可以适应处理器升级，并能与 ISA 等总线系统共存。","distractorAnalysis":"","pitfall":"PCI 的重点是“高性能局部总线”和“独立于处理器”。","assets":[]},{"id":"ch11-q11","chapter":11,"chapterTitle":"总线技术","sourceNumber":11,"type":"fill","title":"AGP 的含义","prompt":"AGP（Accelerated Graphics Port），即 ①，是一种为了提高视频带宽而设计的 ②。","options":[],"answer":["加速图形端口（或加速图形接口）","总线接口"],"acceptedAnswers":[["加速图形端口","加速图形接口"],["总线接口"]],"explanation":"AGP 是专为图形显示系统设计的高速接口，用于连接主板与显卡，目的是提高图形和视频数据的传输带宽。","distractorAnalysis":"","pitfall":"AGP 主要服务于图形显示，不是通用外设总线。","assets":[]},{"id":"ch11-q12","chapter":11,"chapterTitle":"总线技术","sourceNumber":12,"type":"short","title":"总线、内总线、外总线的概念","prompt":"阐述总线、内总线、外总线的概念。","options":[],"answer":"总线是计算机系统中各功能部件之间传送信息的一组公共信号线，是多个部件共享的数据传输通路，用来传送数据、地址和控制信息。\n\n内总线是计算机主机内部各部件之间进行信息交换的总线，通常用于 CPU、存储器、接口电路以及其他内部部件之间的连接。\n\n外总线是微机系统与外部设备或其他微机系统之间进行通信的总线，用于系统扩展以及与外界进行信息交换。","acceptedAnswers":[],"explanation":"总线按位置和作用范围可分为片内总线、内总线和外总线。本题重点区分“主机内部连接”和“系统对外通信”。","distractorAnalysis":"","pitfall":"","assets":[]},{"id":"ch11-q13","chapter":11,"chapterTitle":"总线技术","sourceNumber":13,"type":"short","title":"AGP 总线及其主要作用","prompt":"什么是 AGP 总线？试说明 AGP 总线的主要作用。","options":[],"answer":"AGP 是 Accelerated Graphics Port，即加速图形端口，也可称为加速图形接口。它是一种为提高图形和视频数据传输带宽而设计的高速图形接口，主要用于连接主板和显卡。\n\nAGP 的主要作用是为图形系统提供比传统 PCI 总线更高的传输带宽，使显卡能够更快地传输图形数据并访问内存，从而提高图像显示速度和三维图形处理性能。","acceptedAnswers":[],"explanation":"AGP 的核心不是连接普通外设，而是专门面向图形显示系统，提高显卡与系统之间的数据传输能力。","distractorAnalysis":"","pitfall":"","assets":[]},{"id":"ch11-q14","chapter":11,"chapterTitle":"总线技术","sourceNumber":14,"type":"short","title":"PCI 总线的主要特点","prompt":"试说明 PCI 总线的主要特点。","options":[],"answer":"PCI 总线是一种独立于具体微处理器的高性能局部总线。它具有传输速度快、数据吞吐量大、兼容性好、支持即插即用、支持总线主控和突发传送等特点。\n\n由于 PCI 不依赖某一种处理器，因此能够适应处理器的升级换代，也便于连接多种高速外部设备，在微型计算机系统中应用广泛。","acceptedAnswers":[],"explanation":"PCI 常考关键词包括：局部总线、高性能、独立于处理器、即插即用、总线主控、突发传送、兼容性好。","distractorAnalysis":"","pitfall":"","assets":[]}]; root.QUIZ_QUESTIONS = questions; })(globalThis);</script>
+  <script>(function (root, factory) {
+  const api = factory();
+  if (typeof module === 'object' && module.exports) module.exports = api;
+  root.QuizCore = api;
+})(typeof globalThis !== 'undefined' ? globalThis : this, function () {
+  'use strict';
+
+  function normalizeAnswer(value) {
+    return String(value ?? '')
+      .normalize('NFKC')
+      .toLowerCase()
+      .replaceAll('`', '')
+      .replace(/\s+/g, '')
+      .replace(/[；;，,。.!！、:：]/g, '');
+  }
+
+  function gradeChoice(selected, answer) {
+    return String(selected ?? '').trim().toUpperCase()
+      === String(answer ?? '').trim().toUpperCase();
+  }
+
+  function gradeFill(values, acceptedAnswers) {
+    const results = acceptedAnswers.map((alternatives, index) => {
+      const candidate = normalizeAnswer(values[index]);
+      return candidate.length > 0 && alternatives.some(
+        (alternative) => normalizeAnswer(alternative) === candidate,
+      );
+    });
+    return {
+      correct: results.length > 0 && results.every(Boolean),
+      results,
+    };
+  }
+
+  function sampleWithoutReplacement(items, requestedCount, random = Math.random) {
+    const copy = [...items];
+    for (let index = copy.length - 1; index > 0; index -= 1) {
+      const target = Math.floor(random() * (index + 1));
+      [copy[index], copy[target]] = [copy[target], copy[index]];
+    }
+    const count = Math.max(0, Math.min(copy.length, Number(requestedCount) || 0));
+    return copy.slice(0, count);
+  }
+
+  function nextUnfinishedIndex(queue, records) {
+    const index = queue.findIndex((question) => !records[question.id]?.completed);
+    return index === -1 ? 0 : index;
+  }
+
+  function updateRecord(existing, result) {
+    const previous = existing ?? {};
+    const isShort = result.type === 'short';
+    const correct = isShort ? null : Boolean(result.correct);
+    const mastered = isShort ? Boolean(result.mastered) : null;
+    return {
+      ...previous,
+      attempts: (previous.attempts ?? 0) + 1,
+      completed: true,
+      correct,
+      mastered,
+      mistake: isShort ? !mastered : !correct,
+      updatedAt: new Date().toISOString(),
+    };
+  }
+
+  function summarizeProgress(questions, records) {
+    let completed = 0;
+    let objectiveAttempted = 0;
+    let objectiveCorrect = 0;
+    let mistakes = 0;
+
+    for (const question of questions) {
+      const record = records[question.id];
+      if (!record) continue;
+      if (record.completed) completed += 1;
+      if (record.mistake) mistakes += 1;
+      if (question.type !== 'short' && record.completed) {
+        objectiveAttempted += 1;
+        if (record.correct) objectiveCorrect += 1;
+      }
+    }
+
+    return {
+      total: questions.length,
+      completed,
+      objectiveAttempted,
+      objectiveCorrect,
+      accuracy: objectiveAttempted
+        ? Math.round((objectiveCorrect / objectiveAttempted) * 100)
+        : 0,
+      mistakes,
+    };
+  }
+
+  function safeLoad(storage, key, fallback) {
+    try {
+      const value = storage?.getItem(key);
+      return value ? JSON.parse(value) : fallback;
+    } catch {
+      return fallback;
+    }
+  }
+
+  function safeSave(storage, key, value) {
+    try {
+      storage?.setItem(key, JSON.stringify(value));
+      return Boolean(storage);
+    } catch {
+      return false;
+    }
+  }
+
+  return Object.freeze({
+    gradeChoice,
+    gradeFill,
+    nextUnfinishedIndex,
+    normalizeAnswer,
+    safeLoad,
+    safeSave,
+    sampleWithoutReplacement,
+    summarizeProgress,
+    updateRecord,
+  });
+});
+</script>
+  <script>(function () {
+  'use strict';
+
+  const questions = globalThis.QUIZ_QUESTIONS;
+  const core = globalThis.QuizCore;
+  const root = document.getElementById('app-root');
+  const liveStatus = document.getElementById('live-status');
+  const STORAGE_KEY = 'cuc-computer-principles-quiz-v1';
+  const CIRCLED = ['①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧', '⑨', '⑩'];
+
+  if (!Array.isArray(questions) || !core || !root) {
+    if (root) root.innerHTML = '<div class="empty-state"><h2>题库加载失败</h2><p>请重新打开完整的 HTML 文件。</p></div>';
+    return;
+  }
+
+  const loaded = core.safeLoad(globalThis.localStorage, STORAGE_KEY, null);
+  const state = {
+    screen: 'home',
+    mode: null,
+    modeLabel: '',
+    queue: [],
+    index: 0,
+    responses: {},
+    records: loaded?.version === 1 && loaded.records ? loaded.records : {},
+    storageAvailable: true,
+  };
+
+  function announce(message) {
+    liveStatus.textContent = '';
+    globalThis.setTimeout(() => {
+      liveStatus.textContent = message;
+    }, 10);
+  }
+
+  function persist() {
+    state.storageAvailable = core.safeSave(globalThis.localStorage, STORAGE_KEY, {
+      version: 1,
+      records: state.records,
+    });
+  }
+
+  function escapeHtml(value) {
+    return String(value ?? '')
+      .replaceAll('&', '&amp;')
+      .replaceAll('<', '&lt;')
+      .replaceAll('>', '&gt;')
+      .replaceAll('"', '&quot;')
+      .replaceAll("'", '&#039;');
+  }
+
+  function renderInline(value) {
+    return value
+      .replace(/`([^`]+)`/g, '<code>$1</code>')
+      .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+      .replace(/\$([^$\n]+)\$/g, '<span class="inline-math">$1</span>');
+  }
+
+  function renderMarkdown(markdown) {
+    let source = String(markdown ?? '').replace(/\r\n/g, '\n');
+    const blocks = [];
+    const hold = (html) => {
+      const token = `\u0000BLOCK${blocks.length}\u0000`;
+      blocks.push(html);
+      return token;
+    };
+
+    source = source.replace(/```([^\n]*)\n([\s\S]*?)```/g, (_match, language, code) => hold(
+      `<pre data-language="${escapeHtml(language.trim())}"><code>${escapeHtml(code.trimEnd())}</code></pre>`,
+    ));
+    source = source.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (_match, alt, url) => hold(
+      `<img class="question-image" src="${escapeHtml(url)}" alt="${escapeHtml(alt)}">`,
+    ));
+    source = source.replace(/\$\$\s*([\s\S]*?)\s*\$\$/g, (_match, formula) => hold(
+      `<div class="math-block" aria-label="公式">${escapeHtml(formula.trim())}</div>`,
+    ));
+
+    const escaped = escapeHtml(source);
+    const html = escaped.split(/\n{2,}/).map((rawBlock) => {
+      const block = rawBlock.trim();
+      if (!block) return '';
+      if (/^\u0000BLOCK\d+\u0000$/.test(block)) return block;
+      const lines = block.split('\n');
+      if (lines.every((line) => /^-\s+/.test(line))) {
+        return `<ul>${lines.map((line) => `<li>${renderInline(line.replace(/^-\s+/, ''))}</li>`).join('')}</ul>`;
+      }
+      if (lines.every((line) => /^&gt;\s*/.test(line))) {
+        return `<blockquote>${renderInline(lines.map((line) => line.replace(/^&gt;\s*/, '')).join('<br>'))}</blockquote>`;
+      }
+      return `<p>${renderInline(lines.join('<br>'))}</p>`;
+    }).join('');
+
+    return html.replace(/\u0000BLOCK(\d+)\u0000/g, (_match, index) => blocks[Number(index)]);
+  }
+
+  function typeName(type) {
+    return { choice: '选择题', fill: '填空题', short: '简答题' }[type] ?? type;
+  }
+
+  function storageWarning() {
+    return state.storageAvailable
+      ? ''
+      : '<p class="storage-warning" role="status">当前浏览器不允许保存本地数据，本次进度不会保留。</p>';
+  }
+
+  function renderHome() {
+    state.screen = 'home';
+    const stats = core.summarizeProgress(questions, state.records);
+    root.innerHTML = `
+      ${storageWarning()}
+      <h2 class="screen-heading">今晚就把重点刷明白</h2>
+      <p class="screen-intro">共 11 章、${stats.total} 道题。选择和填空自动判定，简答题对照参考答案自评。</p>
+      <section class="stats-grid" aria-label="学习概览">
+        <div class="stat"><span class="stat-value">${stats.total}</span><span class="stat-label">总题数</span></div>
+        <div class="stat"><span class="stat-value">${stats.completed}</span><span class="stat-label">已完成</span></div>
+        <div class="stat"><span class="stat-value">${stats.accuracy}%</span><span class="stat-label">客观题正确率</span></div>
+        <div class="stat"><span class="stat-value">${stats.mistakes}</span><span class="stat-label">当前错题</span></div>
+      </section>
+      <section class="action-list" aria-label="练习方式">
+        <div class="action-row">
+          <div class="action-copy"><strong>按章节练习</strong><span>逐章推进，自动从未完成题目继续</span></div>
+          <button class="btn-primary" data-action="show-chapters">选择章节</button>
+        </div>
+        <div class="action-row">
+          <div class="action-copy"><strong>全题库随机</strong><span>本轮不重复，适合考前快速抽查</span></div>
+          <div class="button-group">
+            <label class="sr-only" for="random-count">随机题量</label>
+            <select id="random-count" aria-label="随机题量">
+              <option value="10">10 题</option>
+              <option value="20" selected>20 题</option>
+              <option value="30">30 题</option>
+              <option value="50">50 题</option>
+            </select>
+            <button class="btn-primary" data-action="start-random">开始随机</button>
+          </div>
+        </div>
+        <div class="action-row">
+          <div class="action-copy"><strong>错题重练</strong><span>答对或标记掌握后自动移出错题</span></div>
+          <button class="btn-secondary" data-action="start-mistakes" ${stats.mistakes ? '' : 'disabled'}>开始重练</button>
+        </div>
+        <div class="action-row">
+          <div class="action-copy"><strong>清空进度</strong><span>删除本浏览器内的作答和错题记录</span></div>
+          <button class="btn-danger" data-action="clear-progress" ${stats.completed ? '' : 'disabled'}>清空进度</button>
+        </div>
+      </section>`;
+  }
+
+  function renderChapters() {
+    state.screen = 'chapters';
+    const rows = [];
+    for (let chapter = 1; chapter <= 11; chapter += 1) {
+      const chapterQuestions = questions.filter((question) => question.chapter === chapter);
+      const stats = core.summarizeProgress(chapterQuestions, state.records);
+      rows.push(`
+        <button class="chapter-row" data-action="start-chapter" data-chapter="${chapter}">
+          <span class="chapter-copy"><strong>第 ${chapter} 章 · ${escapeHtml(chapterQuestions[0].chapterTitle)}</strong><span>${chapterQuestions.length} 道题</span></span>
+          <span class="chapter-progress">${stats.completed} / ${stats.total}</span>
+        </button>`);
+    }
+
+    root.innerHTML = `
+      <div class="toolbar"><button class="btn-quiet" data-action="home">返回首页</button><span class="mode-label">选择章节</span></div>
+      <h2 class="screen-heading">按章节练习</h2>
+      <p class="screen-intro">点击章节后，从第一道未完成题开始。</p>
+      <div class="chapter-list">${rows.join('')}</div>`;
+  }
+
+  function startQueue(queue, mode, modeLabel, startIndex = 0) {
+    if (!queue.length) {
+      root.innerHTML = '<div class="empty-state"><h2>这里暂时没有题目</h2><p>先完成一些练习，错题会出现在这里。</p><button class="btn-primary" data-action="home">返回首页</button></div>';
+      return;
+    }
+    state.screen = 'question';
+    state.mode = mode;
+    state.modeLabel = modeLabel;
+    state.queue = queue;
+    state.index = Math.max(0, Math.min(startIndex, queue.length - 1));
+    state.responses = {};
+    renderQuestion();
+  }
+
+  function startChapter(chapter) {
+    const queue = questions.filter((question) => question.chapter === chapter);
+    startQueue(queue, 'chapter', `第 ${chapter} 章 · ${queue[0].chapterTitle}`, core.nextUnfinishedIndex(queue, state.records));
+  }
+
+  function startRandom() {
+    const count = Number(document.getElementById('random-count')?.value ?? 20);
+    startQueue(core.sampleWithoutReplacement(questions, count), 'random', `全题库随机 · ${count} 题`);
+  }
+
+  function startMistakes() {
+    const queue = questions.filter((question) => state.records[question.id]?.mistake);
+    startQueue(queue, 'mistakes', `错题重练 · ${queue.length} 题`);
+  }
+
+  function objectiveFeedback(question, response) {
+    if (!response?.revealed) return '';
+    const className = response.correct ? 'success' : 'error';
+    const title = response.correct ? '回答正确' : '回答错误';
+    const answerText = question.type === 'choice'
+      ? question.answer
+      : question.answer.map((answer, index) => `${CIRCLED[index]} ${answer}`).join('；');
+    return `
+      <div class="feedback ${className}" role="status">${title} · 参考答案：${escapeHtml(answerText)}</div>
+      ${renderExplanation(question)}`;
+  }
+
+  function renderExplanation(question) {
+    const parts = [];
+    if (question.explanation) parts.push(`<h3>解析</h3><div class="markdown-body">${renderMarkdown(question.explanation)}</div>`);
+    if (question.distractorAnalysis) parts.push(`<h3>选项分析</h3><div class="markdown-body">${renderMarkdown(question.distractorAnalysis)}</div>`);
+    if (question.pitfall) parts.push(`<div class="pitfall"><strong>易错点：</strong>${renderMarkdown(question.pitfall)}</div>`);
+    return parts.length ? `<div class="explanation">${parts.join('')}</div>` : '';
+  }
+
+  function renderChoice(question, response) {
+    const options = question.options.map((option) => {
+      const selected = response?.selected === option.key;
+      let className = selected ? ' is-selected' : '';
+      if (response?.revealed && option.key === question.answer) className += ' is-correct';
+      if (response?.revealed && selected && option.key !== question.answer) className += ' is-wrong';
+      return `
+        <label class="option${className}">
+          <input type="radio" name="choice" value="${escapeHtml(option.key)}" ${selected ? 'checked' : ''} ${response?.revealed ? 'disabled' : ''}>
+          <span><strong>${escapeHtml(option.key)}.</strong> <span class="markdown-body">${renderMarkdown(option.text)}</span></span>
+        </label>`;
+    }).join('');
+    return `<div class="option-list">${options}</div>${response?.revealed ? '' : '<button class="btn-primary" data-action="submit-choice">提交答案</button>'}${objectiveFeedback(question, response)}`;
+  }
+
+  function renderFill(question, response) {
+    const fields = question.acceptedAnswers.map((_answers, index) => {
+      const result = response?.results?.[index];
+      const className = response?.revealed ? (result ? 'is-correct' : 'is-wrong') : '';
+      return `
+        <label class="fill-row"><strong>${CIRCLED[index]}</strong><input class="fill-answer ${className}" type="text" value="${escapeHtml(response?.values?.[index] ?? '')}" ${response?.revealed ? 'disabled' : ''} autocomplete="off"></label>`;
+    }).join('');
+    return `<div class="fill-list">${fields}</div>${response?.revealed ? '' : '<button class="btn-primary" data-action="submit-fill">提交答案</button>'}${objectiveFeedback(question, response)}`;
+  }
+
+  function renderShort(question, response) {
+    const revealed = response?.revealed;
+    const rating = response?.mastered;
+    return `
+      <label for="short-answer"><strong>先写下你的答案或要点</strong></label>
+      <textarea id="short-answer" class="short-answer" ${revealed ? 'disabled' : ''} placeholder="在这里整理思路……">${escapeHtml(response?.draft ?? '')}</textarea>
+      ${revealed ? '' : '<button class="btn-primary" data-action="reveal-short">查看参考答案</button>'}
+      ${revealed ? `
+        <div class="feedback info"><strong>参考答案</strong><div class="markdown-body">${renderMarkdown(question.answer)}</div></div>
+        ${renderExplanation(question)}
+        <div class="button-group" style="margin-top:16px">
+          <button class="btn-secondary" data-action="rate-short" data-mastered="true" ${rating === true ? 'disabled' : ''}>掌握</button>
+          <button class="btn-quiet" data-action="rate-short" data-mastered="false" ${rating === false ? 'disabled' : ''}>未掌握</button>
+        </div>
+        ${typeof rating === 'boolean' ? `<div class="feedback ${rating ? 'success' : 'error'}" role="status">已标记为${rating ? '掌握' : '未掌握'}</div>` : ''}` : ''}`;
+  }
+
+  function renderQuestion() {
+    const question = state.queue[state.index];
+    const response = state.responses[question.id];
+    const progress = ((state.index + 1) / state.queue.length) * 100;
+    let answerArea = '';
+    if (question.type === 'choice') answerArea = renderChoice(question, response);
+    if (question.type === 'fill') answerArea = renderFill(question, response);
+    if (question.type === 'short') answerArea = renderShort(question, response);
+
+    root.innerHTML = `
+      <div class="question-shell">
+        <div class="toolbar"><button class="btn-quiet" data-action="home">返回首页</button><span class="mode-label">${escapeHtml(state.modeLabel)}</span></div>
+        <div class="question-meta">第 ${state.index + 1} / ${state.queue.length} 题</div>
+        <div class="progress-track" aria-hidden="true"><div class="progress-bar" style="width:${progress}%"></div></div>
+        <article class="question-card">
+          <span class="type-tag">${typeName(question.type)} · 第 ${question.chapter} 章</span>
+          <h2 class="question-title">${escapeHtml(question.title)}</h2>
+          <div class="markdown-body">${renderMarkdown(question.prompt)}</div>
+          <div class="answer-area">${answerArea}</div>
+        </article>
+        <nav class="question-actions" aria-label="题目导航">
+          <button class="btn-quiet" data-action="previous" ${state.index === 0 ? 'disabled' : ''}>上一题</button>
+          <button class="btn-primary" data-action="next">${state.index === state.queue.length - 1 ? '完成本轮' : '下一题'}</button>
+        </nav>
+      </div>`;
+    globalThis.scrollTo({ top: 0, behavior: 'auto' });
+  }
+
+  function submitChoice() {
+    const question = state.queue[state.index];
+    const selected = root.querySelector('input[name="choice"]:checked')?.value;
+    if (!selected) {
+      announce('请先选择一个选项');
+      return;
+    }
+    const correct = core.gradeChoice(selected, question.answer);
+    state.responses[question.id] = { revealed: true, selected, correct };
+    state.records[question.id] = core.updateRecord(state.records[question.id], { type: 'choice', correct });
+    persist();
+    renderQuestion();
+    announce(correct ? '回答正确' : '回答错误');
+  }
+
+  function submitFill() {
+    const question = state.queue[state.index];
+    const values = [...root.querySelectorAll('.fill-answer')].map((input) => input.value);
+    if (values.some((value) => !value.trim())) {
+      announce('请填写所有空格');
+      return;
+    }
+    const grading = core.gradeFill(values, question.acceptedAnswers);
+    state.responses[question.id] = { revealed: true, values, ...grading };
+    state.records[question.id] = core.updateRecord(state.records[question.id], { type: 'fill', correct: grading.correct });
+    persist();
+    renderQuestion();
+    announce(grading.correct ? '回答正确' : '有空格填写错误');
+  }
+
+  function revealShort() {
+    const question = state.queue[state.index];
+    const draft = document.getElementById('short-answer')?.value ?? '';
+    state.responses[question.id] = { revealed: true, draft };
+    renderQuestion();
+    announce('参考答案已显示，请自行判断掌握情况');
+  }
+
+  function rateShort(mastered) {
+    const question = state.queue[state.index];
+    state.responses[question.id] = { ...state.responses[question.id], mastered };
+    state.records[question.id] = core.updateRecord(state.records[question.id], { type: 'short', mastered });
+    persist();
+    renderQuestion();
+    announce(mastered ? '已标记为掌握' : '已加入错题重练');
+  }
+
+  function renderSummary() {
+    state.screen = 'summary';
+    const stats = core.summarizeProgress(state.queue, state.records);
+    root.innerHTML = `
+      <div class="summary-card">
+        <h2>本轮完成</h2>
+        <p>共 ${stats.total} 题，已完成 ${stats.completed} 题；客观题正确率 ${stats.accuracy}%，当前仍有 ${stats.mistakes} 道需要重练。</p>
+        <div class="button-group">
+          <button class="btn-primary" data-action="home">返回首页</button>
+          ${stats.mistakes ? '<button class="btn-secondary" data-action="start-mistakes">错题重练</button>' : ''}
+        </div>
+      </div>`;
+  }
+
+  function move(delta) {
+    const next = state.index + delta;
+    if (next >= state.queue.length) {
+      renderSummary();
+      return;
+    }
+    state.index = Math.max(0, next);
+    renderQuestion();
+  }
+
+  root.addEventListener('click', (event) => {
+    const button = event.target.closest('[data-action]');
+    if (!button || button.disabled) return;
+    const { action } = button.dataset;
+
+    if (action === 'home') renderHome();
+    if (action === 'show-chapters') renderChapters();
+    if (action === 'start-chapter') startChapter(Number(button.dataset.chapter));
+    if (action === 'start-random') startRandom();
+    if (action === 'start-mistakes') startMistakes();
+    if (action === 'submit-choice') submitChoice();
+    if (action === 'submit-fill') submitFill();
+    if (action === 'reveal-short') revealShort();
+    if (action === 'rate-short') rateShort(button.dataset.mastered === 'true');
+    if (action === 'previous') move(-1);
+    if (action === 'next') move(1);
+    if (action === 'clear-progress') {
+      if (globalThis.confirm('确定清空全部刷题进度和错题记录吗？')) {
+        state.records = {};
+        persist();
+        renderHome();
+        announce('进度已清空');
+      }
+    }
+  });
+
+  persist();
+  renderHome();
+})();
+</script>
+</body>
+</html>

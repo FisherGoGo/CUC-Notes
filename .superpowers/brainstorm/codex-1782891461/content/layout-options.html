@@ -1,0 +1,54 @@
+<h2>选择主要阅读布局</h2>
+<p class="subtitle">三种方案都采用“结论优先、推导展开”，区别在于导航和屏幕重心。</p>
+
+<div class="cards">
+  <div class="card" data-choice="a-reading-desk" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:14px;background:#f4f0e7">
+      <div style="display:grid;grid-template-columns:90px 1fr 105px;gap:8px;height:230px;color:#39352d;font-size:10px">
+        <div style="border-right:1px solid #c9c0b0;padding:8px 6px">
+          <b>信息论</b><div style="margin-top:18px;color:#a34b2b">01 信源</div><div style="margin-top:10px">02 信道</div><div style="margin-top:10px">03 编码</div><div style="margin-top:10px">04 限失真</div>
+        </div>
+        <div style="padding:8px 10px">
+          <div style="font-size:18px;font-family:serif">信息熵</div><div style="margin:12px 0;color:#777">不确定性的平均度量</div>
+          <div style="background:#fff;padding:13px;border-left:3px solid #a34b2b;font-family:serif;font-size:14px">H(X) = −Σ pᵢ log pᵢ</div>
+          <div style="margin-top:14px;line-height:1.6">概率越均匀，熵越大。拖动下方概率，观察曲线变化。</div>
+          <div style="margin-top:12px;height:32px;border-bottom:1px solid #887d6c;border-radius:50%"></div>
+        </div>
+        <div style="border-left:1px solid #c9c0b0;padding:8px"><b>本节</b><div style="margin-top:14px">直觉</div><div style="margin-top:10px">公式</div><div style="margin-top:10px">性质</div><div style="margin-top:10px">推导</div></div>
+      </div>
+    </div>
+    <div class="card-body"><h3>A · 三栏阅读桌</h3><p>章节、正文、本节锚点同时可见。桌面端效率最高，像一本认真排过的数字教材。</p></div>
+  </div>
+
+  <div class="card" data-choice="b-focus-reader" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:14px;background:#f7f7f4">
+      <div style="height:230px;color:#252525;font-size:10px">
+        <div style="display:flex;justify-content:space-between;border-bottom:1px solid #ddd;padding:7px 4px"><b>信息论手册</b><span>六章目录　⌘K</span></div>
+        <div style="max-width:310px;margin:20px auto">
+          <div style="color:#58715a">01 / 信源</div><div style="font-size:21px;font-family:serif;margin-top:7px">信息熵</div>
+          <div style="font-size:12px;line-height:1.6;margin-top:12px">事件越难发生，它带来的信息越多；熵则是这种信息量的平均值。</div>
+          <div style="margin-top:15px;background:#e9eee8;padding:14px;text-align:center;font-family:serif;font-size:15px">H(X) = E[I(x)]</div>
+          <div style="display:flex;gap:6px;margin-top:13px"><span style="border:1px solid #bbb;padding:5px 9px">看交互</span><span style="border:1px solid #bbb;padding:5px 9px">展开推导</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body"><h3>B · 沉浸式单栏</h3><p>正文最安静，目录按需呼出；手机体验更自然，但跨章节跳转稍慢。</p></div>
+  </div>
+
+  <div class="card" data-choice="c-atlas-hybrid" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:14px;background:#111b20">
+      <div style="height:230px;color:#dbe6e8;font-size:10px">
+        <div style="display:flex;justify-content:space-between"><b>信息论图谱</b><span style="color:#8fb7b0">切换到阅读模式</span></div>
+        <div style="position:relative;height:185px;margin-top:12px">
+          <div style="position:absolute;left:112px;top:63px;border:1px solid #c8a66a;border-radius:50%;padding:18px;background:#17252b">互信息</div>
+          <div style="position:absolute;left:5px;top:8px;border:1px solid #6e9690;padding:9px">信源 / 熵</div>
+          <div style="position:absolute;right:5px;top:8px;border:1px solid #6e9690;padding:9px">信道容量</div>
+          <div style="position:absolute;left:8px;bottom:8px;border:1px solid #6e9690;padding:9px">Huffman</div>
+          <div style="position:absolute;right:0;bottom:8px;border:1px solid #6e9690;padding:9px">纠错编码</div>
+          <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:.55"><line x1="75" y1="35" x2="145" y2="85" stroke="#8fb7b0"/><line x1="250" y1="35" x2="180" y2="85" stroke="#8fb7b0"/><line x1="70" y1="155" x2="145" y2="110" stroke="#8fb7b0"/><line x1="260" y1="155" x2="180" y2="110" stroke="#8fb7b0"/></svg>
+        </div>
+      </div>
+    </div>
+    <div class="card-body"><h3>C · 图谱入口 + 阅读页</h3><p>首页用关系图建立全局认知，点入后进入常规阅读。记忆点强，但首页学习成本略高。</p></div>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+{"type":"server-started","port":59363,"host":"127.0.0.1","url_host":"localhost","url":"http://localhost:59363","screen_dir":"D:\\Project\\Note\\CUC-Notes\\.superpowers\\brainstorm\\codex-1782891461\\content","state_dir":"D:\\Project\\Note\\CUC-Notes\\.superpowers\\brainstorm\\codex-1782891461\\state"}
+{"type":"screen-added","file":"D:\\Project\\Note\\CUC-Notes\\.superpowers\\brainstorm\\codex-1782891461\\content\\waiting.html"}
+{"type":"screen-added","file":"D:\\Project\\Note\\CUC-Notes\\.superpowers\\brainstorm\\codex-1782891461\\content\\layout-options.html"}
+{"source":"user-event","type":"click","text":"信息论01 信源02 信道03 编码04 限失真\n        \n        \n          信息熵不确定性的平均度量\n          H(X) = −Σ pᵢ log pᵢ\n          概率越均匀，熵越大。拖动下方概率，观察曲线变化。\n          \n        \n        本节直觉公式性质推导\n      \n    \n    A · 三栏阅读桌章节、正文、本节锚点同时可见。桌面端效率最高，像一本认真排过的数字教材。","choice":"a-reading-desk","id":null,"timestamp":1782891742059}
+{"source":"user-event","type":"click","text":"信息论手册六章目录　⌘K\n        \n          01 / 信源信息熵\n          事件越难发生，它带来的信息越多；熵则是这种信息量的平均值。\n          H(X) = E[I(x)]\n          看交互展开推导\n        \n      \n    \n    B · 沉浸式单栏正文最安静，目录按需呼出；手机体验更自然，但跨章节跳转稍慢。","choice":"b-focus-reader","id":null,"timestamp":1782891743099}
+{"source":"user-event","type":"click","text":"信息论手册六章目录　⌘K\n        \n          01 / 信源信息熵\n          事件越难发生，它带来的信息越多；熵则是这种信息量的平均值。\n          H(X) = E[I(x)]\n          看交互展开推导\n        \n      \n    \n    B · 沉浸式单栏正文最安静，目录按需呼出；手机体验更自然，但跨章节跳转稍慢。","choice":"b-focus-reader","id":null,"timestamp":1782891750800}
+{"source":"user-event","type":"click","text":"信息论手册六章目录　⌘K\n        \n          01 / 信源信息熵\n          事件越难发生，它带来的信息越多；熵则是这种信息量的平均值。\n          H(X) = E[I(x)]\n          看交互展开推导\n        \n      \n    \n    B · 沉浸式单栏正文最安静，目录按需呼出；手机体验更自然，但跨章节跳转稍慢。","choice":"b-focus-reader","id":null,"timestamp":1782891751256}
+{"type":"screen-added","file":"D:\\Project\\Note\\CUC-Notes\\.superpowers\\brainstorm\\codex-1782891461\\content\\waiting-2.html"}
+{"type":"screen-added","file":"D:\\Project\\Note\\CUC-Notes\\.superpowers\\brainstorm\\codex-1782891461\\content\\visual-style.html"}
+{"type":"screen-added","file":"D:\\Project\\Note\\CUC-Notes\\.superpowers\\brainstorm\\codex-1782891461\\content\\waiting-3.html"}
+{"type":"screen-added","file":"D:\\Project\\Note\\CUC-Notes\\.superpowers\\brainstorm\\codex-1782891461\\content\\waiting-4.html"}
+{"type":"server-stopped","reason":"idle timeout"}

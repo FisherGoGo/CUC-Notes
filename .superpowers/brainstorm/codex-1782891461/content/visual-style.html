@@ -1,0 +1,37 @@
+<h2>选择数字教材的视觉气质</h2>
+<p class="subtitle">结构相同，只比较字体、颜色、留白与公式呈现。</p>
+
+<div class="cards">
+  <div class="card" data-choice="a-editorial-paper" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:14px;background:#eee8dc">
+      <div style="height:245px;background:#f8f4eb;color:#29251f;box-shadow:0 8px 26px #796f5f33;display:grid;grid-template-columns:78px 1fr 88px;font-size:9px">
+        <aside style="padding:14px 9px;border-right:1px solid #d6cdbc"><b style="font-family:serif;font-size:13px">信息论</b><div style="margin-top:20px;color:#9d3d25">01 信源</div><div style="margin-top:11px">02 信道</div><div style="margin-top:11px">03 编码</div></aside>
+        <main style="padding:18px 17px"><div style="font-size:8px;letter-spacing:.12em;color:#9d3d25">SOURCE · ENTROPY</div><div style="font:22px serif;margin-top:7px">信息熵</div><div style="width:28px;border-top:2px solid #9d3d25;margin:10px 0"></div><p style="font:11px/1.7 serif">熵描述信源的平均不确定性。概率分布越均匀，结果越难预测。</p><div style="background:#eee7da;padding:13px;margin-top:14px;font:15px serif;text-align:center">H(X) = −∑ pᵢ log₂ pᵢ</div><div style="margin-top:12px;border-top:1px solid #d6cdbc;padding-top:8px">＋ 展开完整推导</div></main>
+        <aside style="padding:14px 9px;border-left:1px solid #d6cdbc;color:#756e62"><b>本节目录</b><div style="margin-top:14px;color:#29251f">直觉</div><div style="margin-top:10px">定义</div><div style="margin-top:10px">性质</div></aside>
+      </div>
+    </div>
+    <div class="card-body"><h3>A · 学术编辑风</h3><p>暖纸色、衬线标题、克制的砖红强调。像认真设计的教材和学术期刊。</p></div>
+  </div>
+
+  <div class="card" data-choice="b-technical-grid" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:14px;background:#dfe9ea">
+      <div style="height:245px;color:#0e2b30;display:grid;grid-template-columns:78px 1fr 88px;font-size:9px;background-color:#f2f8f8;background-image:linear-gradient(#8fb1b118 1px,transparent 1px),linear-gradient(90deg,#8fb1b118 1px,transparent 1px);background-size:14px 14px">
+        <aside style="padding:14px 9px;border-right:1px solid #8eb0af"><b style="font-size:12px">INFO / THEORY</b><div style="margin-top:20px;background:#123f45;color:white;padding:5px">01 信源</div><div style="margin-top:7px;padding:5px">02 信道</div><div style="padding:5px">03 编码</div></aside>
+        <main style="padding:18px 17px"><div style="font-family:monospace;color:#2a7375">CH_01 / 03</div><div style="font-size:21px;font-weight:700;margin-top:7px">信息熵</div><p style="font:11px/1.6 sans-serif;margin-top:16px">熵描述信源的平均不确定性。概率分布越均匀，结果越难预测。</p><div style="border:1px solid #2a7375;padding:13px;margin-top:14px;font:14px monospace;text-align:center;background:#f8ffff">H(X) := −Σ pᵢ log₂(pᵢ)</div><div style="margin-top:12px;color:#2a7375;font-family:monospace">[+] DERIVATION</div></main>
+        <aside style="padding:14px 9px;border-left:1px solid #8eb0af"><b>ON THIS PAGE</b><div style="margin-top:14px">01 直觉</div><div style="margin-top:10px">02 定义</div><div style="margin-top:10px">03 性质</div></aside>
+      </div>
+    </div>
+    <div class="card-body"><h3>B · 工程蓝图风</h3><p>冷色网格、无衬线字体、编号系统明确。技术感强，但长时间阅读略显紧张。</p></div>
+  </div>
+
+  <div class="card" data-choice="c-neutral-reference" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:14px;background:#e8e9eb">
+      <div style="height:245px;background:#fff;color:#202124;display:grid;grid-template-columns:78px 1fr 88px;font-size:9px;border:1px solid #d9dce1">
+        <aside style="padding:14px 9px;background:#f7f7f8"><b style="font-size:12px">信息论手册</b><div style="margin-top:20px;color:#315ed1;font-weight:bold">01 信源</div><div style="margin-top:11px">02 信道</div><div style="margin-top:11px">03 编码</div></aside>
+        <main style="padding:18px 17px"><div style="color:#6e737c">第 1 章 · 信源</div><div style="font-size:21px;font-weight:650;margin-top:7px">信息熵</div><p style="font:11px/1.65 sans-serif;margin-top:16px">熵描述信源的平均不确定性。概率分布越均匀，结果越难预测。</p><div style="background:#f3f5f8;border-radius:6px;padding:13px;margin-top:14px;font:14px serif;text-align:center">H(X) = −∑ pᵢ log₂ pᵢ</div><div style="margin-top:12px;color:#315ed1">展开完整推导　⌄</div></main>
+        <aside style="padding:14px 9px;border-left:1px solid #e1e3e7;color:#737780"><b>本节</b><div style="margin-top:14px;color:#315ed1">直觉</div><div style="margin-top:10px">定义</div><div style="margin-top:10px">性质</div></aside>
+      </div>
+    </div>
+    <div class="card-body"><h3>C · 中性参考手册</h3><p>干净白底、现代无衬线、蓝色链接。熟悉而稳妥，但个性最弱。</p></div>
+  </div>
+</div>
